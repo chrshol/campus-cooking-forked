@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable max-len */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
@@ -15,8 +16,9 @@ const Landing = () => (
           <span>Hot Recipes</span>
         </div>
 
-        <h1 className="recipe-title">Air Fryer Chicken Wings!</h1>
-
+        <h1 className="recipe-title">Air Fryer Chicken</h1>
+        <h1 className="recipe-title">Wings!</h1>
+        <h1 className="recipe-title" />
         <p className="recipe-description">Make these delicious, nutritious Air fryer wings</p>
 
         <div className="metadata-container">

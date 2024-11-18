@@ -1,22 +1,46 @@
-import { Col, Container } from 'react-bootstrap';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+import React from 'react';
+import { Facebook, Twitter, Instagram } from 'lucide-react';
 
-const Footer = () => {
-  const divStyle = { paddingTop: '15px' };
-  return (
-    <footer className="mt-auto bg-light">
-      <Container style={divStyle}>
-        <Col className="text-center">
-          Department of Information and Computer Sciences
-          <br />
-          University of Hawaii at Manoa
-          <br />
-          Honolulu, HI 96822
-          <br />
-          <a href="http://ics-software-engineering.github.io/meteor-example-form-react">Template Home Page</a>
-        </Col>
-      </Container>
-    </footer>
-  );
-};
+const Footer = () => (
+  <footer className="navbar">
+    <div className="navbar-container">
+      <nav className="nav">
+        <a href="/" className="logo">
+          Campus Cooking
+        </a>
+
+        <ul className="nav-links">
+          {['Home', 'Recipes', 'Blog', 'Contact', 'About us'].map((item) => (
+            <li key={item}>
+              <a href={`/${item.toLowerCase()}`} className="nav-link">
+                {item}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="divider" />
+      <nav className="nav">
+        <a href="/" className="body-text">
+          © 2024 Campus Cooking
+        </a>
+
+        <ul className="nav-links">
+          <li>
+            <Facebook size={22} />
+          </li>
+          <li>
+            <Twitter size={22} />
+          </li>
+          <li>
+            <Instagram size={22} />
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+);
 
 export default Footer;
