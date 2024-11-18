@@ -1,10 +1,14 @@
-import CreateStudentForm from '../components/CreateStudentForm';
+import NavBar from '../components/NavBar';
+import LandingImg from '../components/LandingImg';
+import FoodCategories from '../components/FoodCategories';
+import './globals.css';
 
 export default function Home() {
   return (
-    <main>
-      <h1 className="text-center">Create Student</h1>
-      <CreateStudentForm />
-    </main>
+    <div className="min-h-screen bg-white">
+      <NavBar />
+      <LandingImg />
+      <FoodCategories />
+    </div>
   );
 }
