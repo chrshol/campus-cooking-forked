@@ -13,40 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model EnrollmentData {
+model User {
   id       Int      @id @default(autoincrement())
+  name     String
   email    String   @unique
-  enrolled DateTime
+  role     Role     
 }
 
-enum Hobby {
-  Surfing
-  Running
-  Biking
-  Paddling
+enum Role {
+  STUDENT
+  VENDOR
+  ADMIN
 }
 
-enum Level {
-  Freshman
-  Sophomore
-  Junior
-  Senior
-}
 
-enum Major {
-  Physics
-  Math
-  Chemistry
-  ComputerScience
-}
 
-model StudentData {
-  id      Int     @id @default(autoincrement())
-  name    String
-  email   String  @unique
-  bio     String?
-  hobbies Hobby[]
-  level   Level
-  gpa     Int
-  major   Major
-}
+
+
+
+
