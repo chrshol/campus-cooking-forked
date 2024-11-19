@@ -1,5 +1,5 @@
 /* eslint-disable import/order */
-import NavBar from '../components/NavBar';
+import NavBarSignin from '../components/NavBarSignin';
 import LandingImg from '../components/LandingImg';
 import FoodCategories from '../components/FoodCategories';
 import RecipeGrid from '../components/RecipeGrid';
@@ -13,7 +13,7 @@ import Footer from '@/components/Footer';
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      <NavBar />
+      <NavBarSignin />
       <LandingImg />
       <FoodCategories />
       <RecipeGrid />
