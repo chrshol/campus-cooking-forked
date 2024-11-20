@@ -19,7 +19,9 @@ const Landing = () => (
         <h1 className="recipe-title">Air Fryer Chicken</h1>
         <h1 className="recipe-title">Wings!</h1>
         <h1 className="recipe-title" />
-        <p className="recipe-description">Make these delicious, nutritious Air fryer wings</p>
+        <p className="recipe-description">
+          Make these delicious, nutritious Air fryer wings
+        </p>
 
         <div className="metadata-container">
           <div className="metadata-badge">
@@ -27,7 +29,13 @@ const Landing = () => (
             <span>30 Minutes</span>
           </div>
           <div className="metadata-badge">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M11.9989 7.47893C11.9985 7.46538 11.998 7.45183 11.9969 7.43819C11.9957 7.42451 11.994 7.41101 11.9922 7.39754C11.9912 7.39059 11.9909 7.38367 11.9898 7.37667L11.2398 2.87667C11.2237 2.77947 11.1885 2.6864 11.1364 2.60278C11.0843 2.51916 11.0162 2.44663 10.936 2.38934C10.8559 2.33205 10.7652 2.29111 10.6692 2.26887C10.5732 2.24663 10.4738 2.24352 10.3766 2.25972C10.2794 2.27592 10.1864 2.31112 10.1028 2.36329C10.0192 2.41547 9.9467 2.4836 9.88946 2.5638C9.83222 2.644 9.79134 2.73469 9.76916 2.8307C9.74699 2.9267 9.74394 3.02613 9.76021 3.12331L10.3646 6.74999H8.625V2.99999C8.625 2.80108 8.54598 2.61031 8.40533 2.46966C8.26468 2.32901 8.07391 2.24999 7.875 2.24999C7.67609 2.24999 7.48532 2.32901 7.34467 2.46966C7.20402 2.61031 7.125 2.80108 7.125 2.99999V6.74999H5.38536L5.98979 3.12331C6.00606 3.02613 6.00301 2.9267 5.98083 2.8307C5.95866 2.73469 5.91778 2.644 5.86053 2.5638C5.80329 2.4836 5.73081 2.41547 5.64722 2.36329C5.56364 2.31112 5.47059 2.27592 5.3734 2.25972C5.27621 2.24352 5.17678 2.24663 5.08079 2.26887C4.9848 2.29111 4.89413 2.33205 4.81397 2.38934C4.73381 2.44663 4.66572 2.51916 4.6136 2.60278C4.56148 2.6864 4.52635 2.77947 4.51021 2.87667L3.76021 7.37667C3.75906 7.38367 3.75879 7.39059 3.75778 7.39754C3.75595 7.411 3.75426 7.42451 3.75311 7.43819C3.75197 7.45183 3.75146 7.46538 3.75105 7.47893C3.75087 7.48598 3.75 7.4929 3.75 7.49999C3.75 7.50667 3.75046 7.51322 3.7505 7.51986C3.75064 7.52448 3.75064 7.52906 3.75087 7.53364C3.75993 8.4912 4.1014 9.41586 4.71687 10.1495C5.33235 10.8831 6.18359 11.3801 7.125 11.5554V21C7.125 21.1989 7.20402 21.3897 7.34467 21.5303C7.48532 21.671 7.67609 21.75 7.875 21.75C8.07391 21.75 8.26468 21.671 8.40533 21.5303C8.54598 21.3897 8.625 21.1989 8.625 21V11.5554C9.56641 11.3801 10.4177 10.8831 11.0331 10.1495C11.6486 9.41586 11.9901 8.49119 11.9991 7.53364C11.9994 7.52906 11.9994 7.52448 11.9995 7.51986C11.9995 7.51322 12 7.50667 12 7.49999C12 7.4929 11.9991 7.48598 11.9989 7.47893Z"
                 fill="black"
@@ -43,8 +51,12 @@ const Landing = () => (
 
         <div className="pt-8 mt-8">
           <div className="footer pt-10">
-            <div className="author">
-              <img src="/landing-img/JohnSmith.png" alt="John Smith" className="author-image" />
+            <div className="author d-none d-md-block">
+              <img
+                src="/landing-img/JohnSmith.png"
+                alt="John Smith"
+                className="author-image"
+              />
               <div className="author-info">
                 <p className="author-name">John Smith</p>
                 <p className="author-date">15 March 2022</p>
@@ -60,7 +72,11 @@ const Landing = () => (
       </div>
 
       <div className="right-panel">
-        <img src="/landing-img/chickenwing.jpeg" alt="Featured Recipe" className="featured-image" />
+        <img
+          src="/landing-img/chickenwing.jpeg"
+          alt="Featured Recipe"
+          className="featured-image"
+        />
       </div>
     </div>
   </section>

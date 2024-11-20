@@ -76,7 +76,7 @@ const RecipeCard: React.FC<{
   <div className="recipe-card">
     <div className="recipe-image-container">
       <img src={recipe.imageUrl} alt={recipe.title} className="recipe-image" />
-      <button aria-label="Like">
+      <button aria-label="Like " className="d-none d-md-block">
         <Heart />
       </button>
     </div>
@@ -99,8 +99,12 @@ const RecipeCard: React.FC<{
 const RecipeGrid2: React.FC = () => (
   <div className="recipe-page">
     <div className="recipe-header">
-      <h1 className="recipe-title">Level up your health and well being with these recipes</h1>
-      <p className="recipe-subtitle">More delicious recipes for you to explore</p>
+      <h1 className="recipe-title">
+        Level up your health and well being with these recipes
+      </h1>
+      <p className="recipe-subtitle">
+        More delicious recipes for you to explore
+      </p>
     </div>
 
     <div className="recipe-grid">
