@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram } from 'lucide-react';
+import { Search, Twitter, Instagram } from 'lucide-react';
 
 const Navbar = () => (
   <header className="navbar">
@@ -20,7 +20,7 @@ const Navbar = () => (
         </ul>
 
         <div className="social-links">
-          <Facebook size={22} />
+          <Search size={22} />
           <Twitter size={22} />
           <Instagram size={22} />
         </div>
