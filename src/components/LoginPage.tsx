@@ -11,14 +11,24 @@ const LoginPage = () => {
             <label htmlFor="username" className="form-label">
               Username
             </label>
-            <input id="username" type="text" className="form-input" placeholder="Enter your username..." />
+            <input
+              id="username"
+              type="text"
+              className="form-input"
+              placeholder="Enter your username..."
+            />
           </div>
 
           <div className="form-group">
             <label htmlFor="password" className="form-label">
               Password
             </label>
-            <input id="password" type="password" className="form-input" placeholder="Enter your password..." />
+            <input
+              id="password"
+              type="password"
+              className="form-input"
+              placeholder="Enter your password..."
+            />
           </div>
           <div className="button-wrapper">
             <button type="submit" className="auth-button">
@@ -26,7 +36,12 @@ const LoginPage = () => {
             </button>
           </div>
         </form>
-        <img src="/landing-img/cornerbowl.png" alt="" className="food-image" aria-hidden="true" />
+        <img
+          src="/landing-img/cornerbowl.png"
+          alt=""
+          className="food-image"
+          aria-hidden="true"
+        />
       </section>
 
       {/* Signup Section */}
@@ -38,14 +53,24 @@ const LoginPage = () => {
               <label htmlFor="name" className="form-label">
                 Name
               </label>
-              <input id="name" type="text" className="signup-form-input" placeholder="Enter your name..." />
+              <input
+                id="name"
+                type="text"
+                className="signup-form-input"
+                placeholder="Enter your name..."
+              />
             </div>
 
             <div className="form-group">
               <label htmlFor="email" className="form-label">
                 Email Address
               </label>
-              <input id="email" type="email" className="signup-form-input" placeholder="Your email address..." />
+              <input
+                id="email"
+                type="email"
+                className="signup-form-input"
+                placeholder="Your email address..."
+              />
             </div>
           </div>
 
@@ -80,7 +105,12 @@ const LoginPage = () => {
             </button>
           </div>
         </form>
-        <img src="/landing-img/cornerbowlleft.png" alt="" className="food-image-right" aria-hidden="true" />
+        <img
+          src="/landing-img/cornerbowlleft.png"
+          alt=""
+          className="food-image-right"
+          aria-hidden="true"
+        />
       </section>
     </div>
   );
