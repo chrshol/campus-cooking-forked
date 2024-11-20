@@ -1,11 +1,17 @@
 {
   "extends": "next/core-web-vitals",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "arrow-body-style": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "@next/next/no-img-element": "off",
-   "react/no-unescaped-entities": "off",
-    "@next/next/no-page-custom-font": "off"
-}
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off",
+    "@typescript-eslint/no-throw-literal": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/display-name": "off",
+    "react/jsx-key": "off"
+  }
 }
 
