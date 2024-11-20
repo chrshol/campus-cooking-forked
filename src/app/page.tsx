@@ -1,10 +1,27 @@
-import CreateStudentForm from '../components/CreateStudentForm';
+/* eslint-disable import/order */
+import NavBarSignin from '../components/NavBarSignin';
+import LandingImg from '../components/LandingImg';
+import FoodCategories from '../components/FoodCategories';
+import RecipeGrid from '../components/RecipeGrid';
+import './globals.css';
+import ChefPromo from '@/components/ChefPromo';
+import InstaBlog from '@/components/InstaBlog';
+import RecipeGrid2 from '@/components/RecipeGrid2';
+import EmailSubscribe from '@/components/EmailSubscribe';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <main>
-      <h1 className="text-center">Create Student</h1>
-      <CreateStudentForm />
-    </main>
+    <div className="min-h-screen bg-white">
+      <NavBarSignin />
+      <LandingImg />
+      <FoodCategories />
+      <RecipeGrid />
+      <ChefPromo />
+      <InstaBlog />
+      <RecipeGrid2 />
+      <EmailSubscribe />
+      <Footer />
+    </div>
   );
 }
