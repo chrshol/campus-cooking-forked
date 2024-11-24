@@ -68,7 +68,7 @@ enum Category {
 
 model Ingredient {
   id       Int      @id @default(autoincrement())
-  name     String
+  name     String   
   recipes  Recipe[] 
 }
 
