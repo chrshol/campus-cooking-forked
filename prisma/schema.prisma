@@ -20,6 +20,7 @@ model User {
   email      String   @unique
   password   String
   role       Role     @default(STUDENT)
+  recipes    Recipe[]
   
 }
 
@@ -33,22 +34,36 @@ model Recipe {
   id             Int          @id @default(autoincrement())
   title          String
   description    String
-  prepTime       Int          
-  servings       Int          
-  costPerServing Float        
-  dietaryInfo    Dietary[]    
+  imageURL       String
   ingredients    Ingredient[] 
-  vendorId       Int         
-  vendor         Vendor      @relation(fields: [vendorId], references: [id])
+  instructions   String          
+  categories     Category[]   //Not in page yet, but should be added
+  appliances     Appliances[]
+  user           User         @relation(fields: [userID], references: [id])          
+  userID         Int 
 }
 
 
-enum Dietary {
+enum Appliances {
+  RiceCooker
+  PaniniPress
+  ToasterOwen
+  Toaster
+  Microwave
+  HotPlate
+}
+
+enum Category {
+  Breakfast
   Vegan
-  Vegetarian
-  GlutenFree
-  NutFree
-  DairyFree
+  Meat
+  Dessert
+  Lunch
+  Chocolate
+  // Vegetarian      Not in categories yet, but should be added
+  // GlutenFree
+  // NutFree
+  // DairyFree
 }
 
 model Ingredient {
@@ -57,14 +72,7 @@ model Ingredient {
   recipes  Recipe[] 
 }
 
-model Vendor {
-  id          Int       @id @default(autoincrement())
-  firstName   String
-  lastName    String
-  email       String    @unique
-  password    String
-  recipes     Recipe[]  
-}
+
 
 
 
