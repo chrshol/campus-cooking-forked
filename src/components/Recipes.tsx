@@ -91,7 +91,7 @@ const SearchBar: React.FC = () => {
   return (
     <div className="search-bar">
       {/* Placeholder Text */}
-      <span className="search-placeholder">Search article, news or recipe...</span>
+      <input type="search" placeholder="Search article, news or recipe..." className="search-placeholder" required />
 
       {/* Search Button */}
       <div className="search-button">
