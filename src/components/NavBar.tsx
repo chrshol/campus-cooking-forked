@@ -10,13 +10,31 @@ const Navbar = () => (
         </a>
 
         <ul className="nav-links">
-          {['Home', 'Recipes', 'Blog', 'Contact', 'About us'].map((item) => (
-            <li key={item}>
-              <a href={`/${item.toLowerCase()}`} className="nav-link">
-                {item}
-              </a>
-            </li>
-          ))}
+          <li>
+            <a href="/" className="nav-link">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/recipes" className="nav-link">
+              Recipes
+            </a>
+          </li>
+          <li>
+            <a href="/blog" className="nav-link">
+              Blog
+            </a>
+          </li>
+          <li>
+            <a href="/contact" className="nav-link">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="/about-us" className="nav-link">
+              About us
+            </a>
+          </li>
         </ul>
 
         <div className="social-links">
