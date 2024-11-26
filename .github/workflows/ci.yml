@@ -1,4 +1,4 @@
-name: Campus Cooking
+name: ci-campus-cooking
 on:
   push:
     branches: [main, master]
