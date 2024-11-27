@@ -1045,6 +1045,7 @@ button {
     flex-direction: column;
     gap: 20px;
   }
+  
 
   .social-link-footer {
     position: static;

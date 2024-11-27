@@ -11,6 +11,7 @@ interface Recipe {
   date:string;
 }
 
+// Recipe/test data - to be replace with links to database 
 const recipes: Recipe[] = [
   {
     id: 1,
@@ -86,7 +87,7 @@ const recipes: Recipe[] = [
   },
 ];
 
-
+// Search bar component
 const SearchBar: React.FC = () => {
   return (
     <div className="search-bar">
@@ -101,6 +102,7 @@ const SearchBar: React.FC = () => {
   );
 };
 
+// Author component at the bottom of each recipe card 
 const Author: React.FC<{
   recipe: Recipe;
 }> = ({ recipe }) => (
@@ -121,20 +123,8 @@ const Author: React.FC<{
   </div>
 );
 
-const Pages: React.FC = () => {
-  return (
-    <div className="container">
-      <h4 className="pages">1</h4>
-      <h4 className="pages">2</h4>
-      <h4 className="pages">3</h4>
-      <h4 className="pages">4</h4>
-      <h4 className="pages">5</h4>
-      <h4 className="pages">...</h4>
-    </div>
-  );
-};
 
-
+// Recipe card component
 const RecipeCard: React.FC<{
   recipe: Recipe;
 }> = ({ recipe }) => (
@@ -150,6 +140,21 @@ const RecipeCard: React.FC<{
   </div>
 );
 
+// Page numbers at bottom of screen
+const Pages: React.FC = () => {
+  return (
+    <div className="container">
+      <h4 className="pages">1</h4>
+      <h4 className="pages">2</h4>
+      <h4 className="pages">3</h4>
+      <h4 className="pages">4</h4>
+      <h4 className="pages">5</h4>
+      <h4 className="pages">...</h4>
+    </div>
+  );
+};
+
+// Main page component
 const Recipes: React.FC = () => (
   <div className="recipe-page">
     <div className="recipe-header">
@@ -160,12 +165,16 @@ const Recipes: React.FC = () => (
       <SearchBar />
     </div>
 
-    {/* Recipe Grid */}
-    <div className="recipe-grid">
-      {recipes.map((recipe) => (
-        <RecipeCard key={recipe.id} recipe={recipe} />
-      ))}
+    {/* Main Content Container */}
+    <div className="main-content">
+      {/* Recipe Grid */}
+      <div className="recipe-grid">
+        {recipes.map((recipe) => (
+          <RecipeCard key={recipe.id} recipe={recipe} />
+        ))}
+      </div>
     </div>
+
     <Pages />
   </div>
 );
