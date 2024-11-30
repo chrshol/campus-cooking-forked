@@ -5,40 +5,44 @@ import { signIn } from 'next-auth/react';
 
 /** The sign in page. */
 const SignIn = () => {
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const target = e.target as typeof e.target & {
-        email: { value: string };
-        password: { value: string };
-      };
-      const email = target.email.value;
-      const password = target.password.value;
-      const result = await signIn('credentials', {
-        callbackUrl: '/list',
-        email,
-        password,
-      });
-  
-      if (result?.error) {
-        console.error('Sign in failed: ', result.error);
-      }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      username: { value: string };
+      password: { value: string };
     };
+
+    const email = target.username.value;
+    const password = target.password.value;
+
+    const result = await signIn('credentials', {
+      callbackUrl: '/list',
+      email,
+      password,
+    });
+
+    if (result?.error) {
+      console.error('Sign in failed: ', result.error);
+    }
+  };
 
   return (
     <div className="auth-container">
       {/* Login Section */}
       <section className="auth-section">
         <h1 className="auth-title">Login</h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username" className="form-label">
               Username
             </label>
             <input
               id="username"
+              name="username"
               type="text"
               className="form-input"
               placeholder="Enter your username..."
+              required
             />
           </div>
 
@@ -48,9 +52,11 @@ const SignIn = () => {
             </label>
             <input
               id="password"
+              name="password"
               type="password"
               className="form-input"
               placeholder="Enter your password..."
+              required
             />
           </div>
           <div className="button-wrapper">
