@@ -1,6 +1,29 @@
-import React from 'react';
+'use client';
 
-const SigninPage = () => {
+import React from 'react';
+import { signIn } from 'next-auth/react';
+
+/** The sign in page. */
+const SignIn = () => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const target = e.target as typeof e.target & {
+        email: { value: string };
+        password: { value: string };
+      };
+      const email = target.email.value;
+      const password = target.password.value;
+      const result = await signIn('credentials', {
+        callbackUrl: '/list',
+        email,
+        password,
+      });
+  
+      if (result?.error) {
+        console.error('Sign in failed: ', result.error);
+      }
+    };
+
   return (
     <div className="auth-container">
       {/* Login Section */}
@@ -47,4 +70,4 @@ const SigninPage = () => {
   );
 };
 
-export default SigninPage;
+export default SignIn;
