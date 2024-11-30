@@ -21,7 +21,6 @@ model User {
   password   String
   role       Role     @default(STUDENT)
   recipes    Recipe[]
-  
 }
 
 enum Role {
@@ -39,8 +38,11 @@ model Recipe {
   instructions   String          
   categories     Category[]   //Not in page yet, but should be added
   appliances     Appliances[]
+  owner          String
   user           User         @relation(fields: [userID], references: [id])          
   userID         Int 
+  createdAt      DateTime     @default(now())
+         
 }
 
 
@@ -67,9 +69,9 @@ enum Category {
 }
 
 model Ingredient {
-  id       Int      @id @default(autoincrement())
-  name     String   
-  recipes  Recipe[] 
+  id        Int      @id @default(autoincrement())
+  name      String   @unique      
+  recipes   Recipe[]
 }
 
 

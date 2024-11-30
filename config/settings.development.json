@@ -37,7 +37,8 @@
         "ingredients": ["Flour", "Sugar", "Eggs", "Milk", "Butter"],
         "instructions": "Mix all ingredients and cook on a hot plate.",
         "categories": ["Breakfast", "Dessert"],
-        "appliances": ["HotPlate", "Toaster"]
+        "appliances": ["HotPlate", "Toaster"],
+        "owner": "john@foo.com"
       },
       {
         "title": "Grilled Cheese",
@@ -46,7 +47,8 @@
         "ingredients": ["Bread", "Cheese", "Butter"],
         "instructions": "Butter the bread and grill with cheese using a panini press.",
         "categories": ["Lunch"],
-        "appliances": ["PaniniPress"]
+        "appliances": ["PaniniPress"],
+        "owner": "john@foo.com"
       }
     ]
   }
