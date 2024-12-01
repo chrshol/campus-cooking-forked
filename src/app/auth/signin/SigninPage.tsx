@@ -1,10 +1,21 @@
 'use client';
 
-import React from 'react';
-import { signIn } from 'next-auth/react';
+import React, { useEffect } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
-/** The sign in page. */
+/** The sign-in page. */
 const SignIn = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  // Redirect logged-in users to the home page
+  useEffect(() => {
+    if (session) {
+      router.push('/');
+    }
+  }, [session, router]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
@@ -16,7 +27,7 @@ const SignIn = () => {
     const password = target.password.value;
 
     const result = await signIn('credentials', {
-      callbackUrl: '/list',
+      callbackUrl: '/',
       email,
       password,
     });
