@@ -24,8 +24,8 @@ export const AddRecipeSchema = Yup.object().shape({
     .required('Appliances are required'),
 
   ingredients: Yup.string()
-    .min(5, 'Ingredients must be at least 5 characters')
-    .required('Ingredients are required'),
+    .required('Ingredients are required')
+    .min(3, 'Please enter at least one ingredient'),
 
   categories: Yup.array()
     .of(Yup.string().required('Category is required'))

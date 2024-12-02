@@ -130,7 +130,11 @@ const AddRecipeForm = ({ user }: { user: User }) => {
                     type="text"
                     {...register('ingredients')}
                     className={`form-control ${errors.ingredients ? 'is-invalid' : ''}`}
+                    placeholder="Enter ingredients separated by commas"
                   />
+                  <Form.Text className="text-muted">
+                    Enter ingredients separated by commas (e.g., "flour, sugar, eggs")
+                  </Form.Text>
                   <div className="invalid-feedback">{errors.ingredients?.message}</div>
                 </Form.Group>
 
