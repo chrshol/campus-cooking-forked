@@ -1,15 +1,19 @@
 ![](https://raw.githubusercontent.com/ics-software-engineering/nextjs-example-form/main/doc/create-student-page.png)
 
-nextjs-example-form is a sample Next.js 14 application that illustrates how to use [React Hook Form](https://www.react-hook-form.com/) and [Yup](https://www.npmjs.com/package/yup) for form development and validation.
+Campus Cooking is a sample Next.js 14 application designed to streamline recipe creation and sharing for students. It illustrates the use of modern frameworks and tools like [React Hook Form](https://www.react-hook-form.com/) and [Yup](https://www.npmjs.com/package/yup) for form development and validation, as well as Prisma ORM for database management.
 
-Some features of this example:
-
-- In order to focus on form processing, the application has just two pages: Create Student and Edit Student.
-- [Yup](https://www.npmjs.com/package/yup) for form validation.
-- A variety of common controllers are shown: text box, text area, single selection, multiple selection, date selection, and radio boxes.
-- [Prisma ORM](https://www.prisma.io/) for type safe mapping between Typescript and PostgreSQL tables.
-- The forms in this example update two PostgreSQL tables, illustrating the situation where there is not a one-to-one correspondence between the Prisma schema and the form schema.
-- There is a 35 minute YouTube screencast providing a walkthrough of the code.
+Features: 
+- Recipe Management:
+  - Create Recipe and Edit Recipe pages for adding and modifying recipes.
+- Form Validation:
+  - Easy-to-use validation with [Yup](https://www.npmjs.com/package/yup).
+- Form Controls:
+  - Text fields for recipe names and description.
+  - Specification for appliance needed.
+  - Multiple selections for ingredients.
+- Database Integration:
+  - Type-safe mapping between TypeScript and PostgreSQL tables using [Prisma ORM](https://www.prisma.io/).
+  - Flexible handling of multiple tables to showcase non-linear form-data mapping.
 
 ## Installation
 
@@ -17,7 +21,7 @@ First, [install PostgreSQL](https://www.postgresql.org/download/). Then create a
 
 ```
 
-$ createdb nextjs-example-form
+$ createdb campus-cooking
 Password:
 $
 
@@ -41,40 +45,37 @@ Environment variables loaded from .env
 Prisma schema loaded from prisma/schema.prisma
 Datasource "db": PostgreSQL database "<your database name>", schema "public" at "localhost:5432"
 
-Applying migration `20240702013420_init`
-Applying migration `20240702172401_unique_email`
+Applying migration `20241129235803_`
 
 The following migration(s) have been applied:
 
 migrations/
-  └─ 20240702013420_init/
-    └─ migration.sql
-  └─ 20240702172401_unique_email/
+  └─ 20241129235803_/
     └─ migration.sql
 
 Your database is now in sync with your schema.
 
-✔ Generated Prisma Client (v5.16.1) to ./node_modules/@prisma/client in 51ms
+✔ Generated Prisma Client (v5.22.0) to ./node_modules/@prisma/client in 57ms
 
 $
 ```
 
 ## Running the system
 
-Once the libraries are installed and the database is migrated, you can run the application by invoking the "dev" script in the [package.json file](https://github.com/ics-software-engineering/nextjs-example-form/blob/main/app/package.json):
+Once the libraries are installed and the database is migrated, you can run the application by invoking the "dev" script in the [package.json file](https://github.com/Campus-Cooking/site-M1/blob/main/package.json):
 
 ```shell
 $ npm run dev
 
-> nextjs-example-form@0.1.0 dev
+> campus-cooking@0.1.0 dev
 > next dev
 
-  ▲ Next.js 14.2.4
+  ▲ Next.js 14.2.10
   - Local:        http://localhost:3000
   - Environments: .env
 
  ✓ Starting...
- ✓ Ready in 2.6s
+ ✓ Ready in 1436ms
 
 ```
 
@@ -101,44 +102,49 @@ If you see a Typescript warning you can ignore it.
 
 To best understand this application, it is useful to familiarize yourself with:
 
-- [Next.js Application Template](http://ics-software-engineering.github.io/nextjs-application-template/). This sample application illustrates conventions for directory layout, naming conventions, routing, integration of Bootstrap, and coding standards. nextjs-example-form is based on this template, so we won't discuss any of these issues here.
-
 - [Bootstrap 5 React](https://react-bootstrap.github.io/). We use Bootstrap 5 for this template.
 
 - [React Hook Form](https://www.react-hook-form.com/). React hook form is a performant, flexible and extensible forms with easy-to-use validation.
 
 ## Walkthrough
 
-The landing page for this application provides the Create Student form:
+A description of Campus Cooking can be found [here](https://campus-cooking.github.io/college-cooking.github.io/). This includes what you can do on our website along with images of the different pages.
 
-![](https://github.com/ics-software-engineering/nextjs-example-form/raw/main/doc/create-student-page.png)
+Landing Page:
+The homepage of the Campus Cooking site greets users with a clean and easy-to-navigate layout.
+- Sign Up/Login Button: Option to create an account or log in to save favorite recipes and submit new ones.
+- Recipes: Takes you to the recipes page.
+- Blog: Takes you to the blog page.
+- Contact: How you can contact us.
+- About Us: Learn about Campus Cooking.
+- Popular Recipes: A section featuring some of the most popular or trending recipes among users.
+- Recipe Categories: A set of links to different recipe categories (e.g., Breakfast, Dinner, Snacks), making it easy to browse.
+- Instagram: Includes the latest posts from our Instagram.
+- More Recipes: A section with more recipes for you to explore.
+- Email Subscription: Option to enter your email address to receive the latest recipes and updates.
 
-This form has the following input controls:
+Viewing Recipes:
+When you click on any recipe category, you are redirected to a page displaying all recipes within that category.
+- Recipe Name: The title of the recipe:
+- Ingredients: A list of ingredients requried to make the recipe.
+- Cooking Instructions: A step-by-step gudie to prepare the meal.
 
-- Name and Email: text fields, both required.
-- Biographical statement: text area, optional.
-- Level: select field, required. Default is Freshman
-- GPA: select field, required. User must choose one.
-- Date enrolled: date field. Defaults to current time and day.
-- Hobbies: multiple select field.
-- Major: select field implemented as Radio buttons.
+Recipes Details Page: 
+When you click on a recipe name, you are taken to the Recipe Details page.
+- Full Recipe Name: The complete title of the recipe.
+- Ingredients: A detailed list of ignredients with quantities.
+- Instructions: Clear, step-by-step instructions to guide you through the cooking process.
 
-A filled out but not yet submitted Create Student form looks like this:
+Submitting a Recipe: 
+If you're logged in, you can submit your own recipe by clicking on the Submit Recipe button in the navigation bar. The Submit Recipe form has the following fields: 
+- Recipe Name: A required field to provide the title of your recipe.
+- Short Description: A required text area where you provide a brief description of your recipe.
+- Ingredients: A required text area where you list all the ingredients needed for the recipe.
+- Steps/Long Description: A required text area for the step-by-step cooking instructions.
+- Appliances Needed: Checkboxes for selecting appliances required for the recipe, such as Rice Cooker, Toaster Oven, Microwave, etc.
+- Recipe Hero Image: A file input to upload an image that represents the recipe (optional).
+- Category: A text area where you can specify the category or categories (e.g., Breakfast, Lunch, Dessert).
 
-![](https://github.com/ics-software-engineering/nextjs-example-form/raw/main/doc/create-student-page-filled-in.png)
-
-After submission, the page pops up an alert showing the submission was successful:
-
-![](https://github.com/ics-software-engineering/nextjs-example-form/raw/main/doc/create-student-page-submitted.png)
-
-Also note that after dismissing the alert, there is a link of the Create Student page to a page where you can edit the document. Here is this page:
-
-![](https://github.com/ics-software-engineering/nextjs-example-form/raw/main/doc/edit-student-page.png)
-
-You can edit the fields, then click 'Update' to save the changes.
-
-<!--
-## Screencast
-
-Watch a 35 minute screencast explaining this system at [https://www.youtube.com/watch?v=ZCHf_rNbDaM](https://www.youtube.com/watch?v=ZCHf_rNbDaM).
--->
+User Account:
+By logging into the website, users gain the ability to: 
+- Submit Recipes: Contribute your own recipes to the site.
