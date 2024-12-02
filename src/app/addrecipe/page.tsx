@@ -8,6 +8,7 @@ import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { User } from '@prisma/client';
+import NavBarSignedin from '@/components/NavBarSignedin';
 
 
 export default async function AddRecipe({ params }: { params: { id: string | string[] } }) {
@@ -29,9 +30,9 @@ export default async function AddRecipe({ params }: { params: { id: string | str
   }
   return (
     <div className="min-h-screen bg-white">
-      <NavBar />
+      <NavBarSignedin />
       <AddRecipeForm user={user} />
-      <Footer />
+      <NavBarSignedin />
     </div>
   );
 };
