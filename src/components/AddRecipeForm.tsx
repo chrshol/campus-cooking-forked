@@ -93,18 +93,22 @@ const AddRecipeForm = ({ user }: { user: User }) => {
             <div className="appliances-grid">
               <div className="appliance-row">
                 <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="Rice Cooker" />
+                  <input type="checkbox" {...register('appliances')} value="RiceCooker" />
                   Rice Cooker
                 </label>
                 <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="Panini Press" />
+                  <input type="checkbox" {...register('appliances')} value="PaniniPress" />
                   Panini Press
                 </label>
               </div>
               <div className="appliance-row">
                 <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="Toaster Oven" />
+                  <input type="checkbox" {...register('appliances')} value="ToasterOven" />
                   Toaster Oven
+                </label>
+                <label className="checkbox-label">
+                  <input type="checkbox" {...register('appliances')} value="Toaster" />
+                  Toaster
                 </label>
                 <label className="checkbox-label">
                   <input type="checkbox" {...register('appliances')} value="Microwave" />
@@ -113,12 +117,8 @@ const AddRecipeForm = ({ user }: { user: User }) => {
               </div>
               <div className="appliance-row">
                 <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="Hot Plate & Pan" />
+                  <input type="checkbox" {...register('appliances')} value="HotPlate" />
                   Hot Plate & Pan
-                </label>
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="Toaster" />
-                  Toaster
                 </label>
               </div>
             </div>
@@ -134,14 +134,14 @@ const AddRecipeForm = ({ user }: { user: User }) => {
                   Breakfast
                 </label>
                 <label className="checkbox-label">
-                  <input type="checkbox" {...register('categories')} value="Lunch" />
-                  Lunch
+                  <input type="checkbox" {...register('categories')} value="Vegan" />
+                  Vegan
                 </label>
               </div>
               <div className="category-row">
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('categories')} value="Dinner" />
-                  Dinner
+              <label className="checkbox-label">
+                  <input type="checkbox" {...register('categories')} value="Meat" />
+                  Meat
                 </label>
                 <label className="checkbox-label">
                   <input type="checkbox" {...register('categories')} value="Dessert" />
@@ -149,9 +149,9 @@ const AddRecipeForm = ({ user }: { user: User }) => {
                 </label>
               </div>
               <div className="category-row">
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('categories')} value="Meat" />
-                  Meat
+              <label className="checkbox-label">
+                  <input type="checkbox" {...register('categories')} value="Lunch" />
+                  Lunch
                 </label>
                 <label className="checkbox-label">
                   <input type="checkbox" {...register('categories')} value="Beverage" />
