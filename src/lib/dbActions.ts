@@ -6,51 +6,62 @@ import { prisma } from './prisma';
 import { hash } from 'bcrypt';
 
 
+
 /**
  * Adds a new recipe to the database.
- * @param recipe An object with the following properties: title, description, imageURL, instructions, appliances, ingredients, categories, and owner.
+ * @param recipe, an object with the following properties: title, description, imageURL, instructions, appliances, ingredients, categories, owner.
  */
 export async function addRecipe(recipe: {
   title: string;
   description: string;
   imageURL: string;
   instructions: string;
-  appliances: Appliances[]; // List of selected appliances
-  ingredients: string[]; // List of ingredient names
-  categories: Category[]; // List of selected categories
-  owner: string; // User's ID
+  appliances: string[];  // Enum values
+  ingredients: string[]; // Ingredient model
+  categories: string[];  // Enum values
+  owner: string;
+  userID: number;
 }) {
-  try {
-    // Create the recipe and handle relationships
-    await prisma.recipe.create({
-      data: {
-        title: recipe.title,
-        description: recipe.description,
-        imageURL: recipe.imageURL,
-        instructions: recipe.instructions,
-        appliances: recipe.appliances, // Enum stored as array
-        categories: recipe.categories, // Enum stored as array
-        owner: recipe.owner,
-        ingredients: {
-          connectOrCreate: recipe.ingredients.map((ingredient) => ({
-            where: { name: ingredient },
-            create: { name: ingredient },
-          })),
-        },
-        user: {
-          connect: { id: parseInt(recipe.owner) }, // Assumes owner is user ID as a string
-        },
-      },
-    });
+  // Initialize appliance and category arrays (you can add checks if needed)
+  let appliances: Appliances[] = [];
+  let categories: Category[] = [];
 
-    // Redirect to the home page, CHANGE LATER TO RECIPES PAGE 
-    redirect('/');
-  } catch (error) {
-    console.error('Error adding recipe:', error);
-    throw new Error('Failed to add recipe. Please try again.');
+  // Handle appliances (multiple selected)
+  if (recipe.appliances.length > 0) {
+    appliances = recipe.appliances.map((appliance) => Appliances[appliance as keyof typeof Appliances]);
   }
-}
 
+  // Handle categories (multiple selected)
+  if (recipe.categories.length > 0) {
+    categories = recipe.categories.map((category) => Category[category as keyof typeof Category]);
+  }
+
+  // Create the recipe in the database
+  const newRecipe = await prisma.recipe.create({
+    data: {
+      title: recipe.title,
+      description: recipe.description,
+      imageURL: recipe.imageURL,
+      instructions: recipe.instructions,
+      owner: recipe.owner,
+      appliances: {
+        set: appliances,  // Enum array for appliances
+      },
+      ingredients: {
+        create: recipe.ingredients.map((ingredient) => ({
+          name: ingredient,
+        })),
+      },
+      categories: {
+        set: categories,  // Enum array for categories
+      },
+      userID: recipe.userID,
+    },
+  });
+
+  // After adding the recipe, redirect to a list or another page
+  redirect('/');
+}
 
 
 
