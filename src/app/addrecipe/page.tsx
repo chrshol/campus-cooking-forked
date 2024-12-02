@@ -18,11 +18,11 @@ export default async function AddRecipe({ params }: { params: { id: string | str
       user: { email: string; id: string; randomKey: string };
     } | null,
   );
-  const id = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
-  // console.log(id);
+  
   const user: User | null = await prisma.user.findUnique({
-    where: { id },
+    where: { email: session?.user?.email || '' },
   });
+  
   // console.log(user);
   if (!user) {
     return notFound();
