@@ -50,17 +50,31 @@ const LoginPage = () => {
         <form>
           <div className="input-row">
             <div className="form-group">
-              <label htmlFor="name" className="form-label">
-                Name
+              <label htmlFor="firstName" className="form-label">
+                First Name
               </label>
               <input
-                id="name"
+                id="firstName"
                 type="text"
                 className="signup-form-input"
-                placeholder="Enter your name..."
+                placeholder="Enter your first name..."
               />
             </div>
 
+            <div className="form-group">
+              <label htmlFor="lastName" className="form-label">
+                Last Name
+              </label>
+              <input
+                id="lastName"
+                type="text"
+                className="signup-form-input"
+                placeholder="Enter your last name..."
+              />
+            </div>
+          </div>
+
+          <div className="input-row">
             <div className="form-group">
               <label htmlFor="email" className="form-label">
                 Email Address
@@ -105,13 +119,7 @@ const LoginPage = () => {
             </button>
           </div>
         </form>
-        <img
-          src="/landing-img/cornerbowlleft.png"
-          alt=""
-          className="food-image-right"
-          aria-hidden="true"
-        />
-      </section>
+     </section>
     </div>
   );
 };

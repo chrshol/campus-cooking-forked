@@ -13,40 +13,73 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model EnrollmentData {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  enrolled DateTime
+model User {
+  id         Int      @id @default(autoincrement())
+  firstName  String
+  lastName   String
+  email      String   @unique
+  password   String
+  role       Role     @default(STUDENT)
+  recipes    Recipe[]
 }
 
-enum Hobby {
-  Surfing
-  Running
-  Biking
-  Paddling
+enum Role {
+  STUDENT
+  VENDOR
+  ADMIN
 }
 
-enum Level {
-  Freshman
-  Sophomore
-  Junior
-  Senior
+model Recipe {
+  id             Int          @id @default(autoincrement())
+  title          String
+  description    String
+  imageURL       String
+  ingredients    Ingredient[] 
+  instructions   String          
+  categories     Category[]   //Not in page yet, but should be added
+  appliances     Appliances[]
+  owner          String
+  user           User         @relation(fields: [userID], references: [id])          
+  userID         Int 
+  createdAt      DateTime     @default(now())
+         
 }
 
-enum Major {
-  Physics
-  Math
-  Chemistry
-  ComputerScience
+
+enum Appliances {
+  RiceCooker
+  PaniniPress
+  ToasterOwen
+  Toaster
+  Microwave
+  HotPlate
 }
 
-model StudentData {
-  id      Int     @id @default(autoincrement())
-  name    String
-  email   String  @unique
-  bio     String?
-  hobbies Hobby[]
-  level   Level
-  gpa     Int
-  major   Major
+enum Category {
+  Breakfast
+  Vegan
+  Meat
+  Dessert
+  Lunch
+  Chocolate
+  // Vegetarian      Not in categories yet, but should be added
+  // GlutenFree
+  // NutFree
+  // DairyFree
 }
+
+model Ingredient {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique      
+  recipes   Recipe[]
+}
+
+
+
+
+
+
+
+
+
+
