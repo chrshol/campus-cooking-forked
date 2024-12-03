@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { Timer, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 const Landing = () => (
   <section className="landing">
@@ -63,10 +64,10 @@ const Landing = () => (
               </div>
             </div>
 
-            <button type="button" className="view-recipe-btn">
+            <Link href="/recipes/chicken-wing" className="view-recipe-btn">
               <span>View Recipe</span>
               <ChevronRight size={24} />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

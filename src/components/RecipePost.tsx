@@ -5,7 +5,7 @@ const RecipePost = () => {
   return (
     <article className="recipe-post">
       <header className="recipe-post-header">
-        <h1>Bone Broth Ramen in your rice cooker</h1>
+        <h1>Chicken Wings in the Air Fryer</h1>
       </header>
       <div className="author-info">
         <img
@@ -24,7 +24,7 @@ const RecipePost = () => {
 
       <div className="recipe-image-container">
         <img
-          src="/landing-img/bonebrothramen.png"
+          src="/landing-img/chickenwing.jpeg"
           alt="Bone Broth Ramen"
           className="recipe-image"
         />

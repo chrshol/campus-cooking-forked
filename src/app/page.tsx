@@ -19,11 +19,12 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <NavBarSignedin />
       <LandingImg />
-      <FoodCategories />
       <RecipePost />
+      <FoodCategories />
+      <RecipeGrid />
       <ChefPromo />
       <InstaBlog />
-      <RecipeGrid />
+      <RecipeGrid2 />
       <EmailSubscribe />
       <Footer />
     </div>
