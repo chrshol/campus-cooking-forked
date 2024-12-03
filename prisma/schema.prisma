@@ -30,26 +30,24 @@ enum Role {
 }
 
 model Recipe {
-  id             Int          @id @default(autoincrement())
+  id             Int               @id @default(autoincrement())
   title          String
   description    String
   imageURL       String
-  ingredients    Ingredient[] 
-  instructions   String          
-  categories     Category[]   //Not in page yet, but should be added
-  appliances     Appliances[]
-  owner          String
-  user           User         @relation(fields: [userID], references: [id])          
-  userID         Int 
-  createdAt      DateTime     @default(now())
-         
+  ingredients    Ingredient[]
+  instructions   String
+  categories     RecipeCategory[]  // Changed to relation table
+  appliances     RecipeAppliance[] // Changed to relation table
+  email          String            // Changed from userID/owner
+  user           User              @relation(fields: [email], references: [email])
+  createdAt      DateTime          @default(now())
 }
 
 
 enum Appliances {
   RiceCooker
   PaniniPress
-  ToasterOwen
+  ToasterOven    // Fixed typo from ToasterOwen
   Toaster
   Microwave
   HotPlate
@@ -70,8 +68,25 @@ enum Category {
 
 model Ingredient {
   id        Int      @id @default(autoincrement())
-  name      String   @unique      
-  recipes   Recipe[]
+  name      String   @unique
+  quantity  String   // Added field
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId  Int
+}
+
+// New models for many-to-many relations
+model RecipeCategory {
+  id       Int      @id @default(autoincrement())
+  category Category
+  recipe   Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId Int
+}
+
+model RecipeAppliance {
+  id        Int        @id @default(autoincrement())
+  appliance Appliances
+  recipe    Recipe     @relation(fields: [recipeId], references: [id])
+  recipeId  Int
 }
 
 
