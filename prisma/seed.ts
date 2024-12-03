@@ -25,57 +25,55 @@ async function main() {
   });
   await Promise.all(userPromises);
 
-  // Create ingredients concurrently
-  console.log('Creating ingredients...');
-  const ingredientMap = new Map<string, number>();
-  const ingredientPromises = config.defaultIngredients.map(async (ingredient) => {
-    const createdIngredient = await prisma.ingredient.upsert({
-      where: { name: ingredient.name },
-      update: {},
-      create: {
-        name: ingredient.name,
-      },
-    });
-    ingredientMap.set(ingredient.name, createdIngredient.id);
-    return createdIngredient;
-  });
-  await Promise.all(ingredientPromises);
-
   // Create recipes concurrently
   console.log('Creating recipes...');
   const recipePromises = config.defaultRecipes.map(async (recipe) => {
     console.log(`  Adding recipe: ${recipe.title}`);
 
-    // Find the user (owner) by email
-    const owner = await prisma.user.findUnique({
-      where: { email: recipe.owner },
-    });
-
-    if (!owner) {
-      console.error(`Owner not found: ${recipe.owner}`);
-      return;
-    }
-
-    // Map ingredient names to ingredient IDs
-    const ingredientIDs = recipe.ingredients
-      .map((name) => ingredientMap.get(name))
-      .filter((id): id is number => id !== undefined);
-
-    await prisma.recipe.create({
+    // Create the recipe
+    const createdRecipe = await prisma.recipe.create({
       data: {
         title: recipe.title,
         description: recipe.description,
         imageURL: recipe.imageURL,
         instructions: recipe.instructions,
-        categories: recipe.categories as Category[],
-        appliances: recipe.appliances as Appliances[],
-        owner: recipe.owner,
-        user: { connect: { id: owner.id } }, // Link recipe to user
-        ingredients: {
-          connect: ingredientIDs.map((id) => ({ id })),
-        },
+        email: recipe.owner, // Link to user's email
       },
     });
+
+    // Create ingredients for this recipe
+    const ingredientPromises = recipe.ingredients.map(async (ingredientName) => {
+      return prisma.ingredient.create({
+        data: {
+          name: ingredientName,
+          quantity: "1", // Default quantity since it's not in your config
+          recipeId: createdRecipe.id,
+        },
+      });
+    });
+    await Promise.all(ingredientPromises);
+
+    // Create categories for this recipe
+    const categoryPromises = recipe.categories.map(async (category) => {
+      return prisma.recipeCategory.create({
+        data: {
+          category: category as Category,
+          recipeId: createdRecipe.id,
+        },
+      });
+    });
+    await Promise.all(categoryPromises);
+
+    // Create appliances for this recipe
+    const appliancePromises = recipe.appliances.map(async (appliance) => {
+      return prisma.recipeAppliance.create({
+        data: {
+          appliance: appliance as Appliances,
+          recipeId: createdRecipe.id,
+        },
+      });
+    });
+    await Promise.all(appliancePromises);
   });
   await Promise.all(recipePromises);
 
