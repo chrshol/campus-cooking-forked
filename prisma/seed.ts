@@ -37,16 +37,16 @@ async function main() {
         description: recipe.description,
         imageURL: recipe.imageURL,
         instructions: recipe.instructions,
-        email: recipe.owner, // Link to user's email
+        email: recipe.email,
       },
     });
 
     // Create ingredients for this recipe
-    const ingredientPromises = recipe.ingredients.map(async (ingredientName) => {
+    const ingredientPromises = recipe.ingredients.map(async (ingredient) => {
       return prisma.ingredient.create({
         data: {
-          name: ingredientName,
-          quantity: "1", // Default quantity since it's not in your config
+          name: ingredient.name,
+          quantity: ingredient.quantity,
           recipeId: createdRecipe.id,
         },
       });
