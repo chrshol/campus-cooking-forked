@@ -32,11 +32,6 @@ export const AddRecipeSchema = Yup.object().shape({
     .min(1, 'At least one category must be selected')
     .required('Categories are required'),
 
-  owner: Yup.string()
-    .email('Invalid email format')
-    .required('Owner email is required'),
-
-  userID: Yup.number()
-    .positive('User ID must be a positive number')
-    .required('User ID is required'),
-});
+  owner: Yup.string().email('Invalid email format').notRequired(),
+  userID: Yup.number().positive('User ID must be a positive number').notRequired(),
+  });

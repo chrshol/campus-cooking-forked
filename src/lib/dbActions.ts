@@ -81,4 +81,3 @@ export async function createUser(credentials: { firstName: string; lastName: str
     },
   });
 }
-

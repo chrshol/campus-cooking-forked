@@ -1,49 +1,19 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
 import { redirect } from 'next/navigation';
-import { addRecipe } from '@/lib/dbActions'; 
+import { addRecipe } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AddRecipeSchema } from '@/lib/validationSchemas';
-import { User } from '@prisma/client';
 
-const onSubmit = async (formData: {
-  title: string;
-  description: string;
-  imageURL: string;
-  instructions: string;
-  appliances: string[];
-  ingredients: string;
-  categories: string[];
-  owner: string;
-  userID: number;
-}) => {
-  console.log("Form Submitted:", formData);  // Add this line for debugging
-  
-  // Split the ingredients string into an array
-  const data = {
-    ...formData,
-    ingredients: formData.ingredients.split(',').map(item => item.trim())
-  };
-  
-  // Process the form data, assuming addRecipe is your function to handle saving
-  await addRecipe(data);
-  swal('Success', 'Your recipe has been added', 'success', {
-    timer: 2000,
-  });
-};
-
-const AddRecipeForm = ({ user }: { user: User }) => {
-  const { data: session, status } = useSession();
-  const currentUser = session?.user?.email || '';
+const AddRecipeForm = () => {
+  const { data: session, status } = useSession(); // Access session data
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(AddRecipeSchema),
@@ -53,8 +23,44 @@ const AddRecipeForm = ({ user }: { user: User }) => {
     return <LoadingSpinner />;
   }
   if (status === 'unauthenticated') {
-    redirect('/auth/signin');
+    redirect('/auth/signin'); // Redirect if user is not authenticated
   }
+
+  const onSubmit = async (formData: {
+    title: string;
+    description: string;
+    imageURL: string;
+    instructions: string;
+    appliances: string[];
+    ingredients: string;
+    categories: string[];
+  }) => {
+    if (!session || !session.user) {
+      swal('Error', 'You must be logged in to submit a recipe.', 'error');
+      return;
+    }
+
+    const data = {
+      ...formData,
+      ingredients: formData.ingredients.split(',').map((item) => item.trim()), // Split ingredients into an array
+      userID: Number((session.user as { id: string }).id), // Automatically assign user ID and convert to number
+      owner: session.user.name || 'Unknown User', // Automatically assign owner's full name
+    };
+
+    //console.log('Final Form Data:', data); // Debugging
+
+    try {
+      await addRecipe(data);
+      swal('Success', 'Your recipe has been added', 'success', {
+        timer: 2000,
+      });
+    } catch (error) {
+      console.error('Error adding recipe:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      swal('Error', `Failed to add recipe. Error: ${errorMessage}`, 'error');
+
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="recipe-container">
@@ -189,6 +195,20 @@ const AddRecipeForm = ({ user }: { user: User }) => {
           <p className="error">Description is required.</p>
         )}
       </div>
+        
+      {/* Instructions Section */}
+      <div className="input-group">
+        <label>Add the Instructions</label>
+        <textarea
+          placeholder="Enter step-by-step instructions"
+          {...register('instructions', { required: true })}
+          className="long-description"
+        />
+        {errors.instructions && (
+          <p className="error">Instructions are required.</p>
+        )}
+        </div>
+
 
       {/* Submit Button */}
       <button type="submit" className="submit-button">
