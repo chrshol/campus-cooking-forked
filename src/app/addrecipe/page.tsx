@@ -1,4 +1,3 @@
-import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 import './addrecipepage.css';
 import AddRecipeForm from '@/components/AddRecipeForm';
@@ -32,7 +31,7 @@ export default async function AddRecipe({ params }: { params: { id: string | str
     <div className="min-h-screen bg-white">
       <NavBarSignedin />
       <AddRecipeForm user={user} />
-      <NavBarSignedin />
+      <Footer />
     </div>
   );
 };
