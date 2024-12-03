@@ -19,7 +19,6 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <NavBarSignedin />
       <LandingImg />
-      <RecipePost />
       <FoodCategories />
       <RecipeGrid />
       <ChefPromo />
