@@ -55,10 +55,11 @@ enum Appliances {
 
 enum Category {
   Breakfast
+  Lunch
+  Dinner
   Vegan
   Meat
   Dessert
-  Lunch
   Chocolate
   // Vegetarian      Not in categories yet, but should be added
   // GlutenFree

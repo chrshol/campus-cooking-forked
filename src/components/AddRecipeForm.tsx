@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation';
 import { addRecipe } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AddRecipeSchema } from '@/lib/validationSchemas';
-import { User } from '@prisma/client';
+import { User, Category, Appliances } from '@prisma/client';
 import { useState } from 'react';
 
 interface Ingredient {
@@ -54,19 +54,40 @@ const AddRecipeForm = ({ user }: { user: User }) => {
     try {
       const recipeData = {
         ...formData,
-        ingredients: ingredients,
+        ingredients: ingredients.filter(ing => ing.name && ing.quantity),
         email: user.email,
       };
-
+      
+      console.log('Categories selected:', formData.categories);
+      console.log('Valid categories:', VALID_CATEGORIES);
+      
       await addRecipe(recipeData);
       swal('Success', 'Recipe added successfully!', 'success');
-      // Optionally redirect to the recipes page
-      // redirect('/recipes');
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error adding recipe:', error);
-      swal('Error', 'Failed to add recipe', 'error');
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      swal('Error', `Failed to add recipe: ${errorMessage}`, 'error');
     }
   };
+
+  const VALID_CATEGORIES: Category[] = [
+    'Breakfast',
+    'Lunch',
+    'Dinner',
+    'Vegan',
+    'Meat',
+    'Dessert',
+    'Chocolate'
+  ];
+
+  const VALID_APPLIANCES: Appliances[] = [
+    'RiceCooker',
+    'PaniniPress',
+    'ToasterOven',
+    'Toaster',
+    'Microwave',
+    'HotPlate'
+  ];
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="recipe-container">
@@ -123,7 +144,7 @@ const AddRecipeForm = ({ user }: { user: User }) => {
           <div className="categories-section">
             <label>Categories</label>
             <div className="categories-grid">
-              {['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Vegan', 'Meat'].map((category) => (
+              {VALID_CATEGORIES.map((category) => (
                 <label key={category} className="checkbox-label">
                   <input
                     type="checkbox"
@@ -140,7 +161,7 @@ const AddRecipeForm = ({ user }: { user: User }) => {
           <div className="appliances-section">
             <label>Required Appliances</label>
             <div className="appliances-grid">
-              {['RiceCooker', 'PaniniPress', 'ToasterOven', 'Toaster', 'Microwave', 'HotPlate'].map((appliance) => (
+              {VALID_APPLIANCES.map((appliance) => (
                 <label key={appliance} className="checkbox-label">
                   <input
                     type="checkbox"

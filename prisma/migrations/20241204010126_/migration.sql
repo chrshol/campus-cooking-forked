@@ -5,7 +5,7 @@ CREATE TYPE "Role" AS ENUM ('STUDENT', 'VENDOR', 'ADMIN');
 CREATE TYPE "Appliances" AS ENUM ('RiceCooker', 'PaniniPress', 'ToasterOven', 'Toaster', 'Microwave', 'HotPlate');
 
 -- CreateEnum
-CREATE TYPE "Category" AS ENUM ('Breakfast', 'Vegan', 'Meat', 'Dessert', 'Lunch', 'Chocolate');
+CREATE TYPE "Category" AS ENUM ('Breakfast', 'Lunch', 'Dinner', 'Vegan', 'Meat', 'Dessert', 'Chocolate');
 
 -- CreateTable
 CREATE TABLE "User" (
