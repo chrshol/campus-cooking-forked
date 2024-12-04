@@ -19,19 +19,27 @@ export const AddRecipeSchema = Yup.object().shape({
     .required('Instructions are required'),
 
   appliances: Yup.array()
-    .of(Yup.string().required('Appliance is required'))
+    .of(Yup.string().oneOf([
+      'RiceCooker',
+      'PaniniPress',
+      'ToasterOven',
+      'Toaster',
+      'Microwave',
+      'HotPlate'
+    ]))
     .min(1, 'At least one appliance must be selected')
     .required('Appliances are required'),
 
-  ingredients: Yup.string()
-    .required('Ingredients are required')
-    .min(3, 'Please enter at least one ingredient'),
-
   categories: Yup.array()
-    .of(Yup.string().required('Category is required'))
+    .of(Yup.string().oneOf([
+      'Breakfast',
+      'Lunch',
+      'Dinner',
+      'Vegan',
+      'Meat',
+      'Dessert',
+      'Chocolate'
+    ]))
     .min(1, 'At least one category must be selected')
     .required('Categories are required'),
-
-  owner: Yup.string().email('Invalid email format').notRequired(),
-  userID: Yup.number().positive('User ID must be a positive number').notRequired(),
-  });
+});

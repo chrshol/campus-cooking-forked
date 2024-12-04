@@ -1,66 +1,79 @@
 'use server';
 
-import { Recipe, Appliances, Category } from '@prisma/client';
-import { redirect } from 'next/navigation';
-import { prisma } from './prisma';
 import { hash } from 'bcrypt';
+import { prisma } from './prisma';
+import { Appliances, Category } from '@prisma/client';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
+interface Ingredient {
+  name: string;
+  quantity: string;
+}
 
-
-/**
- * Adds a new recipe to the database.
- * @param recipe, an object with the following properties: title, description, imageURL, instructions, appliances, ingredients, categories, owner.
- */
-export async function addRecipe(recipe: {
+interface RecipeData {
   title: string;
   description: string;
   imageURL: string;
   instructions: string;
-  appliances: string[];  // Enum values
-  ingredients: string[]; // Ingredient model
-  categories: string[];  // Enum values
-  owner: string;
-  userID: number;
-}) {
-  // Initialize appliance and category arrays (you can add checks if needed)
-  let appliances: Appliances[] = [];
-  let categories: Category[] = [];
+  appliances: string[];
+  ingredients: Ingredient[];
+  categories: string[];
+  email: string;
+}
 
-  // Handle appliances (multiple selected)
-  if (recipe.appliances.length > 0) {
-    appliances = recipe.appliances.map((appliance) => Appliances[appliance as keyof typeof Appliances]);
+export async function addRecipe(recipeData: RecipeData) {
+  try {
+    console.log('Server received recipe data:', recipeData);
+
+    // Validate categories and appliances before creating
+    const validCategories = recipeData.categories.map(cat => {
+      if (!Object.values(Category).includes(cat as Category)) {
+        throw new Error(`Invalid category: ${cat}`);
+      }
+      return cat as Category;
+    });
+
+    const validAppliances = recipeData.appliances.map(app => {
+      if (!Object.values(Appliances).includes(app as Appliances)) {
+        throw new Error(`Invalid appliance: ${app}`);
+      }
+      return app as Appliances;
+    });
+
+    const recipe = await prisma.recipe.create({
+      data: {
+        title: recipeData.title,
+        description: recipeData.description,
+        imageURL: recipeData.imageURL,
+        instructions: recipeData.instructions,
+        email: recipeData.email,
+        ingredients: {
+          create: recipeData.ingredients.map((ingredient) => ({
+            name: ingredient.name,
+            quantity: ingredient.quantity,
+          })),
+        },
+        categories: {
+          create: validCategories.map((category) => ({
+            category,
+          })),
+        },
+        appliances: {
+          create: validAppliances.map((appliance) => ({
+            appliance,
+          })),
+        },
+      },
+    });
+
+    console.log('Recipe created:', recipe);
+    revalidatePath('/'); // Revalidate the home page
+    redirect('/'); // Redirect to home page
+  } catch (error) {
+    console.error('Server error in addRecipe:', error);
+    throw error;
   }
-
-  // Handle categories (multiple selected)
-  if (recipe.categories.length > 0) {
-    categories = recipe.categories.map((category) => Category[category as keyof typeof Category]);
-  }
-
-  // Create the recipe in the database
-  const newRecipe = await prisma.recipe.create({
-    data: {
-      title: recipe.title,
-      description: recipe.description,
-      imageURL: recipe.imageURL,
-      instructions: recipe.instructions,
-      owner: recipe.owner,
-      appliances: {
-        set: appliances,  // Enum array for appliances
-      },
-      ingredients: {
-        create: recipe.ingredients.map((ingredient) => ({
-          name: ingredient,
-        })),
-      },
-      categories: {
-        set: categories,  // Enum array for categories
-      },
-      userID: recipe.userID,
-    },
-  });
-
-  // After adding the recipe, redirect to a list or another page
-  redirect('/');
 }
 
 

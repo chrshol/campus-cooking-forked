@@ -272,3 +272,50 @@
       grid-template-columns: 1fr;
     }
   }
+
+  .ingredient-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+
+  .ingredient-input {
+    flex: 2;
+  }
+
+  .quantity-input {
+    flex: 1;
+  }
+
+  .remove-ingredient {
+    padding: 8px 16px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .add-ingredient {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .error {
+    color: #ff4444;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
