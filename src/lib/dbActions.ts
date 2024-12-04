@@ -3,6 +3,8 @@
 import { hash } from 'bcrypt';
 import { prisma } from './prisma';
 import { Appliances, Category } from '@prisma/client';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 interface Ingredient {
   name: string;
@@ -66,7 +68,8 @@ export async function addRecipe(recipeData: RecipeData) {
     });
 
     console.log('Recipe created:', recipe);
-    return recipe;
+    revalidatePath('/'); // Revalidate the home page
+    redirect('/'); // Redirect to home page
   } catch (error) {
     console.error('Server error in addRecipe:', error);
     throw error;

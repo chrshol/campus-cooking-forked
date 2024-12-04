@@ -58,11 +58,8 @@ const AddRecipeForm = ({ user }: { user: User }) => {
         email: user.email,
       };
       
-      console.log('Categories selected:', formData.categories);
-      console.log('Valid categories:', VALID_CATEGORIES);
-      
       await addRecipe(recipeData);
-      swal('Success', 'Recipe added successfully!', 'success');
+      // Redirect will happen from server action
     } catch (error: unknown) {
       console.error('Error adding recipe:', error);
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
