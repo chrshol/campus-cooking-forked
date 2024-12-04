@@ -8,9 +8,18 @@ import { redirect } from 'next/navigation';
 import { addRecipe } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AddRecipeSchema } from '@/lib/validationSchemas';
+import { User } from '@prisma/client';
+import { useState } from 'react';
 
-const AddRecipeForm = () => {
-  const { data: session, status } = useSession(); // Access session data
+interface Ingredient {
+  name: string;
+  quantity: string;
+}
+
+const AddRecipeForm = ({ user }: { user: User }) => {
+  const [ingredients, setIngredients] = useState<Ingredient[]>([{ name: '', quantity: '' }]);
+  const { status } = useSession();
+  
   const {
     register,
     handleSubmit,
@@ -19,200 +28,169 @@ const AddRecipeForm = () => {
     resolver: yupResolver(AddRecipeSchema),
   });
 
-  if (status === 'loading') {
-    return <LoadingSpinner />;
-  }
-  if (status === 'unauthenticated') {
-    redirect('/auth/signin'); // Redirect if user is not authenticated
-  }
+  if (status === 'loading') return <LoadingSpinner />;
+  if (status === 'unauthenticated') redirect('/auth/signin');
 
-  const onSubmit = async (formData: {
-    title: string;
-    description: string;
-    imageURL: string;
-    instructions: string;
-    appliances: string[];
-    ingredients: string;
-    categories: string[];
-  }) => {
-    if (!session || !session.user) {
-      swal('Error', 'You must be logged in to submit a recipe.', 'error');
-      return;
-    }
+  const addIngredient = () => {
+    setIngredients([...ingredients, { name: '', quantity: '' }]);
+  };
 
-    const data = {
-      ...formData,
-      ingredients: formData.ingredients.split(',').map((item) => item.trim()), // Split ingredients into an array
-      userID: Number((session.user as { id: string }).id), // Automatically assign user ID and convert to number
-      owner: session.user.name || 'Unknown User', // Automatically assign owner's full name
-    };
+  const removeIngredient = (index: number) => {
+    const newIngredients = ingredients.filter((_, i) => i !== index);
+    setIngredients(newIngredients);
+  };
 
-    //console.log('Final Form Data:', data); // Debugging
+  const updateIngredient = (index: number, field: keyof Ingredient, value: string) => {
+    const newIngredients = ingredients.map((ingredient, i) => {
+      if (i === index) {
+        return { ...ingredient, [field]: value };
+      }
+      return ingredient;
+    });
+    setIngredients(newIngredients);
+  };
 
+  const onSubmit = async (formData: any) => {
     try {
-      await addRecipe(data);
-      swal('Success', 'Your recipe has been added', 'success', {
-        timer: 2000,
-      });
+      const recipeData = {
+        ...formData,
+        ingredients: ingredients,
+        email: user.email,
+      };
+
+      await addRecipe(recipeData);
+      swal('Success', 'Recipe added successfully!', 'success');
+      // Optionally redirect to the recipes page
+      // redirect('/recipes');
     } catch (error) {
       console.error('Error adding recipe:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      swal('Error', `Failed to add recipe. Error: ${errorMessage}`, 'error');
-
+      swal('Error', 'Failed to add recipe', 'error');
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="recipe-container">
-      <h1>Add a recipe</h1>
+      <h1>Add a Recipe</h1>
       <p className="subtitle">Share your creation with the community!</p>
 
       <div className="form-wrapper">
-        {/* Left Column */}
         <div className="left-column">
-          {/* Recipe Name */}
+          {/* Recipe Title */}
           <div className="input-group">
-            <label>Add a Recipe Title</label>
+            <label>Recipe Title</label>
             <input
               type="text"
-              placeholder="Enter a Title"
-              {...register('title', { required: true })}
+              {...register('title')}
+              placeholder="Enter recipe title"
             />
-            {errors.title && <p className="error">Recipe title is required.</p>}
+            {errors.title && <p className="error">{errors.title.message as string}</p>}
           </div>
 
-          {/* Ingredients Section */}
+          {/* Ingredients */}
           <div className="input-group">
-            <label>Specify Ingredients Needed</label>
-            <textarea
-              placeholder="Enter ingredients as a list"
-              {...register('ingredients', { required: true })}
-            />
-            {errors.ingredients && (
-              <p className="error">Ingredients are required.</p>
-            )}
+            <label>Ingredients</label>
+            {ingredients.map((ingredient, index) => (
+              <div key={index} className="ingredient-row">
+                <input
+                  type="text"
+                  placeholder="Ingredient name"
+                  value={ingredient.name}
+                  onChange={(e) => updateIngredient(index, 'name', e.target.value)}
+                  className="ingredient-input"
+                />
+                <input
+                  type="text"
+                  placeholder="Quantity"
+                  value={ingredient.quantity}
+                  onChange={(e) => updateIngredient(index, 'quantity', e.target.value)}
+                  className="quantity-input"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeIngredient(index)}
+                  className="remove-ingredient"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button type="button" onClick={addIngredient} className="add-ingredient">
+              Add Ingredient
+            </button>
           </div>
 
-          {/* Appliances Section */}
-          <div className="appliances-section">
-            <label style={{ fontWeight: 600 }}>Specify Appliances Needed</label>
-            <div className="appliances-grid">
-              <div className="appliance-row">
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="RiceCooker" />
-                  Rice Cooker
-                </label>
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="PaniniPress" />
-                  Panini Press
-                </label>
-              </div>
-              <div className="appliance-row">
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="ToasterOven" />
-                  Toaster Oven
-                </label>
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="Toaster" />
-                  Toaster
-                </label>
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="Microwave" />
-                  Microwave
-                </label>
-              </div>
-              <div className="appliance-row">
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('appliances')} value="HotPlate" />
-                  Hot Plate & Pan
-                </label>
-              </div>
-            </div>
-          </div>
-
-          {/* Categories Section */}
+          {/* Categories */}
           <div className="categories-section">
-            <label style={{ fontWeight: 600 }}>Select Recipe Categories</label>
+            <label>Categories</label>
             <div className="categories-grid">
-              <div className="category-row">
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('categories')} value="Breakfast" />
-                  Breakfast
+              {['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Vegan', 'Meat'].map((category) => (
+                <label key={category} className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    {...register('categories')}
+                    value={category}
+                  />
+                  {category}
                 </label>
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('categories')} value="Vegan" />
-                  Vegan
+              ))}
+            </div>
+          </div>
+
+          {/* Appliances */}
+          <div className="appliances-section">
+            <label>Required Appliances</label>
+            <div className="appliances-grid">
+              {['RiceCooker', 'PaniniPress', 'ToasterOven', 'Toaster', 'Microwave', 'HotPlate'].map((appliance) => (
+                <label key={appliance} className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    {...register('appliances')}
+                    value={appliance}
+                  />
+                  {appliance.replace(/([A-Z])/g, ' $1').trim()}
                 </label>
-              </div>
-              <div className="category-row">
-              <label className="checkbox-label">
-                  <input type="checkbox" {...register('categories')} value="Meat" />
-                  Meat
-                </label>
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('categories')} value="Dessert" />
-                  Dessert
-                </label>
-              </div>
-              <div className="category-row">
-              <label className="checkbox-label">
-                  <input type="checkbox" {...register('categories')} value="Lunch" />
-                  Lunch
-                </label>
-                <label className="checkbox-label">
-                  <input type="checkbox" {...register('categories')} value="Beverage" />
-                  Chocolate
-                </label>
-              </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Right Column */}
         <div className="right-column">
-          {/* Recipe Hero Image */}
+          {/* Image URL */}
           <div className="input-group">
-            <label>Recipe Hero Image</label>
-            <textarea
-              placeholder="Enter a image URL"
-              {...register('imageURL', { required: true })}
-              className="imageURL"
+            <label>Recipe Image URL</label>
+            <input
+              type="text"
+              {...register('imageURL')}
+              placeholder="Enter image URL"
             />
-            {errors.imageURL && <p className="error">Image is required.</p>}
+            {errors.imageURL && <p className="error">{errors.imageURL.message as string}</p>}
+          </div>
+
+          {/* Description */}
+          <div className="input-group">
+            <label>Description</label>
+            <textarea
+              {...register('description')}
+              placeholder="Enter recipe description"
+            />
+            {errors.description && <p className="error">{errors.description.message as string}</p>}
+          </div>
+
+          {/* Instructions */}
+          <div className="input-group">
+            <label>Instructions</label>
+            <textarea
+              {...register('instructions')}
+              placeholder="Enter step-by-step instructions"
+              className="long-description"
+            />
+            {errors.instructions && <p className="error">{errors.instructions.message as string}</p>}
           </div>
         </div>
       </div>
 
-      {/* Description Section */}
-      <div className="input-group">
-        <label>Add the Description</label>
-        <textarea
-          placeholder="Enter a detailed description"
-          {...register('description', { required: true })}
-          className="long-description"
-        />
-        {errors.description && (
-          <p className="error">Description is required.</p>
-        )}
-      </div>
-        
-      {/* Instructions Section */}
-      <div className="input-group">
-        <label>Add the Instructions</label>
-        <textarea
-          placeholder="Enter step-by-step instructions"
-          {...register('instructions', { required: true })}
-          className="long-description"
-        />
-        {errors.instructions && (
-          <p className="error">Instructions are required.</p>
-        )}
-        </div>
-
-
-      {/* Submit Button */}
       <button type="submit" className="submit-button">
-        Submit Recipe
+        Add Recipe
       </button>
     </form>
   );
