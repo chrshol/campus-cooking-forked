@@ -22,33 +22,60 @@
         "role": "VENDOR"
       }
     ],
-    "defaultIngredients": [
-      { "name": "Flour" },
-      { "name": "Sugar" },
-      { "name": "Eggs" },
-      { "name": "Milk" },
-      { "name": "Butter" }
-    ],
     "defaultRecipes": [
       {
         "title": "Pancakes",
         "description": "Fluffy pancakes for breakfast.",
         "imageURL": "https://example.com/pancakes.jpg",
-        "ingredients": ["Flour", "Sugar", "Eggs", "Milk", "Butter"],
+        "ingredients": [
+          {
+            "name": "Flour",
+            "quantity": "2 cups"
+          },
+          {
+            "name": "Sugar",
+            "quantity": "2 tablespoons"
+          },
+          {
+            "name": "Eggs",
+            "quantity": "2"
+          },
+          {
+            "name": "Milk",
+            "quantity": "1.5 cups"
+          },
+          {
+            "name": "Butter",
+            "quantity": "2 tablespoons"
+          }
+        ],
         "instructions": "Mix all ingredients and cook on a hot plate.",
         "categories": ["Breakfast", "Dessert"],
         "appliances": ["HotPlate", "Toaster"],
-        "owner": "john@foo.com"
+        "email": "john@foo.com"
       },
       {
         "title": "Grilled Cheese",
         "description": "A quick and easy lunch option.",
         "imageURL": "https://example.com/grilled_cheese.jpg",
-        "ingredients": ["Bread", "Cheese", "Butter"],
+        "ingredients": [
+          {
+            "name": "Bread",
+            "quantity": "2 slices"
+          },
+          {
+            "name": "Cheese",
+            "quantity": "2 slices"
+          },
+          {
+            "name": "Butter",
+            "quantity": "1 tablespoon"
+          }
+        ],
         "instructions": "Butter the bread and grill with cheese using a panini press.",
         "categories": ["Lunch"],
         "appliances": ["PaniniPress"],
-        "owner": "john@foo.com"
+        "email": "john@foo.com"
       }
     ]
   }

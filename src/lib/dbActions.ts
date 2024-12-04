@@ -1,7 +1,81 @@
 'use server';
 
-import { prisma } from '@/lib/prisma';
 import { hash } from 'bcrypt';
+import { prisma } from './prisma';
+import { Appliances, Category } from '@prisma/client';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+
+interface Ingredient {
+  name: string;
+  quantity: string;
+}
+
+interface RecipeData {
+  title: string;
+  description: string;
+  imageURL: string;
+  instructions: string;
+  appliances: string[];
+  ingredients: Ingredient[];
+  categories: string[];
+  email: string;
+}
+
+export async function addRecipe(recipeData: RecipeData) {
+  try {
+    console.log('Server received recipe data:', recipeData);
+
+    // Validate categories and appliances before creating
+    const validCategories = recipeData.categories.map(cat => {
+      if (!Object.values(Category).includes(cat as Category)) {
+        throw new Error(`Invalid category: ${cat}`);
+      }
+      return cat as Category;
+    });
+
+    const validAppliances = recipeData.appliances.map(app => {
+      if (!Object.values(Appliances).includes(app as Appliances)) {
+        throw new Error(`Invalid appliance: ${app}`);
+      }
+      return app as Appliances;
+    });
+
+    const recipe = await prisma.recipe.create({
+      data: {
+        title: recipeData.title,
+        description: recipeData.description,
+        imageURL: recipeData.imageURL,
+        instructions: recipeData.instructions,
+        email: recipeData.email,
+        ingredients: {
+          create: recipeData.ingredients.map((ingredient) => ({
+            name: ingredient.name,
+            quantity: ingredient.quantity,
+          })),
+        },
+        categories: {
+          create: validCategories.map((category) => ({
+            category,
+          })),
+        },
+        appliances: {
+          create: validAppliances.map((appliance) => ({
+            appliance,
+          })),
+        },
+      },
+    });
+
+    console.log('Recipe created:', recipe);
+    revalidatePath('/'); // Revalidate the home page
+    redirect('/'); // Redirect to home page
+  } catch (error) {
+    console.error('Server error in addRecipe:', error);
+    throw error;
+  }
+}
+
 
 
 /**
@@ -20,4 +94,3 @@ export async function createUser(credentials: { firstName: string; lastName: str
     },
   });
 }
-

@@ -30,13 +30,20 @@ const NavBar = () => {
               className="justify-content-between"
             >
               <Nav className="nav-links">
-                {['Home', 'Recipes', 'Blog', 'Contact', 'About us'].map(
-                  (item) => (
-                    <Nav.Link key={item} href={`/${item.toLowerCase()}`}>
-                      {item}
-                    </Nav.Link>
-                  )
-                )}
+                {[
+                  { name: 'Home', path: '/' },
+                  { name: 'Recipes', path: '/recipes' },
+                  { name: 'Blog', path: '/blog' },
+                  { name: 'Contact', path: '/contact' },
+                  { name: 'About Us', path: '/about-us' },
+                ].map((item) => (
+                  <Nav.Link key={item.name} href={item.path}>
+                    {item.name}
+                  </Nav.Link>
+                ))}
+                <Nav.Link href="/addrecipe" className="add-recipe-link">
+                  Add Recipe
+                </Nav.Link>
               </Nav>
               {session ? (
                 <NavDropdown

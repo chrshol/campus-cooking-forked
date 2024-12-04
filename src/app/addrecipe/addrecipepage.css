@@ -145,7 +145,13 @@
     margin-top: 10px;
     width: 100%;
 
-  } .ingredients-section {
+  }
+  .categories-section {
+    margin-top: 10px;
+    width: 100%;
+
+  }
+   .ingredients-section {
     margin-top: 54px;
     width: 100%;
 
@@ -165,6 +171,25 @@
   }
   
   .appliance-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .categories-grid {
+    background: #f9f9f9;
+    padding: 24px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: 1px solid #e0e0e0;
+    width: 100%;
+    min-width: 500px;
+    margin-top: 10px;
+  }
+  
+  .categories-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -246,4 +271,51 @@
     .bottom-sections {
       grid-template-columns: 1fr;
     }
+  }
+
+  .ingredient-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+
+  .ingredient-input {
+    flex: 2;
+  }
+
+  .quantity-input {
+    flex: 1;
+  }
+
+  .remove-ingredient {
+    padding: 8px 16px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .add-ingredient {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .error {
+    color: #ff4444;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
   }
