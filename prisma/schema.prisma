@@ -68,8 +68,8 @@ enum Category {
 
 model Ingredient {
   id        Int      @id @default(autoincrement())
-  name      String   @unique
-  quantity  String   // Added field
+  name      String
+  quantity  String
   recipe    Recipe   @relation(fields: [recipeId], references: [id])
   recipeId  Int
 }

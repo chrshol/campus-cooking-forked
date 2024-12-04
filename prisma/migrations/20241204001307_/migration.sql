@@ -63,9 +63,6 @@ CREATE TABLE "RecipeAppliance" (
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
--- CreateIndex
-CREATE UNIQUE INDEX "Ingredient_name_key" ON "Ingredient"("name");
-
 -- AddForeignKey
 ALTER TABLE "Recipe" ADD CONSTRAINT "Recipe_email_fkey" FOREIGN KEY ("email") REFERENCES "User"("email") ON DELETE RESTRICT ON UPDATE CASCADE;
 
