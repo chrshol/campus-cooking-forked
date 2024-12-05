@@ -93,7 +93,7 @@
     width: 160px;
     height: 60px;
     display: flex;
-    position: absolute;
+    position: relative;
     top: 10px;
     left: 530px;
     align-items: center;

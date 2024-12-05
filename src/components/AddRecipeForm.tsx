@@ -56,6 +56,7 @@ const AddRecipeForm = ({ user }: { user: User }) => {
         ...formData,
         ingredients: ingredients.filter(ing => ing.name && ing.quantity),
         email: user.email,
+        owner: user.id,
       };
       
       await addRecipe(recipeData);

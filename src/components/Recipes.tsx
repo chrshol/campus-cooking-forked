@@ -1,5 +1,8 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import { Heart, Clock, Utensils } from 'lucide-react';
+
 
 interface Recipe {
   id: number;
@@ -11,7 +14,7 @@ interface Recipe {
 }
 
 // Recipe/test data - to be replace with links to database 
-const recipes: Recipe[] = [
+/*const recipes: Recipe[] = [
   {
     id: 1,
     title: 'Superfood Fruit Salad',
@@ -76,7 +79,7 @@ const recipes: Recipe[] = [
     author: 'Japanese',
     date: '10/2/2024',
   },
-];
+];*/
 
 // Search bar component
 const SearchBar: React.FC = () => {
@@ -106,6 +109,8 @@ const Author: React.FC<{
     <h5 className="recipe-date">{recipe.date}</h5>
   </div>
 );
+
+
 
 
 // Recipe card component
@@ -139,7 +144,7 @@ const Pages: React.FC = () => {
 };
 
 // Main page component
-const Recipes: React.FC = () => (
+/*const Recipes: React.FC = () => (
   <div className="recipe-page">
     <div className="recipe-container-header">
       <h1 className="main-header">Community Recipe Blog</h1>
@@ -147,12 +152,12 @@ const Recipes: React.FC = () => (
         Level up your health and well-being with these recipes!
       </h2>
       <SearchBar />
-    </div>
+    </div>*/
 
     {/* Main Content Container */}
-    <div className="main-content">
+    //<div className="main-content">
       {/* Recipe Grid */}
-      <div className="recipe-grid">
+      /*<div className="recipe-grid">
         {recipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
@@ -161,6 +166,59 @@ const Recipes: React.FC = () => (
 
     <Pages />
   </div>
-);
+);*/
+
+// Main Recipes component
+const Recipes: React.FC = () => {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch recipes from API
+    const fetchRecipes = async () => {
+      try {
+        const response = await fetch('/api/recipes'); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error('Failed to fetch recipes');
+        }
+        const data = await response.json();
+        setRecipes(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipes();
+  }, []);
+
+  if (loading) {
+    return <p>Loading recipes...</p>;
+  }
+
+  if (recipes.length === 0) {
+    return <p>No recipes available.</p>;
+  }
+
+  return (
+    <div className="recipe-page">
+      <div className="recipe-container-header">
+        <h1 className="main-header">Community Recipe Blog</h1>
+        <h2 className="main-subheader">Level up your health and well-being with these recipes!</h2>
+        <SearchBar />
+      </div>
+
+      <div className="main-content">
+        <div className="recipe-grid">
+          {recipes.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 export default Recipes;
