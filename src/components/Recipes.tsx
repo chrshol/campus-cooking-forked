@@ -7,7 +7,6 @@ interface Recipe {
   imageUrl: string;
   description: string;
   author: string;
-  authorImage: string;
   date:string;
 }
 
@@ -18,9 +17,8 @@ const recipes: Recipe[] = [
     title: 'Superfood Fruit Salad',
     imageUrl: '/landing-img/acai.png',
     description: 'Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ',
-    author: 'Hailey',
-    authorImage: '/landing-img/acai.png',
-    date: 'Novemeber 5, 2024',
+    author: 'Hailey Smith',
+    date: '10/2/2024',
   },
   {
     id: 2,
@@ -28,8 +26,7 @@ const recipes: Recipe[] = [
     imageUrl: '/landing-img/steakmeal.png',
     description: 'Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ',
     author: 'Western',
-    authorImage: '/landing-img/acai.png',
-    date: 'Novemeber 5, 2024',
+    date: '10/2/2024',
   },
   {
     id: 3,
@@ -37,8 +34,7 @@ const recipes: Recipe[] = [
     imageUrl: '/landing-img/ricemeal.png',
     description: 'Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ',
     author: 'Healthy',
-    authorImage: '/landing-img/acai.png',
-    date: 'Novemeber 5, 2024',
+    date: '10/2/2024',
   },
   {
     id: 4,
@@ -46,8 +42,7 @@ const recipes: Recipe[] = [
     imageUrl: '/landing-img/burrito.png',
     description: 'Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ',
     author: 'Eastern',
-    authorImage: '/landing-img/acai.png',
-    date: 'Novemeber 5, 2024',
+    date: '10/2/2024',
   },
   {
     id: 5,
@@ -55,8 +50,7 @@ const recipes: Recipe[] = [
     imageUrl: '/landing-img/loadedfries.png',
     description: 'Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ',
     author: 'Healthy',
-    authorImage: '/landing-img/acai.png',
-    date: 'Novemeber 5, 2024',
+    date: '10/2/2024',
   },
   {
     id: 6,
@@ -64,8 +58,7 @@ const recipes: Recipe[] = [
     imageUrl: '/landing-img/sandwichmeal.png',
     description: 'Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ',
     author: 'Snack',
-    authorImage: '/landing-img/acai.png',
-    date: 'Novemeber 5, 2024',
+    date: '10/2/2024',
   },
   {
     id: 7,
@@ -73,8 +66,7 @@ const recipes: Recipe[] = [
     imageUrl: '/landing-img/lettucewrap.png',
     description: 'Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ',
     author: 'Seafood',
-    authorImage: '/landing-img/acai.png',
-    date: 'Novemeber 5, 2024',
+    date: '10/2/2024',
   },
   {
     id: 8,
@@ -82,14 +74,14 @@ const recipes: Recipe[] = [
     imageUrl: '/landing-img/pho.png',
     description: 'Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ',
     author: 'Japanese',
-    authorImage: '/landing-img/acai.png',
-    date: 'Novemeber 5, 2024',
+    date: '10/2/2024',
   },
 ];
 
 // Search bar component
 const SearchBar: React.FC = () => {
   return (
+    <div className="search-bar-container">
     <div className="search-bar">
       {/* Placeholder Text */}
       <input type="search" placeholder="Search article, news or recipe..." className="search-placeholder" required />
@@ -99,6 +91,7 @@ const SearchBar: React.FC = () => {
         <span className="search-button-text">Search</span>
       </div>
     </div>
+    </div>
   );
 };
 
@@ -106,19 +99,10 @@ const SearchBar: React.FC = () => {
 const Author: React.FC<{
   recipe: Recipe;
 }> = ({ recipe }) => (
-  <div className="author-container">
-    <img src={recipe.authorImage} alt={recipe.author} className="author-image" />
-    <h5 className="author">{recipe.author}</h5>
-    <svg
-      className="vector"
-      width="2"
-      height="40"
-      viewBox="0 0 2 40"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M1 0V40" stroke="black" strokeOpacity="0.3" />
-    </svg>
+  <div className="recipe-author-container">
+    <p className="author-info">
+      Created by<span className="author-name">{recipe.author}</span>
+    </p>    
     <h5 className="recipe-date">{recipe.date}</h5>
   </div>
 );
@@ -128,13 +112,13 @@ const Author: React.FC<{
 const RecipeCard: React.FC<{
   recipe: Recipe;
 }> = ({ recipe }) => (
-  <div className="recipe-card">
-    <div className="recipe-image-container">
+  <div className="recipe-tile">
+    <div className="recipe-photo-container">
       <img src={recipe.imageUrl} alt={recipe.title} className="image-mask" />
     </div>
     <div className="recipe-content">
-      <h3 className="recipe-name">{recipe.title}</h3>
-      <h4 className="recipe-about">{recipe.description}</h4>
+      <h3 className="recipe-heading">{recipe.title}</h3>
+      <h4 className="recipe-details">{recipe.description}</h4>
       <Author recipe={recipe} />
     </div>
   </div>
@@ -143,7 +127,7 @@ const RecipeCard: React.FC<{
 // Page numbers at bottom of screen
 const Pages: React.FC = () => {
   return (
-    <div className="container">
+    <div className="recipes-container">
       <h4 className="pages">1</h4>
       <h4 className="pages">2</h4>
       <h4 className="pages">3</h4>
@@ -157,9 +141,9 @@ const Pages: React.FC = () => {
 // Main page component
 const Recipes: React.FC = () => (
   <div className="recipe-page">
-    <div className="recipe-header">
-      <h1 className="header">Community Recipe Blog</h1>
-      <h2 className="subheader">
+    <div className="recipe-container-header">
+      <h1 className="main-header">Community Recipe Blog</h1>
+      <h2 className="main-subheader">
         Level up your health and well-being with these recipes!
       </h2>
       <SearchBar />
