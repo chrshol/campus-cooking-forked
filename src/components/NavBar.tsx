@@ -15,6 +15,7 @@ const Navbar = () => (
             { name: 'Recipes', path: '/recipes' },
             { name: 'Blog', path: '/blog' },
             { name: 'Contact', path: '/contact' },
+            { name: 'About Us', path: '/about-us' },
           ].map((item) => (
             <li key={item.name}>
               <a href={item.path} className="nav-link">
