@@ -44,7 +44,8 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/recipes/${recipe.id}`);
+    const slug = recipe.title.toLowerCase().replace(/\s+/g, '-');
+    router.push(`/recipes/${slug}`);
   };
 
   return (

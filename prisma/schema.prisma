@@ -36,10 +36,8 @@ enum Role {
 model Recipe {
   id             Int               @id @default(autoincrement())
   title          String
-  slug           String            @unique
-  description    String
   imageURL       String
-  cookTime       String
+  cookTime       String            @default("10 minutes")
   ingredients    Ingredient[]
   instructions   String
   categories     RecipeCategory[]  // Changed to relation table

@@ -14,13 +14,20 @@ export async function GET(
 
     const recipe = await prisma.recipe.findFirst({
       where: {
-        title: title,
+        title: title
       },
       include: {
         ingredients: true,
         categories: true,
         appliances: true,
-      },
+        user: {
+          select: {
+            firstName: true,
+            lastName: true,
+            email: true
+          }
+        }
+      }
     });
 
     if (!recipe) {
