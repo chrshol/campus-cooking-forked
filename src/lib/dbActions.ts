@@ -67,6 +67,8 @@ export async function addRecipe(recipeData: RecipeData) {
       },
     });
 
+    
+
     console.log('Recipe created:', recipe);
     revalidatePath('/'); // Revalidate the home page
     redirect('/'); // Redirect to home page
@@ -76,7 +78,21 @@ export async function addRecipe(recipeData: RecipeData) {
   }
 }
 
-
+export async function getAllRecipes() {
+  try {
+    return await prisma.recipe.findMany({
+      include: {
+        ingredients: true,        
+        categories: true,         
+        appliances: true,        
+        user: true,               
+      },
+    });
+  } catch (error) {
+    console.error('Failed to fetch recipes', error);
+    throw error;
+  }
+}
 
 /**
  * Creates a new user in the database.
