@@ -104,29 +104,46 @@ const SearchBar: React.FC = () => {
 // Recipe card component
 const RecipeCard: React.FC<{
   recipe: Recipe;
-}> = ({ recipe }) => (
-  <div className="recipe-card">
-    <div className="recipe-image-container">
-      <img src={recipe.imageUrl} alt={recipe.title} className="recipe-image" />
-      <button aria-label="Like" className="d-none d-md-block">
-        <Heart />
-      </button>
-    </div>
-    <div className="recipe-content">
-      <h3 className="recipe-name">{recipe.title}</h3>
-      <div className="recipe-meta">
-        <div className="meta-item">
-          <Clock />
-          <span>{recipe.cookTime}</span>
-        </div>
-        <div className="meta-item">
-          <Utensils />
-          <span>{recipe.category}</span>
+}> = ({ recipe }) => {
+  // Function to handle image errors
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = '/fallback-image.png'; // Add a fallback image
+    console.error(`Failed to load image for recipe: ${recipe.title}`);
+  };
+
+  // Log the image URL to debug
+  console.log('Recipe image URL:', recipe.imageUrl);
+
+  return (
+    <div className="recipe-card">
+      <div className="recipe-image-container">
+        <img
+          src={recipe.imageUrl}
+          alt={recipe.title}
+          className="recipe-image"
+          onError={handleImageError}
+          loading="lazy" // Add lazy loading for better performance
+        />
+        <button aria-label="Like" className="d-none d-md-block">
+          <Heart />
+        </button>
+      </div>
+      <div className="recipe-content">
+        <h3 className="recipe-name">{recipe.title}</h3>
+        <div className="recipe-meta">
+          <div className="meta-item">
+            <Clock />
+            <span>{recipe.cookTime}</span>
+          </div>
+          <div className="meta-item">
+            <Utensils />
+            <span>{recipe.category}</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Page numbers at bottom of screen
 const Pages: React.FC = () => {
@@ -175,19 +192,41 @@ const Pages: React.FC = () => {
 const Recipes: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch recipes from API
     const fetchRecipes = async () => {
       try {
         const response = await fetch('/api/recipes');
         if (!response.ok) {
-          throw new Error('Failed to fetch recipes');
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(
+            errorData.error || `HTTP error! status: ${response.status}`
+          );
         }
         const data = await response.json();
         setRecipes(data);
+        setError(null);
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching recipes:', error);
+        setError('Failed to load recipes. Please try again later.');
+        // Fallback data
+        setRecipes([
+          {
+            id: 1,
+            title: 'Superfood Fruit Salad',
+            imageUrl: '/landing-img/acai.png',
+            cookTime: '15 mins',
+            category: 'Healthy',
+          },
+          {
+            id: 2,
+            title: 'Steak frites in your dorm',
+            imageUrl: '/landing-img/steakmeal.png',
+            cookTime: '30 mins',
+            category: 'Western',
+          },
+        ]);
       } finally {
         setLoading(false);
       }
@@ -197,7 +236,11 @@ const Recipes: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading recipes...</p>;
+    return <div className="loading">Loading recipes...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
   }
 
   if (recipes.length === 0) {
