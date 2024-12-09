@@ -5,9 +5,21 @@ const nextConfig = {
       'example.com',
       'storage.googleapis.com',
       'amazonaws.com',
-      // Add any other domains your images are hosted on
+      'cdn.loveandlemons.com'
+    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.loveandlemons.com',
+        pathname: '/wp-content/**',
+      }
     ],
   },
+  experimental: {
+    images: {
+      unoptimized: true,
+    },
+  }
 };
 
 module.exports = nextConfig; 
