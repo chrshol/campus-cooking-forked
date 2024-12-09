@@ -82,10 +82,10 @@ export async function getAllRecipes() {
   try {
     return await prisma.recipe.findMany({
       include: {
-        ingredients: true,         // Include all ingredients
-        categories: true,         // Include all categories linked
-        appliances: true,         // Include all appliances linked
-        user: true,               // Include the user data (who owns the recipe)
+        ingredients: true,        
+        categories: true,         
+        appliances: true,        
+        user: true,               
       },
     });
   } catch (error) {
