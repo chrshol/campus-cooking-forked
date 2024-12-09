@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Clock, Utensils } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface Recipe {
   id: number;
@@ -40,9 +41,14 @@ const SearchBar: React.FC = () => {
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   const defaultImage = '/fallback-image.png';
   const [imgSrc, setImgSrc] = useState(recipe.imageURL);
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/recipes/${recipe.id}`);
+  };
 
   return (
-    <div className="recipe-card">
+    <div className="recipe-card cursor-pointer" onClick={handleClick}>
       <div
         className="recipe-image-container"
         style={{ position: 'relative', width: '100%', height: '250px' }}
