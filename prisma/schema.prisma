@@ -38,6 +38,7 @@ model Recipe {
   title          String
   description    String
   imageURL       String
+  cookTime       String
   ingredients    Ingredient[]
   instructions   String
   categories     RecipeCategory[]  // Changed to relation table
