@@ -42,4 +42,7 @@ export const AddRecipeSchema = Yup.object().shape({
     ]))
     .min(1, 'At least one category must be selected')
     .required('Categories are required'),
+
+  cookTime: Yup.string()
+    .required('Cook time is required'),
 });
