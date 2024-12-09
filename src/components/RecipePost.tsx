@@ -53,7 +53,9 @@ const RecipePost: React.FC<RecipePostProps> = ({ slug }) => {
       }
     };
 
-    fetchRecipe();
+    if (slug) {
+      fetchRecipe();
+    }
   }, [slug]);
 
   if (loading) return <div>Loading...</div>;
