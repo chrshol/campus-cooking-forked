@@ -3,17 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Clock, Utensils } from 'lucide-react';
 
-
 interface Recipe {
   id: number;
   title: string;
   imageUrl: string;
-  description: string;
-  author: string;
-  date:string;
+  cookTime: string;
+  category: string;
 }
 
-// Recipe/test data - to be replace with links to database 
+// Recipe/test data - to be replace with links to database
 /*const recipes: Recipe[] = [
   {
     id: 1,
@@ -85,46 +83,47 @@ interface Recipe {
 const SearchBar: React.FC = () => {
   return (
     <div className="search-bar-container">
-    <div className="search-bar">
-      {/* Placeholder Text */}
-      <input type="search" placeholder="Search article, news or recipe..." className="search-placeholder" required />
+      <div className="search-bar">
+        {/* Placeholder Text */}
+        <input
+          type="search"
+          placeholder="Search article, news or recipe..."
+          className="search-placeholder"
+          required
+        />
 
-      {/* Search Button */}
-      <div className="search-button">
-        <span className="search-button-text">Search</span>
+        {/* Search Button */}
+        <div className="search-button">
+          <span className="search-button-text">Search</span>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
-
-// Author component at the bottom of each recipe card 
-const Author: React.FC<{
-  recipe: Recipe;
-}> = ({ recipe }) => (
-  <div className="recipe-author-container">
-    <p className="author-info">
-      Created by<span className="author-name">{recipe.author}</span>
-    </p>    
-    <h5 className="recipe-date">{recipe.date}</h5>
-  </div>
-);
-
-
-
 
 // Recipe card component
 const RecipeCard: React.FC<{
   recipe: Recipe;
 }> = ({ recipe }) => (
-  <div className="recipe-tile">
-    <div className="recipe-photo-container">
-      <img src={recipe.imageUrl} alt={recipe.title} className="image-mask" />
+  <div className="recipe-card">
+    <div className="recipe-image-container">
+      <img src={recipe.imageUrl} alt={recipe.title} className="recipe-image" />
+      <button aria-label="Like" className="d-none d-md-block">
+        <Heart />
+      </button>
     </div>
     <div className="recipe-content">
-      <h3 className="recipe-heading">{recipe.title}</h3>
-      <h4 className="recipe-details">{recipe.description}</h4>
-      <Author recipe={recipe} />
+      <h3 className="recipe-name">{recipe.title}</h3>
+      <div className="recipe-meta">
+        <div className="meta-item">
+          <Clock />
+          <span>{recipe.cookTime}</span>
+        </div>
+        <div className="meta-item">
+          <Utensils />
+          <span>{recipe.category}</span>
+        </div>
+      </div>
     </div>
   </div>
 );
@@ -154,10 +153,14 @@ const Pages: React.FC = () => {
       <SearchBar />
     </div>*/
 
-    {/* Main Content Container */}
-    //<div className="main-content">
-      {/* Recipe Grid */}
-      /*<div className="recipe-grid">
+{
+  /* Main Content Container */
+}
+//<div className="main-content">
+{
+  /* Recipe Grid */
+}
+/*<div className="recipe-grid">
         {recipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
@@ -177,7 +180,7 @@ const Recipes: React.FC = () => {
     // Fetch recipes from API
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('/api/recipes'); // Replace with your API endpoint
+        const response = await fetch('/api/recipes');
         if (!response.ok) {
           throw new Error('Failed to fetch recipes');
         }
@@ -203,22 +206,23 @@ const Recipes: React.FC = () => {
 
   return (
     <div className="recipe-page">
-      <div className="recipe-container-header">
-        <h1 className="main-header">Community Recipe Blog</h1>
-        <h2 className="main-subheader">Level up your health and well-being with these recipes!</h2>
+      <div className="recipe-header">
+        <h1 className="recipe-title">
+          Level up your health and well being with these recipes
+        </h1>
+        <p className="recipe-subtitle">
+          More delicious recipes for you to explore
+        </p>
         <SearchBar />
       </div>
 
-      <div className="main-content">
-        <div className="recipe-grid">
-          {recipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
-          ))}
-        </div>
+      <div className="recipe-grid">
+        {recipes.map((recipe) => (
+          <RecipeCard key={recipe.id} recipe={recipe} />
+        ))}
       </div>
     </div>
   );
 };
-
 
 export default Recipes;
