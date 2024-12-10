@@ -20,17 +20,17 @@ button {
   font-family: inherit;
 }
 
-.navbar {
+.top-navbar {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.navbar-container {
+.top-navbar-container {
   max-width: 1480px;
   margin: 0 auto;
   padding: 40px 80px;
 }
 
-.nav {
+.top-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,14 +44,14 @@ button {
   color: #000;
 }
 
-.nav-links {
+.top-nav-links {
   display: flex;
   gap: 32px;
   list-style: none;
   margin-left: 387px;
 }
 
-.nav-link {
+.top-nav-link {
   color: #000;
   font-family: 'Inter', sans-serif;
   font-weight: 500;

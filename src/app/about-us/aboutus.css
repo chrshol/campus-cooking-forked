@@ -49,16 +49,6 @@
   gap: 24px;
 }
 
-.footer {
-  position: absolute;
-  bottom: 48px;
-  left: 48px;
-  right: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .aboutus-container {
   padding: 40px 80px;
 }
@@ -110,23 +100,6 @@
 }
 
 .github-link:hover {
-  text-decoration: underline;
-}
-
-/* Footer */
-.footer {
-  background-color: #f9f9f9;
-  padding: 20px 0;
-  text-align: center;
-}
-
-.footer a {
-  text-decoration: none;
-  color: #4087F1;
-  font-size: 16px;
-}
-
-.footer a:hover {
   text-decoration: underline;
 }
 
