@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBarSignedin from '@/components/NavBarSignedin';
 import ContactForm from '@/components/ContactUs';
 import Footer from '@/components/Footer';
