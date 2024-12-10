@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Heart, Clock, Utensils } from 'lucide-react';
-import Image from 'next/image';
+import { Clock, Utensils } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const categories = [
@@ -45,16 +44,13 @@ const SearchBar: React.FC<{
   onReset: () => void;
 }> = ({ query, onSearch, onReset }) => {
   const [localQuery, setLocalQuery] = useState(query);
-
   const handleSearch = () => {
     onSearch(localQuery);
   };
-
   const handleReset = () => {
     setLocalQuery(''); // Clear local input
     onReset(); // Trigger the reset function in the parent component
   };
-
   return (
     <div className="search-bar-container">
       <div className="search-bar">
@@ -79,8 +75,6 @@ const SearchBar: React.FC<{
   );
 };
 
-
-
 // Recipe Card Component
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   const router = useRouter();
@@ -94,6 +88,7 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
       .replace(/(^-|-$)/g, '');
     router.push(`/recipes/${slug}`);
   };
+  
 
   return (
     <div
@@ -136,14 +131,12 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   );
 };
 
-
 // Main Recipes Component
 const Recipes: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [originalRecipes, setOriginalRecipes] = useState<Recipe[]>([]); // Cache full list
-  const [loading, setLoading] = useState(false); // Loading state
+  const [originalRecipes, setOriginalRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
   const [query, setQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedAppliance, setSelectedAppliance] = useState<string | null>(null);
@@ -155,71 +148,57 @@ const Recipes: React.FC = () => {
       if (!response.ok) throw new Error('Could not fetch recipes');
       const data = await response.json();
       setRecipes(data);
-      setOriginalRecipes(data); // Cache original recipes
+      setOriginalRecipes(data);
       setError(null);
     } catch (err) {
       setError('Failed to load recipes. Please try again later.');
-      setRecipes([
-        {
-          id: 1,
-          title: 'Grilled Cheese',
-          imageURL:
-            'https://cdn.loveandlemons.com/wp-content/uploads/2023/01/grilled-cheese-500x375.jpg',
-          description: 'A quick and easy lunch option.',
-          instructions:
-            'Butter the bread and grill with cheese using a panini press.',
-          cookTime: '15 mins',
-          email: 'john@foo.com',
-          createdAt: '2024-12-08T05:33:12.868Z',
-          categories: [{ category: 'Lunch' }],
-          appliances: [{ appliance: '' }],
-          ingredients: [{ id: 1, name: 'Bread', quantity: '2 slices' }],
-        },
-      ]);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSearch = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `/api/recipes?search=${encodeURIComponent(query)}`
-      );
-      if (!response.ok) throw new Error('Failed to fetch recipes');
-      const data = await response.json();
-      setRecipes(data);
-      setError(null);
-    } catch (err) {
-      setError('Failed to load recipes. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const handleSearch = (query: string,  isReset: boolean = false) => {
+    setQuery(query);
+    setLoading(true); // Show loading state immediately
+    setTimeout(async () => {
+      try {
+        const response = await fetch(
+          `/api/recipes?search=${encodeURIComponent(query)}`
+        );
+        if (!response.ok) throw new Error('Failed to fetch recipes');
+        const data = await response.json();
+        setRecipes(data);
+        setError(null);
+      } catch (error) {
+        console.error(error);
+        setError('Failed to load recipes. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    }); 
+  }
 
   const filterRecipes = () => {
     let filteredRecipes = [...originalRecipes];
     if (selectedCategory) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
-        recipe.categories.some((cat) => cat.category === selectedCategory)
+        recipe.categories.some((cat: any) => cat.category === selectedCategory)
       );
     }
     if (selectedAppliance) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
-        recipe.appliances.some((app) => app.appliance === selectedAppliance)
+        recipe.appliances.some((app: any) => app.appliance === selectedAppliance)
       );
     }
     setRecipes(filteredRecipes);
   };
-
+  // Reset filters
   const resetFilters = () => {
-    setQuery('');
     setSelectedCategory(null);
     setSelectedAppliance(null);
+    setQuery('');
     setRecipes(originalRecipes);
   };
-
   useEffect(() => {
     fetchRecipes();
   }, []);
@@ -230,42 +209,49 @@ const Recipes: React.FC = () => {
 
   return (
     <div className="recipe-page">
-      <h1>Find Your Favorite Recipes</h1>
-
-      <div className="search-bar-container">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search recipes..."
-        />
-        <button onClick={handleSearch}>Search</button>
-        {query && <button onClick={resetFilters}>Reset</button>}
-      </div>
-
-      <div className="filter-container">
-        <select
-          value={selectedCategory || ''}
-          onChange={(e) => setSelectedCategory(e.target.value || null)}
-        >
-          <option value="">All Categories</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-        <select
-          value={selectedAppliance || ''}
-          onChange={(e) => setSelectedAppliance(e.target.value || null)}
-        >
-          <option value="">All Appliances</option>
-          {appliances.map((appliance) => (
-            <option key={appliance} value={appliance}>
-              {appliance}
-            </option>
-          ))}
-        </select>
+      <div className="recipe-header">
+      <h1 className="recipe-title">Level Up Your Health and Well-Being With These Recipes!</h1>
+        {/* Search Bar */}
+        <div className="search-bar-container">
+          <input
+            type="search"
+            placeholder="Search recipes..."
+            value={query}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="search-bar"
+          />
+        </div>
+        {/* Filters */}
+        <div className="filter-container centered-filters">
+          <select
+            value={selectedCategory || ''}
+            onChange={(e) =>
+              setSelectedCategory(e.target.value || null)
+            }
+            className="filter-dropdown"
+          >
+            <option value="">All Categories</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+          <select
+            value={selectedAppliance || ''}
+            onChange={(e) =>
+              setSelectedAppliance(e.target.value || null)
+            }
+            className="filter-dropdown"
+          >
+            <option value="">All Appliances</option>
+            {appliances.map((appliance) => (
+              <option key={appliance} value={appliance}>
+                {appliance}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="recipe-grid">
