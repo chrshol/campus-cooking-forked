@@ -24,11 +24,11 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!session?.user?.email) {
-      redirect('/login');
+    if (!session?.user?.email || session?.user?.randomKey !== 'ADMIN') {
+      redirect('/');
     }
     fetchRecipes();
-  }, []);
+  }, [session]);
 
   const fetchRecipes = async () => {
     try {

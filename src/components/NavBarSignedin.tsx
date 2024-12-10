@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { ChevronRight } from 'lucide-react';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import LoginPopup from './LoginPopup';
+import Link from 'next/link';
 
 const NavBar = () => {
   const { data: session } = useSession(); 
@@ -55,9 +56,8 @@ const NavBar = () => {
                     { name: 'About Us', path: '/about-us' },
                     ...(session?.user?.randomKey === 'ADMIN' 
                       ? [{ name: 'Monitor Recipes', path: '/admin/monitor-recipes' }]
-                      : []
-                    ),
-                  ].map((item) => (
+                      : [])
+                  ].map((item: { name: string; path: string }) => (
                     <Nav.Link key={item.name} href={item.path}>
                       {item.name}
                     </Nav.Link>
