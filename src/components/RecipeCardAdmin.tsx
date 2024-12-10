@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Clock, Trash2 } from 'lucide-react';
+import { Clock, Trash2, Pencil } from 'lucide-react';
 
 interface Recipe {
   id: number;
@@ -38,9 +38,14 @@ const RecipeCardAdmin: React.FC<RecipeCardAdminProps> = ({ recipe, onDelete }) =
           </span>
         </div>
       </div>
-      <button onClick={handleDelete} className="delete-button">
-        <Trash2 size={20} />
-      </button>
+      <div className="admin-actions">
+        <a href={`/admin/edit/${recipe.id}`} className="edit-button">
+          <Pencil size={20} />
+        </a>
+        <button onClick={handleDelete} className="delete-button">
+          <Trash2 size={20} />
+        </button>
+      </div>
     </div>
   );
 };
