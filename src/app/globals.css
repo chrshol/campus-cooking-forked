@@ -1291,3 +1291,9 @@ button {
     opacity: 1;
   }
 }
+
+.nav-end {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}

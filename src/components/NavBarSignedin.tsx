@@ -28,31 +28,23 @@ const NavBar = () => {
   };
 
   return (
-    <>
-      <header className="top-navbar">
-        <div className="top-navbar-container">
-          <Navbar
-            expand="xl"
-            variant="light"
-            style={{
-              borderBottom: 'none',
-              boxShadow: 'none',
-            }}
-          >
-            <Container>
-            <a href="/" className="logo">
-              Campus Cooking
-            </a>
-            <ul className="top-nav-links">
-              <li><a href="/" className="top-nav-link">Home</a></li>
-              <li><a href="/recipes" className="top-nav-link">Recipes</a></li>
-              <li><a href="/contact" className="top-nav-link">Contact</a></li>
-              <li><a href="/about-us" className="top-nav-link">About Us</a></li>
-              {session?.user?.randomKey === 'ADMIN' && (
-                <li><a href="/admin/monitor-recipes" className="top-nav-link">Monitor Recipes</a></li>
-              )}
-              <li><a href="#" onClick={handleAddRecipeClick} className="top-nav-link">Add Recipe</a></li>
-            </ul>
+    <header className="top-navbar">
+      <div className="top-navbar-container">
+        <nav className="top-nav">
+          <a href="/" className="logo">
+            Campus Cooking
+          </a>
+          <ul className="top-nav-links">
+            <li><a href="/" className="top-nav-link">Home</a></li>
+            <li><a href="/recipes" className="top-nav-link">Recipes</a></li>
+            <li><a href="/contact" className="top-nav-link">Contact</a></li>
+            <li><a href="/about-us" className="top-nav-link">About Us</a></li>
+            {session?.user?.randomKey === 'ADMIN' && (
+              <li><a href="/admin/monitor-recipes" className="top-nav-link">Monitor Recipes</a></li>
+            )}
+            <li><a href="#" onClick={handleAddRecipeClick} className="top-nav-link">Add Recipe</a></li>
+          </ul>
+          <div className="nav-end">
             {session ? (
               <NavDropdown
                 title={currentUser || 'User'}
@@ -66,25 +58,16 @@ const NavBar = () => {
             ) : (
               <a
                 href="/login"
-                className="login-btn d-flex align-items-center ms-3"
+                className="login-btn"
               >
                 Login
-                <ChevronRight size={16} className="ms-1" />
+                <ChevronRight size={16} />
               </a>
             )}
-            </Container>
-          </Navbar>
-        </div>
-      </header>
-
-      {showPopup && (
-        <LoginPopup
-          message="You must be logged in to add a recipe."
-          onClose={handleClosePopup}
-          onLogin={handleLoginRedirect}
-        />
-      )}
-    </>
+          </div>
+        </nav>
+      </div>
+    </header>
   );
 };
 
