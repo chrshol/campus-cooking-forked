@@ -3,7 +3,9 @@
 import React from 'react';
 import { useSession } from 'next-auth/react'; 
 import { ChevronRight } from 'lucide-react';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import LoginPopup from './LoginPopup';
+import Link from 'next/link';
 
 const NavBar = () => {
   const { data: session } = useSession(); 
@@ -29,7 +31,15 @@ const NavBar = () => {
     <>
       <header className="top-navbar">
         <div className="top-navbar-container">
-          <nav className="top-nav">
+          <Navbar
+            expand="xl"
+            variant="light"
+            style={{
+              borderBottom: 'none',
+              boxShadow: 'none',
+            }}
+          >
+            <Container>
             <a href="/" className="logo">
               Campus Cooking
             </a>
@@ -44,16 +54,15 @@ const NavBar = () => {
               <li><a href="#" onClick={handleAddRecipeClick} className="top-nav-link">Add Recipe</a></li>
             </ul>
             {session ? (
-              <div className="login-btn d-flex align-items-center ms-3">
-                <div className="dropdown">
-                  <span className="dropdown-toggle" data-bs-toggle="dropdown">
-                    {currentUser || 'User'}
-                  </span>
-                  <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="/api/auth/signout">Sign Out</a></li>
-                  </ul>
-                </div>
-              </div>
+              <NavDropdown
+                title={currentUser || 'User'}
+                id="user-dropdown"
+                className="user-menu"
+              >
+                <NavDropdown.Item href="/api/auth/signout">
+                  Sign Out
+                </NavDropdown.Item>
+              </NavDropdown>
             ) : (
               <a
                 href="/login"
@@ -63,7 +72,8 @@ const NavBar = () => {
                 <ChevronRight size={16} className="ms-1" />
               </a>
             )}
-          </nav>
+            </Container>
+          </Navbar>
         </div>
       </header>
 
