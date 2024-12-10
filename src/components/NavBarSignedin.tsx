@@ -39,9 +39,9 @@ const NavBar = () => {
             }}
           >
             <Container>
-              <Navbar.Brand href="/" className="logo">
-                Campus Cooking
-              </Navbar.Brand>
+            <a href="/" className="logo">
+              Campus Cooking
+            </a>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse
                 id="basic-navbar-nav"
@@ -51,7 +51,6 @@ const NavBar = () => {
                   {[
                     { name: 'Home', path: '/' },
                     { name: 'Recipes', path: '/recipes' },
-                    { name: 'Blog', path: '/blog' },
                     { name: 'Contact', path: '/contact' },
                     { name: 'About Us', path: '/about-us' },
                   ].map((item) => (

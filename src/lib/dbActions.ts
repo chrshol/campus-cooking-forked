@@ -67,8 +67,6 @@ export async function addRecipe(recipeData: RecipeData) {
       },
     });
 
-    
-
     console.log('Recipe created:', recipe);
     revalidatePath('/'); // Revalidate the home page
     redirect('/'); // Redirect to home page
@@ -82,10 +80,10 @@ export async function getAllRecipes() {
   try {
     return await prisma.recipe.findMany({
       include: {
-        ingredients: true,        
-        categories: true,         
-        appliances: true,        
-        user: true,               
+        ingredients: true,
+        categories: true,
+        appliances: true,
+        user: true,
       },
     });
   } catch (error) {
@@ -95,11 +93,35 @@ export async function getAllRecipes() {
 }
 
 /**
+ * Searches recipes in the database by a given query.
+ * @param query A string to search within recipe titles.
+ */
+export async function searchRecipes(query: string) {
+  try {
+    return await prisma.recipe.findMany({
+      where: {
+        title: {
+          contains: query, // Filter by title containing the query string
+          mode: 'insensitive', // Case-insensitive search
+        },
+      },
+      include: {
+        ingredients: true,
+        categories: true,
+        appliances: true,
+      },
+    });
+  } catch (error) {
+    console.error('Failed to search recipes', error);
+    throw error;
+  }
+}
+
+/**
  * Creates a new user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * @param credentials An object with the following properties: email, password.
  */
 export async function createUser(credentials: { firstName: string; lastName: string; email: string; password: string }) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
   const password = await hash(credentials.password, 10);
   await prisma.user.create({
     data: {

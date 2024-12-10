@@ -25,7 +25,7 @@ const NavBar = () => (
             className="justify-content-between"
           >
             <Nav className="nav-links">
-              {['Home', 'Recipes', 'Blog', 'Contact', 'About us'].map(
+              {['Home', 'Recipes', 'Contact', 'About us'].map(
                 (item) => (
                   <Nav.Link key={item} href={`/${item.toLowerCase()}`}>
                     {item}

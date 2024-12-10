@@ -34,11 +34,12 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap:32px;
 }
 
 .logo {
   font-family: 'Lobster', cursive;
-  font-size: 24px;
+  font-size: 25px;
   text-decoration: none;
   color: #000;
 }
@@ -51,18 +52,57 @@ button {
 }
 
 .nav-link {
+  color: #000;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
   letter-spacing: -0.02em;
-  color: #000;
   text-decoration: none;
 }
+
+.footer-link {
+  color: darkslategrey;
+  font-family: 'Inter', sans-serif;
+  font-weight: 50;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: #555; 
+}
+
+.footer-links{
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin:0;
+  padding: 0;
+}
+
+.footer {
+  display: flex; /* Make the footer a flex container */
+  align-items: center; /* Align items vertically */
+  justify-content: space-between; /* Distribute space evenly */
+  padding: 20px 40px; /* Add some padding */
+  max-width: 1480px; /* Optional: Match navbar width */
+  margin: 0 auto; /* Center the footer content */
+  gap:285px;
+}
+
+
 
 .social-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
+}
+
+.footer-social-links {
+  display: flex;
+  gap: 16px;
+  margin-left: 35px;
 }
 .landing {
   max-width: 1480px;
@@ -122,16 +162,6 @@ button {
 .metadata-badge svg,
 .metadata-badge img {
   margin-right: 8px;
-}
-
-.footer {
-  position: absolute;
-  bottom: 48px;
-  left: 48px;
-  right: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .author {
@@ -1158,6 +1188,16 @@ button {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.social-links svg {
+  color: #000; /* Black color for icons */
+  cursor: pointer;
+  transition: color 0.3s ease; 
+}
+
+.social-links svg:hover {
+  color: #555; /* Darker shade on hover */
 }
 
 .social-link {

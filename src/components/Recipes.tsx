@@ -18,7 +18,22 @@ interface Recipe {
 }
 
 // Search bar component
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<{
+  query: string;
+  onSearch: (query: string) => void;
+  onReset: () => void;
+}> = ({ query, onSearch, onReset }) => {
+  const [localQuery, setLocalQuery] = useState(query);
+
+  const handleSearch = () => {
+    onSearch(localQuery);
+  };
+
+  const handleReset = () => {
+    setLocalQuery(''); // Clear local input
+    onReset(); // Trigger the reset function in the parent component
+  };
+
   return (
     <div className="search-bar-container">
       <div className="search-bar">
@@ -26,15 +41,24 @@ const SearchBar: React.FC = () => {
           type="search"
           placeholder="Search article, news or recipe..."
           className="search-placeholder"
+          value={localQuery}
+          onChange={(e) => setLocalQuery(e.target.value)} 
           required
         />
-        <div className="search-button">
+        <div className="search-button" onClick={handleSearch}>
           <span className="search-button-text">Search</span>
         </div>
+        {localQuery && (
+          <div className="clear-button" onClick={handleReset}>
+            <span className="clear-button-text">X</span>
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
+
 
 // Recipe card component
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
@@ -83,74 +107,100 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
 // Main Recipes component
 const Recipes: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [originalRecipes, setOriginalRecipes] = useState<Recipe[]>([]); // Cache the full recipe list
+  const [loading, setLoading] = useState(false); // Track loading state
   const [error, setError] = useState<string | null>(null);
+  const [query, setQuery] = useState(''); // Track the current search query
+
+  const fetchRecipes = async () => {
+    setLoading(true); // Set loading state
+    try {
+      const response = await fetch('/api/recipes');
+      if (!response.ok) {
+        throw new Error('Could not fetch recipes');
+      }
+      const data = await response.json();
+      setRecipes(data); // Set the initial recipes
+      setOriginalRecipes(data); // Cache the original recipes
+      setError(null);
+    } catch (error) {
+      console.error('Error fetching recipes:', error);
+      setError('Failed to load recipes. Please try again later.');
+    } finally {
+      setLoading(false); // Reset loading state
+    }
+  };
 
   useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await fetch('/api/recipes');
-        if (!response.ok) {
-          throw new Error('Could not fetch recipes');
-        }
-        const data = await response.json();
-        console.log('Received recipe data:', data);
-        setRecipes(data);
-        setError(null);
-      } catch (error) {
-        console.error('Error fetching recipes:', error);
-        setError('Failed to load recipes. Please try again later.');
-        // Fallback data
-        setRecipes([
-          {
-            id: 1,
-            title: 'Grilled Cheese',
-            imageURL:
-              'https://cdn.loveandlemons.com/wp-content/uploads/2023/01/grilled-cheese-500x375.jpg',
-            description: 'A quick and easy lunch option.',
-            instructions:
-              'Butter the bread and grill with cheese using a panini press.',
-            email: 'john@foo.com',
-            createdAt: '2024-12-08T05:33:12.868Z',
-            categories: [{ name: 'Lunch' }],
-            appliances: [],
-            ingredients: [],
-          },
-          // Add more fallback recipes if needed
-        ]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRecipes();
+    fetchRecipes(); // Fetch all recipes on initial load
   }, []);
 
-  if (loading) {
-    return <div className="loading">Loading recipes...</div>;
-  }
+  const handleSearch = async (query: string) => {
+    setQuery(query); // Update the query state
+    try {
+      setLoading(true); // Start loading
+      const response = await fetch(`/api/recipes?search=${encodeURIComponent(query)}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch recipes');
+      }
+      const data = await response.json();
+      setRecipes(data); // Display filtered recipes
+      setError(null); // Clear any errors
+    } catch (error) {
+      console.error('Error searching recipes:', error);
+      setError('Failed to load recipes. Please try again later.');
+    } finally {
+      setLoading(false); // Stop loading
+    }
+  };
 
-  if (error) {
-    return <div className="error-message">{error}</div>;
-  }
+  const handleReset = async () => {
+    setQuery(''); // Clear the query in the search bar
+    try {
+      setLoading(true); // Start loading
+      const response = await fetch('/api/recipes');
+      if (!response.ok) {
+        throw new Error('Failed to fetch recipes');
+      }
+      const data = await response.json();
+      setRecipes(data); // Reset to all recipes
+      setOriginalRecipes(data); // Update the cache
+      setError(null); // Clear any errors
+    } catch (error) {
+      console.error('Error resetting recipes:', error);
+      setError('Failed to load recipes. Please try again later.');
+    } finally {
+      setLoading(false); // Stop loading
+    }
+  };
 
   return (
     <div className="recipe-page">
       <div className="recipe-header">
         <h1 className="recipe-title">
-          Level up your health and well being with these recipes
+          Level up your health and well-being with these recipes
         </h1>
-        <p className="recipe-subtitle"></p>
-        <SearchBar />
+        <SearchBar query={query} onSearch={handleSearch} onReset={handleReset} />
       </div>
 
       <div className="recipe-grid">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
+        {loading && (
+          <div className="loading-placeholder">
+            {/* Add skeleton or loading placeholder here */}
+            Loading...
+          </div>
+        )}
+        {!loading &&
+          recipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)}
+        {error && <div className="error-message">{error}</div>}
       </div>
     </div>
   );
 };
+
+
+
+
+
 
 export default Recipes;
