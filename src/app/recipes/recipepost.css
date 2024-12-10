@@ -1,0 +1,135 @@
+.recipe-post-detail {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.recipe-post-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.recipe-name {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.recipe-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.recipe-image-container {
+  height: 400px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.recipe-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+  
+
+.recipe-post-description,
+.recipe-ingredients,
+.recipe-instructions,
+.recipe-appliances {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.recipe-content h2 {
+  margin-bottom: 10px;
+}
+
+.recipe-appliances ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.recipe-ingredients ul {
+    list-style-type: disc;
+    padding-left: 20px; 
+  }
+
+.recipe-appliances li {
+  margin-bottom: 5px;
+}
+
+.recipe-ingredients li {
+    margin-bottom: 8px; 
+  }
+
+.recipe-instructions ol {
+    padding-left: 20px; 
+    margin: 0; 
+  }
+  
+  .recipe-instructions ol li {
+    margin-bottom: 2px !important; 
+    line-height: 1.2;
+  }
+
+.recipe-appliances h2 {
+  font-size: 1.2em;
+}
+
+.step-divider {
+    height: 0.3rem; 
+    width: 100%;
+  }
+
+  .recipe-post-description h2 {
+    font-size: 1.8em; 
+  }
+  
+  .recipe-post-description p {
+    font-size: 1em;
+  }
+
+  .appliances-section {
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .appliances-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .appliances-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    line-height: 1.6;
+  }
+  
+  .appliance-item {
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  
