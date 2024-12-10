@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Clock, Utensils } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface Recipe {
   id: number;
@@ -10,11 +11,12 @@ interface Recipe {
   imageURL: string;
   description: string;
   instructions: string;
+  cookTime: string;
   email: string;
   createdAt: string;
-  categories: any[];
-  appliances: any[];
-  ingredients: any[];
+  categories: Array<{ category: string }>;
+  appliances: Array<{ appliance: string }>;
+  ingredients: Array<{ id: number; name: string; quantity: string }>;
 }
 
 // Search bar component
@@ -38,11 +40,27 @@ const SearchBar: React.FC = () => {
 
 // Recipe card component
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
+  const router = useRouter();
   const defaultImage = '/fallback-image.png';
   const [imgSrc, setImgSrc] = useState(recipe.imageURL);
 
+  const handleClick = () => {
+    console.log('Clicking recipe:', recipe.title);
+    const slug = recipe.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+    console.log('Generated slug:', slug);
+    router.push(`/recipes/${slug}`);
+  };
+
   return (
-    <div className="recipe-card">
+    <div 
+      className="recipe-card cursor-pointer" 
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+    >
       <div
         className="recipe-image-container"
         style={{ position: 'relative', width: '100%', height: '250px' }}
@@ -68,11 +86,11 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
         <div className="recipe-meta">
           <div className="meta-item">
             <Clock />
-            <span>15 mins</span>
+            <span>{recipe.cookTime || '15 mins'}</span>
           </div>
           <div className="meta-item">
             <Utensils />
-            <span>{recipe.categories?.[0]?.name || 'Uncategorized'}</span>
+            <span>{recipe.categories?.[0]?.category || 'Uncategorized'}</span>
           </div>
         </div>
       </div>
@@ -110,11 +128,12 @@ const Recipes: React.FC = () => {
             description: 'A quick and easy lunch option.',
             instructions:
               'Butter the bread and grill with cheese using a panini press.',
+            cookTime: '15 mins',
             email: 'john@foo.com',
             createdAt: '2024-12-08T05:33:12.868Z',
-            categories: [{ name: 'Lunch' }],
-            appliances: [],
-            ingredients: [],
+            categories: [{ category: 'Lunch' }],
+            appliances: [{ appliance: '' }],
+            ingredients: [{ id: 1, name: 'Bread', quantity: '2 slices' }],
           },
           // Add more fallback recipes if needed
         ]);
