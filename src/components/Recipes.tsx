@@ -40,34 +40,23 @@ interface Recipe {
 // Search bar component
 const SearchBar: React.FC<{
   query: string;
-  onSearch: (query: string) => void;
+  onSearchChange: (query: string) => void;
   onReset: () => void;
-}> = ({ query, onSearch, onReset }) => {
-  const [localQuery, setLocalQuery] = useState(query);
-  const handleSearch = () => {
-    onSearch(localQuery);
-  };
-  const handleReset = () => {
-    setLocalQuery(''); // Clear local input
-    onReset(); // Trigger the reset function in the parent component
-  };
+}> = ({ query, onSearchChange, onReset }) => {
   return (
     <div className="search-bar-container">
       <div className="search-bar">
         <input
           type="search"
-          placeholder="Search article, news or recipe..."
+          placeholder="Search recipes..."
           className="search-placeholder"
-          value={localQuery}
-          onChange={(e) => setLocalQuery(e.target.value)} 
+          value={query}
+          onChange={(e) => onSearchChange(e.target.value)}
           required
         />
-        <div className="search-button" onClick={handleSearch}>
-          <span className="search-button-text">Search</span>
-        </div>
-        {localQuery && (
-          <div className="clear-button" onClick={handleReset}>
-            <span className="clear-button-text">X</span>
+        {query && (
+          <div className="clear-button" onClick={onReset}>
+            <span className="clear-button-text"></span>
           </div>
         )}
       </div>
@@ -88,7 +77,6 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
       .replace(/(^-|-$)/g, '');
     router.push(`/recipes/${slug}`);
   };
-  
 
   return (
     <div
@@ -107,10 +95,9 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
           className="recipe-image"
           onError={() => setImgSrc(defaultImage)}
           style={{
-            width: '400px',
-            height: '300px',
+            width: '100%',
+            height: '100%',
             objectFit: 'cover',
-            display: 'block',
           }}
         />
       </div>
@@ -138,9 +125,11 @@ const Recipes: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedAppliance, setSelectedAppliance] = useState<string | null>(null);
 
+  // Fetch recipes from API
   const fetchRecipes = async () => {
     setLoading(true);
     try {
@@ -157,77 +146,59 @@ const Recipes: React.FC = () => {
     }
   };
 
-  const handleSearch = (query: string,  isReset: boolean = false) => {
-    setQuery(query);
-    setLoading(true); // Show loading state immediately
-    setTimeout(async () => {
-      try {
-        const response = await fetch(
-          `/api/recipes?search=${encodeURIComponent(query)}`
-        );
-        if (!response.ok) throw new Error('Failed to fetch recipes');
-        const data = await response.json();
-        setRecipes(data);
-        setError(null);
-      } catch (error) {
-        console.error(error);
-        setError('Failed to load recipes. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    }); 
-  }
+  // Handle search with debounced query
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedQuery(query), 500);
+    return () => clearTimeout(timer);
+  }, [query]);
 
-  const filterRecipes = () => {
-    let filteredRecipes = [...originalRecipes];
-    if (selectedCategory) {
-      filteredRecipes = filteredRecipes.filter((recipe) =>
-        recipe.categories.some((cat: any) => cat.category === selectedCategory)
+  useEffect(() => {
+    if (debouncedQuery !== '') {
+      const filteredRecipes = originalRecipes.filter((recipe) =>
+        recipe.title.toLowerCase().includes(debouncedQuery.toLowerCase())
       );
+      setRecipes(filteredRecipes);
+    } else {
+      setRecipes(originalRecipes);
     }
-    if (selectedAppliance) {
-      filteredRecipes = filteredRecipes.filter((recipe) =>
-        recipe.appliances.some((app: any) => app.appliance === selectedAppliance)
-      );
-    }
-    setRecipes(filteredRecipes);
-  };
-  // Reset filters
-  const resetFilters = () => {
-    setSelectedCategory(null);
-    setSelectedAppliance(null);
-    setQuery('');
-    setRecipes(originalRecipes);
-  };
+  }, [debouncedQuery]);
+
   useEffect(() => {
     fetchRecipes();
   }, []);
 
+  // Filter recipes by category and appliance
   useEffect(() => {
-    filterRecipes();
-  }, [selectedCategory, selectedAppliance]);
+    let filteredRecipes = [...originalRecipes];
+    if (selectedCategory) {
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        recipe.categories.some((cat) => cat.category === selectedCategory)
+      );
+    }
+    if (selectedAppliance) {
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        recipe.appliances.some((app) => app.appliance === selectedAppliance)
+      );
+    }
+    setRecipes(filteredRecipes);
+  }, [selectedCategory, selectedAppliance, originalRecipes]);
+
+  const resetFilters = () => {
+    setQuery('');
+    setSelectedCategory(null);
+    setSelectedAppliance(null);
+    setRecipes(originalRecipes);
+  };
 
   return (
     <div className="recipe-page">
       <div className="recipe-header">
-      <h1 className="recipe-title">Level Up Your Health and Well-Being With These Recipes!</h1>
-        {/* Search Bar */}
-        <div className="search-bar-container">
-          <input
-            type="search"
-            placeholder="Search recipes..."
-            value={query}
-            onChange={(e) => handleSearch(e.target.value)}
-            className="search-bar"
-          />
-        </div>
-        {/* Filters */}
+        <h1 className="recipe-title">Level Up Your Health and Well-Being With These Recipes!</h1>
+        <SearchBar query={query} onSearchChange={setQuery} onReset={resetFilters} />
         <div className="filter-container centered-filters">
           <select
             value={selectedCategory || ''}
-            onChange={(e) =>
-              setSelectedCategory(e.target.value || null)
-            }
+            onChange={(e) => setSelectedCategory(e.target.value || null)}
             className="filter-dropdown"
           >
             <option value="">All Categories</option>
@@ -239,9 +210,7 @@ const Recipes: React.FC = () => {
           </select>
           <select
             value={selectedAppliance || ''}
-            onChange={(e) =>
-              setSelectedAppliance(e.target.value || null)
-            }
+            onChange={(e) => setSelectedAppliance(e.target.value || null)}
             className="filter-dropdown"
           >
             <option value="">All Appliances</option>
@@ -253,14 +222,13 @@ const Recipes: React.FC = () => {
           </select>
         </div>
       </div>
-
       <div className="recipe-grid">
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
         {!loading && recipes.length > 0 ? (
           recipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)
         ) : (
-          !loading && <div>No recipes found.</div>
+          <div>No recipes found.</div>
         )}
       </div>
     </div>
