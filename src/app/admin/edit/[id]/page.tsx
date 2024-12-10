@@ -6,6 +6,7 @@ import NavBarSignedin from '@/components/NavBarSignedin';
 import Footer from '@/components/Footer';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
+import '@/app/addrecipe/addrecipepage.css';
 
 interface PageProps {
   params: {
@@ -39,11 +40,11 @@ export default async function EditRecipePage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       <NavBarSignedin />
-      <main className="container mx-auto px-4 py-8">
+      <div className="flex-grow">
         <EditRecipeAdmin recipe={recipe} user={user} />
-      </main>
+      </div>
       <Footer />
     </div>
   );

@@ -46,13 +46,11 @@
   }
 
   .footer {
-    position: absolute;
-    bottom: 48px;
-    left: 48px;
-    right: 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 48px;
+    margin-top: auto;
   }
 
 
