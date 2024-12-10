@@ -40,17 +40,27 @@ const SearchBar: React.FC = () => {
 
 // Recipe card component
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
+  const router = useRouter();
   const defaultImage = '/fallback-image.png';
   const [imgSrc, setImgSrc] = useState(recipe.imageURL);
-  const router = useRouter();
 
   const handleClick = () => {
-    const slug = recipe.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    console.log('Clicking recipe:', recipe.title);
+    const slug = recipe.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+    console.log('Generated slug:', slug);
     router.push(`/recipes/${slug}`);
   };
 
   return (
-    <div className="recipe-card cursor-pointer" onClick={handleClick}>
+    <div 
+      className="recipe-card cursor-pointer" 
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+    >
       <div
         className="recipe-image-container"
         style={{ position: 'relative', width: '100%', height: '250px' }}

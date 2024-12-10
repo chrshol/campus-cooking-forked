@@ -3,7 +3,7 @@ import NavBarSignedin from '@/components/NavBarSignedin';
 import Footer from '@/components/Footer';
 
 // Add a new CSS module for this page
-import './styles.css';
+import './style.css';
 
 interface PageProps {
   params: {

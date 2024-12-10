@@ -63,7 +63,7 @@ const RecipePost: React.FC<RecipePostProps> = ({ slug }) => {
   if (!recipe) return <div>Recipe not found</div>;
 
   return (
-    <article className="recipe-post">
+    <article className="recipe-post-detail">
       <div className="recipe-post-header">
         <h1>{recipe.title}</h1>
         <div className="recipe-meta">
