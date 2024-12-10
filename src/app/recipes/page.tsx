@@ -6,16 +6,13 @@ import '../globals.css';
 import './recipespage.css';
 import EmailSubscribe from '@/components/EmailSubscribe';
 
-
-export default function recipes () {
+export default function recipes() {
   return (
     <div className="min-h-screen bg-white">
       <NavBarSignedin />
       <Recipes />
       <EmailSubscribe />
       <Footer />
- 
-
     </div>
   );
 }
