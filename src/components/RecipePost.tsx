@@ -73,7 +73,7 @@ const RecipePost: React.FC<RecipePostProps> = ({ slug }) => {
           </div>
           <div className="meta-item">
             <Utensils />
-            <span>{recipe.categories.map(c => c.category).join(', ')}</span>
+            <span>{recipe.categories.map((c) => c.category).join(', ')}</span>
           </div>
         </div>
       </div>
@@ -102,11 +102,16 @@ const RecipePost: React.FC<RecipePostProps> = ({ slug }) => {
             ))}
           </ul>
         </div>
-
+        
         <div className="recipe-instructions">
-          <h2>Instructions</h2>
-          <p>{recipe.instructions}</p>
-        </div>
+  <h2>Instructions</h2>
+  {recipe.instructions.split('\n').map((step, index) => (
+    <React.Fragment key={index}>
+      <p>{step.trim()}</p>
+      {index < recipe.instructions.split('\n').length - 1 && <div className="step-divider"></div>}
+    </React.Fragment>
+  ))}
+</div>
 
         <div className="recipe-appliances">
           <h2>Required Appliances</h2>
