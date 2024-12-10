@@ -7,40 +7,35 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 const Footer = () => (
   <footer className="navbar">
     <div className="navbar-container">
-    <nav className="nav">
+    <nav className="footer">
         <a href="/" className="logo">
           Campus Cooking
         </a>
 
-        <ul className="nav-links">
+        <Nav className="footer-links">
           <li>
-            <a href="/" className="nav-link">
+            <a href="/" className="footer-link">
               Home
             </a>
           </li>
           <li>
-            <a href="/recipes" className="nav-link">
+            <a href="/recipes" className="footer-link">
               Recipes
             </a>
           </li>
           <li>
-            <a href="/blog" className="nav-link">
-              Blog
-            </a>
-          </li>
-          <li>
-            <a href="/contact" className="nav-link">
+            <a href="/contact" className="footer-link">
               Contact
             </a>
           </li>
           <li>
-            <a href="/about-us" className="nav-link">
+            <a href="/about-us" className="footer-link">
               About us
             </a>
           </li>
-        </ul>
+        </Nav>
 
-        <div className="social-links">
+        <div className="footer-social-links">
           <Facebook size={22} />
           <Twitter size={22} />
           <Instagram size={22} />

@@ -13,7 +13,6 @@ const Navbar = () => (
           {[
             { name: 'Home', path: '/' },
             { name: 'Recipes', path: '/recipes' },
-            { name: 'Blog', path: '/blog' },
             { name: 'Contact', path: '/contact' },
             { name: 'About Us', path: '/about-us' },
           ].map((item) => (

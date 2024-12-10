@@ -5,6 +5,25 @@ import { Heart, Clock, Utensils } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+const categories = [
+  'Breakfast',
+  'Lunch',
+  'Dinner',
+  'Vegan',
+  'Meat',
+  'Dessert',
+  'Chocolate',
+];
+
+const appliances = [
+  'RiceCooker',
+  'PaniniPress',
+  'ToasterOven',
+  'Toaster',
+  'Microwave',
+  'HotPlate',
+];
+
 interface Recipe {
   id: number;
   title: string;
@@ -20,7 +39,22 @@ interface Recipe {
 }
 
 // Search bar component
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<{
+  query: string;
+  onSearch: (query: string) => void;
+  onReset: () => void;
+}> = ({ query, onSearch, onReset }) => {
+  const [localQuery, setLocalQuery] = useState(query);
+
+  const handleSearch = () => {
+    onSearch(localQuery);
+  };
+
+  const handleReset = () => {
+    setLocalQuery(''); // Clear local input
+    onReset(); // Trigger the reset function in the parent component
+  };
+
   return (
     <div className="search-bar-container">
       <div className="search-bar">
@@ -28,15 +62,24 @@ const SearchBar: React.FC = () => {
           type="search"
           placeholder="Search article, news or recipe..."
           className="search-placeholder"
+          value={localQuery}
+          onChange={(e) => setLocalQuery(e.target.value)} 
           required
         />
-        <div className="search-button">
+        <div className="search-button" onClick={handleSearch}>
           <span className="search-button-text">Search</span>
         </div>
+        {localQuery && (
+          <div className="clear-button" onClick={handleReset}>
+            <span className="clear-button-text">X</span>
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
+
 
 // Recipe card component
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
@@ -98,78 +141,162 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   );
 };
 
-// Main Recipes component
+// Main Recipes Component
 const Recipes: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [originalRecipes, setOriginalRecipes] = useState<Recipe[]>([]); // Cache full list
+  const [loading, setLoading] = useState(false); // Loading state
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await fetch('/api/recipes');
-        if (!response.ok) {
-          throw new Error('Could not fetch recipes');
-        }
-        const data = await response.json();
-        console.log('Received recipe data:', data);
-        setRecipes(data);
-        setError(null);
-      } catch (error) {
-        console.error('Error fetching recipes:', error);
-        setError('Failed to load recipes. Please try again later.');
-        // Fallback data
-        setRecipes([
-          {
-            id: 1,
-            title: 'Grilled Cheese',
-            imageURL:
-              'https://cdn.loveandlemons.com/wp-content/uploads/2023/01/grilled-cheese-500x375.jpg',
-            description: 'A quick and easy lunch option.',
-            instructions:
-              'Butter the bread and grill with cheese using a panini press.',
-            cookTime: '15 mins',
-            email: 'john@foo.com',
-            createdAt: '2024-12-08T05:33:12.868Z',
-            categories: [{ category: 'Lunch' }],
-            appliances: [{ appliance: '' }],
-            ingredients: [{ id: 1, name: 'Bread', quantity: '2 slices' }],
-          },
-          // Add more fallback recipes if needed
-        ]);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const [query, setQuery] = useState(''); // Search query
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // Selected category
+  const [selectedAppliance, setSelectedAppliance] = useState<string | null>(null); // Selected appliance
 
+  // Fetch recipes from API
+  const fetchRecipes = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/recipes');
+      if (!response.ok) throw new Error('Could not fetch recipes');
+      const data = await response.json();
+      setRecipes(data);
+      setOriginalRecipes(data); // Cache the original recipes
+      setError(null);
+    } catch (error) {
+      console.error(error);
+      setError('Failed to load recipes. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Search by query
+const handleSearch = (query: string,  isReset: boolean = false) => {
+  setQuery(query);
+
+  setLoading(true); // Show loading state immediately
+  setTimeout(async () => {
+    try {
+      const response = await fetch(
+        `/api/recipes?search=${encodeURIComponent(query)}`
+      );
+      if (!response.ok) throw new Error('Failed to fetch recipes');
+      const data = await response.json();
+      setRecipes(data);
+      setError(null);
+    } catch (error) {
+      console.error(error);
+      setError('Failed to load recipes. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  }); 
+};
+
+
+  // Filter by category or appliance
+  const filterRecipes = () => {
+    let filteredRecipes = [...originalRecipes];
+
+    if (selectedCategory) {
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        recipe.categories.some((cat: any) => cat.category === selectedCategory)
+      );
+    }
+
+    if (selectedAppliance) {
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        recipe.appliances.some((app: any) => app.appliance === selectedAppliance)
+      );
+    }
+
+    setRecipes(filteredRecipes);
+  };
+
+  // Reset filters
+  const resetFilters = () => {
+    setSelectedCategory(null);
+    setSelectedAppliance(null);
+    setQuery('');
+    setRecipes(originalRecipes);
+  };
+
+  useEffect(() => {
     fetchRecipes();
   }, []);
 
-  if (loading) {
-    return <div className="loading">Loading recipes...</div>;
-  }
-
-  if (error) {
-    return <div className="error-message">{error}</div>;
-  }
+  useEffect(() => {
+    filterRecipes();
+  }, [selectedCategory, selectedAppliance]);
 
   return (
     <div className="recipe-page">
       <div className="recipe-header">
-        <h1 className="recipe-title">
-          Level up your health and well being with these recipes
-        </h1>
-        <p className="recipe-subtitle"></p>
-        <SearchBar />
+        <h1 className="recipe-title">Find Your Favorite Recipes</h1>
+
+        {/* Search Bar */}
+        <div className="search-bar-container">
+          <input
+            type="search"
+            placeholder="Search recipes..."
+            value={query}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="search-bar"
+          />
+        </div>
+
+        {/* Filters */}
+        <div className="filter-container">
+          <select
+            value={selectedCategory || ''}
+            onChange={(e) =>
+              setSelectedCategory(e.target.value || null)
+            }
+            className="filter-dropdown"
+          >
+            <option value="">All Categories</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={selectedAppliance || ''}
+            onChange={(e) =>
+              setSelectedAppliance(e.target.value || null)
+            }
+            className="filter-dropdown"
+          >
+            <option value="">All Appliances</option>
+            {appliances.map((appliance) => (
+              <option key={appliance} value={appliance}>
+                {appliance}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="recipe-grid">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
+      {loading && <div className="loading-placeholder">Loading...</div>}
+
+        {!loading && recipes.length > 0 ? (
+          recipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-card">
+              <h3>{recipe.title}</h3>
+              <p>{recipe.description}</p>
+            </div>
+          ))
+        ) : (
+          <div>No recipes found.</div>
+        )}
+        {error && <div>{error}</div>}
       </div>
     </div>
   );
 };
 
 export default Recipes;
+
