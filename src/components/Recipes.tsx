@@ -4,6 +4,25 @@ import React, { useState, useEffect } from 'react';
 import { Heart, Clock, Utensils } from 'lucide-react';
 import Image from 'next/image';
 
+const categories = [
+  'Breakfast',
+  'Lunch',
+  'Dinner',
+  'Vegan',
+  'Meat',
+  'Dessert',
+  'Chocolate',
+];
+
+const appliances = [
+  'RiceCooker',
+  'PaniniPress',
+  'ToasterOven',
+  'Toaster',
+  'Microwave',
+  'HotPlate',
+];
+
 interface Recipe {
   id: number;
   title: string;
@@ -104,103 +123,162 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   );
 };
 
-// Main Recipes component
+// Main Recipes Component
 const Recipes: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [originalRecipes, setOriginalRecipes] = useState<Recipe[]>([]); // Cache the full recipe list
-  const [loading, setLoading] = useState(false); // Track loading state
+  const [originalRecipes, setOriginalRecipes] = useState<Recipe[]>([]); // Cache full list
+  const [loading, setLoading] = useState(false); // Loading state
   const [error, setError] = useState<string | null>(null);
-  const [query, setQuery] = useState(''); // Track the current search query
 
+  const [query, setQuery] = useState(''); // Search query
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // Selected category
+  const [selectedAppliance, setSelectedAppliance] = useState<string | null>(null); // Selected appliance
+
+  // Fetch recipes from API
   const fetchRecipes = async () => {
-    setLoading(true); // Set loading state
+    setLoading(true);
     try {
       const response = await fetch('/api/recipes');
-      if (!response.ok) {
-        throw new Error('Could not fetch recipes');
-      }
+      if (!response.ok) throw new Error('Could not fetch recipes');
       const data = await response.json();
-      setRecipes(data); // Set the initial recipes
+      setRecipes(data);
       setOriginalRecipes(data); // Cache the original recipes
       setError(null);
     } catch (error) {
-      console.error('Error fetching recipes:', error);
+      console.error(error);
       setError('Failed to load recipes. Please try again later.');
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
+  };
+
+  // Search by query
+const handleSearch = (query: string,  isReset: boolean = false) => {
+  setQuery(query);
+
+  setLoading(true); // Show loading state immediately
+  setTimeout(async () => {
+    try {
+      const response = await fetch(
+        `/api/recipes?search=${encodeURIComponent(query)}`
+      );
+      if (!response.ok) throw new Error('Failed to fetch recipes');
+      const data = await response.json();
+      setRecipes(data);
+      setError(null);
+    } catch (error) {
+      console.error(error);
+      setError('Failed to load recipes. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  }); 
+};
+
+
+  // Filter by category or appliance
+  const filterRecipes = () => {
+    let filteredRecipes = [...originalRecipes];
+
+    if (selectedCategory) {
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        recipe.categories.some((cat: any) => cat.category === selectedCategory)
+      );
+    }
+
+    if (selectedAppliance) {
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        recipe.appliances.some((app: any) => app.appliance === selectedAppliance)
+      );
+    }
+
+    setRecipes(filteredRecipes);
+  };
+
+  // Reset filters
+  const resetFilters = () => {
+    setSelectedCategory(null);
+    setSelectedAppliance(null);
+    setQuery('');
+    setRecipes(originalRecipes);
   };
 
   useEffect(() => {
-    fetchRecipes(); // Fetch all recipes on initial load
+    fetchRecipes();
   }, []);
 
-  const handleSearch = async (query: string) => {
-    setQuery(query); // Update the query state
-    try {
-      setLoading(true); // Start loading
-      const response = await fetch(`/api/recipes?search=${encodeURIComponent(query)}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch recipes');
-      }
-      const data = await response.json();
-      setRecipes(data); // Display filtered recipes
-      setError(null); // Clear any errors
-    } catch (error) {
-      console.error('Error searching recipes:', error);
-      setError('Failed to load recipes. Please try again later.');
-    } finally {
-      setLoading(false); // Stop loading
-    }
-  };
-
-  const handleReset = async () => {
-    setQuery(''); // Clear the query in the search bar
-    try {
-      setLoading(true); // Start loading
-      const response = await fetch('/api/recipes');
-      if (!response.ok) {
-        throw new Error('Failed to fetch recipes');
-      }
-      const data = await response.json();
-      setRecipes(data); // Reset to all recipes
-      setOriginalRecipes(data); // Update the cache
-      setError(null); // Clear any errors
-    } catch (error) {
-      console.error('Error resetting recipes:', error);
-      setError('Failed to load recipes. Please try again later.');
-    } finally {
-      setLoading(false); // Stop loading
-    }
-  };
+  useEffect(() => {
+    filterRecipes();
+  }, [selectedCategory, selectedAppliance]);
 
   return (
     <div className="recipe-page">
       <div className="recipe-header">
-        <h1 className="recipe-title">
-          Level up your health and well-being with these recipes
-        </h1>
-        <SearchBar query={query} onSearch={handleSearch} onReset={handleReset} />
+        <h1 className="recipe-title">Find Your Favorite Recipes</h1>
+
+        {/* Search Bar */}
+        <div className="search-bar-container">
+          <input
+            type="search"
+            placeholder="Search recipes..."
+            value={query}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="search-bar"
+          />
+        </div>
+
+        {/* Filters */}
+        <div className="filter-container">
+          <select
+            value={selectedCategory || ''}
+            onChange={(e) =>
+              setSelectedCategory(e.target.value || null)
+            }
+            className="filter-dropdown"
+          >
+            <option value="">All Categories</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={selectedAppliance || ''}
+            onChange={(e) =>
+              setSelectedAppliance(e.target.value || null)
+            }
+            className="filter-dropdown"
+          >
+            <option value="">All Appliances</option>
+            {appliances.map((appliance) => (
+              <option key={appliance} value={appliance}>
+                {appliance}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="recipe-grid">
-        {loading && (
-          <div className="loading-placeholder">
-            {/* Add skeleton or loading placeholder here */}
-            Loading...
-          </div>
+      {loading && <div className="loading-placeholder">Loading...</div>}
+
+        {!loading && recipes.length > 0 ? (
+          recipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-card">
+              <h3>{recipe.title}</h3>
+              <p>{recipe.description}</p>
+            </div>
+          ))
+        ) : (
+          <div>No recipes found.</div>
         )}
-        {!loading &&
-          recipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)}
-        {error && <div className="error-message">{error}</div>}
+        {error && <div>{error}</div>}
       </div>
     </div>
   );
 };
 
-
-
-
-
-
 export default Recipes;
+
