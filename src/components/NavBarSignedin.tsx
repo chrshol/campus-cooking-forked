@@ -53,6 +53,10 @@ const NavBar = () => {
                     { name: 'Recipes', path: '/recipes' },
                     { name: 'Contact', path: '/contact' },
                     { name: 'About Us', path: '/about-us' },
+                    ...(session?.user?.randomKey === 'ADMIN' 
+                      ? [{ name: 'Monitor Recipes', path: '/admin/monitor-recipes' }]
+                      : []
+                    ),
                   ].map((item) => (
                     <Nav.Link key={item.name} href={item.path}>
                       {item.name}
