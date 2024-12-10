@@ -1292,3 +1292,15 @@ button {
     opacity: 1;
   }
 }
+
+.line-black{
+  color: black;
+  text-decoration: none; 
+  font-size: 18px; 
+  font-weight: 600;
+}
+
+.line-black:hover{
+  color: #666;
+  text-decoration: none;
+}

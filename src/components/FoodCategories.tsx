@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import React from 'react';
 
@@ -62,12 +61,21 @@ const Categories = () => {
 
       <div className="categories-grid">
         {categories.map((category) => (
-          <div key={category.id} className="category-card">
-            <div className={`category-content ${category.gradientClass}`}>
-              <img src={category.image} alt={category.name} className="category-image" />
-              <h3 className="category-name">{category.name}</h3>
+          <Link
+            key={category.id}
+            href={{
+              pathname: '/recipes',
+              query: { category: category.name }, 
+            }}
+            passHref
+          >
+            <div className="category-card cursor-pointer">
+              <div className={`category-content ${category.gradientClass}`}>
+                <img src={category.image} alt={category.name} className="category-image" />
+                <h3 className="category-name line-black">{category.name}</h3>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
