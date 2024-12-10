@@ -117,7 +117,9 @@ const RecipePost: React.FC<RecipePostProps> = ({ slug }) => {
           <h2>Required Appliances</h2>
           <ul>
             {recipe.appliances.map((appliance) => (
-              <li key={appliance.id}>{appliance.appliance}</li>
+              <li key={appliance.id}>
+                {appliance.appliance.replace(/([a-z])([A-Z])/g, "$1 $2")}
+              </li>
             ))}
           </ul>
         </div>
