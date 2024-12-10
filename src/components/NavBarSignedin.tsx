@@ -3,9 +3,7 @@
 import React from 'react';
 import { useSession } from 'next-auth/react'; 
 import { ChevronRight } from 'lucide-react';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import LoginPopup from './LoginPopup';
-import Link from 'next/link';
 
 const NavBar = () => {
   const { data: session } = useSession(); 
@@ -17,13 +15,13 @@ const NavBar = () => {
       setShowPopup(true);
     }
     else {
-      window.location.href = '/addrecipe'; // Navigates if logged in
+      window.location.href = '/addrecipe';
     }
   };
 
   const handleClosePopup = () => setShowPopup(false);
   const handleLoginRedirect = () => {
-    setShowPopup(false); // Closes the popup before redirecting
+    setShowPopup(false);
     window.location.href = '/login';
   };
 
@@ -31,63 +29,41 @@ const NavBar = () => {
     <>
       <header className="top-navbar">
         <div className="top-navbar-container">
-          <Navbar
-            expand="xl"
-            variant="light"
-            style={{
-              borderBottom: 'none',
-              boxShadow: 'none',
-            }}
-          >
-            <Container>
+          <nav className="top-nav">
             <a href="/" className="logo">
               Campus Cooking
             </a>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse
-                id="basic-navbar-nav"
-                className="justify-content-between"
+            <ul className="top-nav-links">
+              <li><a href="/" className="top-nav-link">Home</a></li>
+              <li><a href="/recipes" className="top-nav-link">Recipes</a></li>
+              <li><a href="/contact" className="top-nav-link">Contact</a></li>
+              <li><a href="/about-us" className="top-nav-link">About Us</a></li>
+              {session?.user?.randomKey === 'ADMIN' && (
+                <li><a href="/admin/monitor-recipes" className="top-nav-link">Monitor Recipes</a></li>
+              )}
+              <li><a href="#" onClick={handleAddRecipeClick} className="top-nav-link">Add Recipe</a></li>
+            </ul>
+            {session ? (
+              <div className="login-btn d-flex align-items-center ms-3">
+                <div className="dropdown">
+                  <span className="dropdown-toggle" data-bs-toggle="dropdown">
+                    {currentUser || 'User'}
+                  </span>
+                  <ul className="dropdown-menu">
+                    <li><a className="dropdown-item" href="/api/auth/signout">Sign Out</a></li>
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <a
+                href="/login"
+                className="login-btn d-flex align-items-center ms-3"
               >
-                <Nav className="top-nav-links">
-                  {[
-                    { name: 'Home', path: '/' },
-                    { name: 'Recipes', path: '/recipes' },
-                    { name: 'Contact', path: '/contact' },
-                    { name: 'About Us', path: '/about-us' },
-                    ...(session?.user?.randomKey === 'ADMIN' 
-                      ? [{ name: 'Monitor Recipes', path: '/admin/monitor-recipes' }]
-                      : [])
-                  ].map((item: { name: string; path: string }) => (
-                    <Nav.Link key={item.name} href={item.path}>
-                      {item.name}
-                    </Nav.Link>
-                  ))}
-                  <Nav.Link onClick={handleAddRecipeClick}>
-                    Add Recipe
-                  </Nav.Link>
-                </Nav>
-                {session ? (
-                  <NavDropdown
-                    title={currentUser || 'User'}
-                    id="user-dropdown"
-                    className="ms-3"
-                  >
-                    <NavDropdown.Item href="/api/auth/signout">
-                      Sign Out
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                ) : (
-                  <a
-                    href="/login"
-                    className="login-btn d-flex align-items-center ms-3"
-                  >
-                    Login
-                    <ChevronRight size={16} className="ms-1" />
-                  </a>
-                )}
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
+                Login
+                <ChevronRight size={16} className="ms-1" />
+              </a>
+            )}
+          </nav>
         </div>
       </header>
 
