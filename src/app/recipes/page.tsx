@@ -1,10 +1,10 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Recipes from '../../components/Recipes';
 import NavBarSignedin from '@/components/NavBarSignedin';
 import Footer from '@/components/Footer';
 import '../globals.css';
 import './recipepost.css';
 import EmailSubscribe from '@/components/EmailSubscribe';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 export default function recipes () {

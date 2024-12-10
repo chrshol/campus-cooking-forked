@@ -3,6 +3,7 @@
 *{
     font-family: 'Inter', sans-serif;
 }
+
 .auth-container {
     max-width: 1280px;
     margin: 40px auto;
@@ -177,64 +178,7 @@
       right: -40px;
     }
   }
-
-.navbar {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
   
-  .navbar-container {
-    max-width: 1480px;
-    margin: 0 auto;
-    padding: 40px 80px;
-  }
-  
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .logo {
-    font-family: 'Lobster', cursive;
-    font-size: 24px;
-    text-decoration: none;
-    color: #000;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-    margin-left: 387px;
-  }
-  
-  .nav-link {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    letter-spacing: -0.02em;
-    color: #000;
-    text-decoration: none;
-  }
-  
-  .social-links {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-
-
-.footer {
-    position: absolute;
-    bottom: 48px;
-    left: 48px;
-    right: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-
   .contact-container {
     max-width: 1280px;
     margin: 0 auto;

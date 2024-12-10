@@ -5,8 +5,8 @@ import { Facebook, Twitter, Instagram } from 'lucide-react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 
 const Footer = () => (
-  <footer className="navbar">
-    <div className="navbar-container">
+  <footer className="top-navbar">
+    <div className="top-navbar-container">
     <nav className="footer">
         <a href="/" className="logo">
           Campus Cooking

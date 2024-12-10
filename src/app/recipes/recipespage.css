@@ -86,7 +86,7 @@
     border: none;
     outline: none;
     background-color: transparent;
-    color: rgba(0, 0, 0, 0.4);
+    color:black(0, 0, 0, 0.4);
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 500;
@@ -349,6 +349,15 @@
     border-radius: 5px;
     font-size: 16px;
     margin-left:20px;
+    width: 200px;
+  }
+  .centered-filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px; 
+    margin-top: 0px;
+    flex-wrap: wrap; 
   }
   
   

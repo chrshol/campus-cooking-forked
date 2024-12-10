@@ -28,8 +28,8 @@ const NavBar = () => {
 
   return (
     <>
-      <header className="navbar">
-        <div className="navbar-container">
+      <header className="top-navbar">
+        <div className="top-navbar-container">
           <Navbar
             expand="xl"
             variant="light"
@@ -47,7 +47,7 @@ const NavBar = () => {
                 id="basic-navbar-nav"
                 className="justify-content-between"
               >
-                <Nav className="nav-links">
+                <Nav className="top-nav-links">
                   {[
                     { name: 'Home', path: '/' },
                     { name: 'Recipes', path: '/recipes' },
