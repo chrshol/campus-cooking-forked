@@ -115,24 +115,6 @@
     margin-bottom: 0;
   }
   
-  .food-image {
-    position: absolute;
-    bottom: -120px;
-    right: -60px;
-    width: 350px;
-    height: 270px;
-    pointer-events: none;
-  }
-
-  .food-image-right {
-    position: absolute;
-    bottom: -45px;
-    right: 420px;
-    width: 200px;
-    height: 200px;
-    pointer-events: none;
-  }
-  
   @media (max-width: 768px) {
     .auth-container {
       flex-direction: column;
