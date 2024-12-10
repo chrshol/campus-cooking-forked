@@ -144,3 +144,54 @@ export async function deleteRecipe(id: number) {
     throw new Error('Failed to delete recipe');
   }
 }
+
+export async function updateRecipe(recipeData: RecipeData & { id: number }) {
+  try {
+    const { id, ...data } = recipeData;
+    
+    // Delete existing relations
+    await prisma.recipeCategory.deleteMany({
+      where: { recipeId: id },
+    });
+    await prisma.recipeAppliance.deleteMany({
+      where: { recipeId: id },
+    });
+    await prisma.ingredient.deleteMany({
+      where: { recipeId: id },
+    });
+
+    // Update recipe with new data
+    const recipe = await prisma.recipe.update({
+      where: { id },
+      data: {
+        title: data.title,
+        description: data.description,
+        imageURL: data.imageURL,
+        cookTime: data.cookTime,
+        instructions: data.instructions,
+        ingredients: {
+          create: data.ingredients.map((ingredient) => ({
+            name: ingredient.name,
+            quantity: ingredient.quantity,
+          })),
+        },
+        categories: {
+          create: data.categories.map((category) => ({
+            category: category as Category,
+          })),
+        },
+        appliances: {
+          create: data.appliances.map((appliance) => ({
+            appliance: appliance as Appliances,
+          })),
+        },
+      },
+    });
+
+    revalidatePath('/admin/monitor-recipes');
+    redirect('/admin/monitor-recipes');
+  } catch (error) {
+    console.error('Server error in updateRecipe:', error);
+    throw error;
+  }
+}
