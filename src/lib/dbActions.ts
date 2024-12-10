@@ -5,6 +5,7 @@ import { prisma } from './prisma';
 import { Appliances, Category } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import { hashPassword } from './auth'
 
 interface Ingredient {
   name: string;
@@ -101,14 +102,13 @@ export async function getAllRecipes() {
  * @param credentials, an object with the following properties: email, password.
  */
 export async function createUser(credentials: { firstName: string; lastName: string; email: string; password: string }) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
-  const password = await hash(credentials.password, 10);
+  const hashedPassword = await hashPassword(credentials.password);
   await prisma.user.create({
     data: {
       firstName: credentials.firstName,
       lastName: credentials.lastName,
       email: credentials.email,
-      password,
+      password: hashedPassword,
     },
   });
 }

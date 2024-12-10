@@ -6,6 +6,7 @@ import NavBarSignedin from '@/components/NavBarSignedin';
 import Footer from '@/components/Footer';
 import './styles.css';
 import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { deleteRecipe } from '@/lib/dbActions';
 
 interface Recipe {
   id: number;
@@ -41,10 +42,7 @@ export default async function AdminPage() {
               <RecipeCardAdmin
                 key={recipe.id}
                 recipe={recipe}
-                onDelete={async () => {
-                  'use server';
-                  // Delete functionality will be handled by the client component
-                }}
+                onDelete={deleteRecipe}
               />
             ))
           ) : (

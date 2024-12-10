@@ -1,8 +1,10 @@
 /* eslint-disable arrow-body-style */
-import { compare } from 'bcrypt';
+import { comparePasswords } from '@/lib/auth';
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '@/lib/prisma';
+
+export const runtime = 'nodejs';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -32,7 +34,11 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const isPasswordValid = await compare(credentials.password, user.password);
+        const isPasswordValid = await comparePasswords(
+          credentials.password, 
+          user.password
+        );
+        
         if (!isPasswordValid) {
           return null;
         }
@@ -64,7 +70,8 @@ export const authOptions: NextAuthOptions = {
           randomKey: token.randomKey,
           firstName: token.firstName,
           lastName: token.lastName,
-          role: token.randomKey,
+          role: token.role,
+
         },
       };
     },
@@ -77,6 +84,7 @@ export const authOptions: NextAuthOptions = {
           randomKey: u.randomKey,
           firstName: u.firstName,
           lastName: u.lastName,
+          role: u.role,
         };
       }
       return token;
