@@ -106,7 +106,7 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
         <div className="recipe-meta">
           <div className="meta-item">
             <Clock />
-            <span>{recipe.cookTime || '15 mins'}</span>
+            <span>{recipe.cookTime}</span>
           </div>
           <div className="meta-item">
             <Utensils />
