@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from 'next/link';
 import React from 'react';
 
 interface Category {
@@ -52,9 +53,11 @@ const Categories = () => {
     <section className="categories">
       <div className="categories-header">
         <h2 className="categories-title">Categories</h2>
-        <button type="button" className="view-all-btn">
-          View All Categories
-        </button>
+        <Link href="/recipes">
+          <button type="button" className="view-all-btn">
+            View All Categories
+          </button>
+        </Link>
       </div>
 
       <div className="categories-grid">
