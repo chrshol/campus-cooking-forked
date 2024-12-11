@@ -7,11 +7,13 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 const Footer = () => (
   <footer className="top-navbar">
     <div className="top-navbar-container">
-    <nav className="footer">
+    <Navbar expand="xl" className="footer">
+      <Container>
         <a href="/" className="logo">
           Campus Cooking
         </a>
-
+        <Navbar.Toggle aria-controls="footer-navbar-nav" />
+        <Navbar.Collapse id="footer-navbar-nav" className="justify-content-between">
         <Nav className="footer-links">
           <li>
             <a href="/" className="footer-link">
@@ -40,7 +42,9 @@ const Footer = () => (
           <Twitter size={22} />
           <Instagram size={22} />
         </div>
-      </nav>
+        </Navbar.Collapse>
+        </Container>
+      </Navbar>
       <div className="divider" />
       <div className="text-center py-3">
         <p className="mb-0 body-text">© 2024 Campus Cooking</p>

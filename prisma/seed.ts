@@ -4,6 +4,15 @@ import * as config from '../config/settings.development.json';
 
 const prisma = new PrismaClient();
 
+const applianceMap = {
+  "ToasterOven": Appliances.ToasterOven,
+  "RiceCooker": Appliances.RiceCooker,
+  "PaniniPress": Appliances.PaniniPress,
+  "Toaster": Appliances.Toaster,
+  "Microwave": Appliances.Microwave,
+  "HotPlate": Appliances.HotPlate,
+};
+
 async function main() {
   console.log('Seeding the database...');
 
@@ -37,6 +46,7 @@ async function main() {
         description: recipe.description,
         imageURL: recipe.imageURL,
         instructions: recipe.instructions,
+        cookTime: recipe.cookTime,
         email: recipe.email,
       },
     });
@@ -64,11 +74,35 @@ async function main() {
     });
     await Promise.all(categoryPromises);
 
-    // Create appliances for this recipe
+    // Create appliances for this recipe (ensure enum values are used)
     const appliancePromises = recipe.appliances.map(async (appliance) => {
+      let applianceEnumValue;
+      switch (appliance) {
+        case "ToasterOven":
+          applianceEnumValue = Appliances.ToasterOven;
+          break;
+        case "RiceCooker":
+          applianceEnumValue = Appliances.RiceCooker;
+          break;
+        case "PaniniPress":
+          applianceEnumValue = Appliances.PaniniPress;
+          break;
+        case "Toaster":
+          applianceEnumValue = Appliances.Toaster;
+          break;
+        case "Microwave":
+          applianceEnumValue = Appliances.Microwave;
+          break;
+        case "HotPlate":
+          applianceEnumValue = Appliances.HotPlate;
+          break;
+        default:
+          throw new Error(`Unknown appliance: ${appliance}`);
+      }
+
       return prisma.recipeAppliance.create({
         data: {
-          appliance: appliance as Appliances,
+          appliance: applianceEnumValue,
           recipeId: createdRecipe.id,
         },
       });
