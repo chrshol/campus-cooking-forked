@@ -96,6 +96,13 @@ model RecipeAppliance {
 }
 
 
+model EmailSubscription {
+  id           Int        @id @default(autoincrement())
+  email        String
+  subscribedAt DateTime @default(now())
+}
+
+
 
 
 
