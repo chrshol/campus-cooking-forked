@@ -36,6 +36,7 @@ enum Role {
 model Recipe {
   id             Int               @id @default(autoincrement())
   title          String
+  description    String
   imageURL       String
   cookTime       String            @default("10 minutes")
   ingredients    Ingredient[]
@@ -92,6 +93,13 @@ model RecipeAppliance {
   appliance Appliances
   recipe    Recipe     @relation(fields: [recipeId], references: [id])
   recipeId  Int
+}
+
+
+model EmailSubscription {
+  id           Int        @id @default(autoincrement())
+  email        String
+  subscribedAt DateTime @default(now())
 }
 
 

@@ -24,18 +24,714 @@
     ],
     "defaultRecipes": [
       {
-        "title": "Pancakes",
-        "description": "Fluffy pancakes for breakfast.",
-        "imageURL": "https://example.com/pancakes.jpg",
-        "cookTime": "15 minutes",
+        "title": "Rice Cooker Mac And Cheese",
+        "description": "Extra cheesy mac and cheese made in the rice cooker. It always comes out gooey and delicious!",
+        "imageURL": "https://www.allrecipes.com/thmb/vo99SnhhSJOlcZRHcbG3DSM-grY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/1957594-easy-rice-cooker-mac-n-cheese-Rebekah-Rose-Hills-4x3-1-769d0b887feb46bc8e4352f2deff8dd8.jpg",
+        "cookTime": "20 minutes",
         "ingredients": [
           {
-            "name": "Flour",
-            "quantity": "2 cups"
+            "name": "Elbow Macaroni",
+            "quantity": "1.5 Cups"
+          },
+          {
+            "name": "Low-Sodium Chicken Broth",
+            "quantity": "1.5 Cups"
+          },
+          {
+            "name": "Unsweetened Almond Milk",
+            "quantity": "1 Cup"
+          },
+          {
+            "name": "Shredded Cheddar Cheese",
+            "quantity": "3/4 Cup"
+          },
+          {
+            "name": "Shredded Mozzarella Cheese",
+            "quantity": "1/2 Cup"
+          },
+          {
+            "name": "Grated Parmesan Cheese",
+            "quantity": "1/4 Cup"
+          },
+          {
+            "name": "Paprika",
+            "quantity": "1/4 Teaspoon"
+          },
+          {
+            "name": "Salt",
+            "quantity": "(To Taste)"
+          },
+          {
+            "name": "Ground Black Pepper",
+            "quantity": "(To Taste)"
+          }
+        ],
+        "instructions": 
+          "1. Mix macaroni, broth, and almond milk together in the rice cooker; cook according to the manufacturer's instructions until macaroni is tender yet firm to the bite, 30 to 40 minutes.\n2. Stir Cheddar cheese, mozzarella cheese, Parmesan cheese, paprika, salt, and pepper into macaroni mixture until cheeses are melted.",
+        "categories": ["Lunch", "Dinner"],
+        "appliances": ["RiceCooker"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Rice Cooker Hard Boiled Eggs",
+        "description": "Here’s how to make perfect hard boiled eggs in a RICE COOKER!",
+        "imageURL": "https://www.adayinthekitchen.com/wp-content/uploads/2017/09/eggs-rice-cooker-1200x1200-1-300x300.jpg",
+        "cookTime": "20 minutes",
+        "ingredients": [
+          {
+            "name": "Eggs",
+            "quantity": "(As much as you want!)"
+          },
+          {
+            "name": "Water",
+            "quantity": "1 to 1.5 Cups"
+          },
+          {
+            "name": "Ice Water",
+            "quantity": "1 Bowl"
+          }
+        ],
+        "instructions": 
+          "1. Add water to rice pot and set into cooker.\n2. Place eggs in steamer tray and set in rice pot. Close cooker lid.\n3. Set rice cooker to COOK and start the cooker and timer at the same time. (See Notes below for cooking times.)\n4. Once timer rings, transfer eggs immediately to a bowl filled with ice water to stop the cooking process. Let sit for about 1-2 minutes.\n5. Start cracking and enjoy!",
+        "categories": ["Breakfast", "Lunch", "Dinner"],
+        "appliances": ["RiceCooker"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Rice Cooker Chocolate Cake",
+        "description": "This chocolate cake can be made in just a few basic steps in your rice-cooker.",
+        "imageURL": "https://cdn.sweetandsavory.co/wp-content/uploads/2020/09/10095114/RiceCookCake-F.png",
+        "cookTime": "65 Minutes",
+        "ingredients": [
+          {
+            "name": "Milk",
+            "quantity": "1 Cup"
+          },
+          {
+            "name": "Vegetable, Canola, OR Coconut Oil",
+            "quantity": "1/2 Cup"
+          },
+          {
+            "name": "Vanilla Extract",
+            "quantity": "1.5 Teaspoons"
+          },
+          {
+            "name": "All-Purpose Flour",
+            "quantity": "1.5 Cups"
+          },
+          {
+            "name": "Cocoa Powder",
+            "quantity": "1/4 Cup"
           },
           {
             "name": "Sugar",
-            "quantity": "2 tablespoons"
+            "quantity": "3/4 Cup"
+          },
+          {
+            "name": "Baking Powder",
+            "quantity": "1 Tablespoon"
+          }
+        ],
+        "instructions": "1. Lightly coat your rice-cooker insert with oil. Then cut out a circle of parchment paper just big enough to cover the bottom of the cooker and coat that paper too.\n2. Sift in your flour, baking powder, and cocoa powder into a large baking bowl. Add in the sugar and use a whisk to mix well.\n3. Mix together milk and vanilla extract in another bowl then pour slowly into the bowl with the dry ingredients. Do not overmix.\n4. Take your rice-cooker insert and remove it from the cooker. Pour in your cake batter.\n5. Give the side a couple of firm taps with your hand to help the batter settle. Return the insert to the cooker.\n6. Cover your cake with the rice-cooker lid. Turn on the “cook” setting and allow to cook for between 35 to 40 minutes. You will know when it’s done when you can insert a toothpick and it comes out clean.",
+        "categories": ["Dessert", "Chocolate"],
+        "appliances": ["RiceCooker"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Toaster Oven Grilled Cheese",
+        "description": "A toaster oven grilled cheese sandwich is the perfect easy office lunch, late night snack, or treat for whenever you’ve got a gooey melty cheese craving. If you struggle with burning grilled cheese sandwiches on your stovetop, you’re going to love this foolproof toaster oven method!",
+        "imageURL": "https://toasterovenlove.com/wp-content/uploads/toaster-oven-grilled-cheese-sandwich-5.jpg",
+        "cookTime": "20 minutes",
+        "ingredients": [
+          {
+            "name": "Bread",
+            "quantity": "2 Slices"
+          },
+          {
+            "name": "Butter (Softened)",
+            "quantity": "2 Teaspoons"
+          },
+          {
+            "name": "Cheese",
+            "quantity": "2 Slices"
+          }
+        ],
+        "instructions": 
+          "1. Adjust toaster oven cooking rack to the lowest position. Place your empty baking sheet inside the toaster oven and preheat it to 425°F or 450°F on the “Bake” setting.\n2. Spread the outside of each slice of bread with butter. Place one piece of bread buttered-side-down on a cutting board and top with cheese slices. Top with remaining bread slice, buttered-side-up.\n3. Using oven mitts, carefully remove the preheated pan. Place the sandwich on the pan and return to the toaster oven.\n4. Cook sandwich until the bottom is toasted and browned, about 4 minutes.\n5. Carefully remove the pan again, flip the sandwich with a spatula and return to the toaster oven for another 3 to 4 minutes or until the second side is browned and the cheese is melted.",
+        "categories": ["Lunch", "Dinner"],
+        "appliances": ["ToasterOven"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Toaster Oven Chocolate Chip Cookies",
+        "description": "With crisp golden brown edges and chewy middles, these Toaster Oven Chocolate Chip Cookies are perfect for satisfying your next cookie craving. The simple small batch recipe is easy to throw together and makes 5 hard-to-resist cookies. We dare you to eat just one!",
+        "imageURL": "https://toasterovenlove.com/wp-content/uploads/Toaster-Oven-Chocolate-Chip-Cookies-1.jpg",
+        "cookTime": "50 minutes",
+        "ingredients": [
+          {
+            "name": "Unsalted Butter (At Room Temperature)",
+            "quantity": "2 Tablespoons"
+          },
+          {
+            "name": "Packed Brown Sugar",
+            "quantity": "2 Tablespoons"
+          },
+          {
+            "name": "Granulated Sugar",
+            "quantity": "1 Tablespoon"
+          },
+          {
+            "name": "Large Egg Yolk",
+            "quantity": "1"
+          },
+          {
+            "name": "Unbleached All-Purpose Flour",
+            "quantity": "1/3 Cup"
+          },
+          {
+            "name": "Baking Soda",
+            "quantity": "1/8 Teaspoon"
+          },
+          {
+            "name": "Baking Powder",
+            "quantity": "1/8 Teaspoon"
+          },
+          {
+            "name": "Fine Sea Salt",
+            "quantity": "1/8 Teaspoon"
+          },
+          {
+            "name": "Semi-Sweet Chocolate Chips",
+            "quantity": "3 Tablespoons (Or More As Desired)"
+          }
+        ],
+        "instructions": 
+          "1. In a medium bowl, add the butter and sugars. Using a rubber spatula or wooden spoon, cream together until combined.\n2. Mix in the tablespoon of beaten egg and vanilla.\n3. Sprinkle the flour, baking soda, baking powder, and salt over the mixture and stir until combined.\n4. Reserve a few chocolate chips for topping the cookies after baking, then stir in the rest.\n5. Refrigerate the dough for at least 30 minutes.\n6. When ready to bake, adjust your toaster oven cooking rack to the middle position and preheat to 350°F using the BAKE setting. If using a convection toaster oven, reduce the temperature to 325°F.\n7. Line a quarter sheet pan with a silicone baking mat or leave it ungreased.\n8. Roll or scoop the dough into 1½ tablespoons sized balls and place on the prepared pan, arranging them at least 2-inches apart.\n9. Bake until the middles of the cookies are puffed and the edges are just starting to turn brown, about 6 to 10 minutes depending on your oven. Remove from the oven and quickly top with the reserved chocolate chips.\n10. Let the cookies sit on the pan for 5 minutes before transferring to a rack to cool completely.",
+        "categories": ["Dessert", "Chocolate"],
+        "appliances": ["ToasterOven"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Toaster Oven Banana Bread",
+        "description": "This easy banana bread for two recipe makes an adorable mini loaf that’s perfect for baking in the toaster oven. It comes together quickly and requires just one bowl, one small banana, and a few pantry staples.",
+        "imageURL": "https://toasterovenlove.com/wp-content/uploads/1-banana-bread.jpg",
+        "cookTime": "55 Minutes",
+        "ingredients": [
+          {
+            "name": "Small Very Ripe Banana",
+            "quantity": "1"
+          },
+          {
+            "name": "Large Egg",
+            "quantity": "1"
+          },
+          {
+            "name": "Plain Greek Yogurt",
+            "quantity": "1 Tablespoon"
+          },
+          {
+            "name": "Canola Oil",
+            "quantity": "1 Tablespoon"
+          },
+          {
+            "name": "Vanilla Extract",
+            "quantity": "1/4 Teaspoon"
+          },
+          {
+            "name": "All-Purpose Flour or White Whole Wheat Flour",
+            "quantity": "1/2 Cup"
+          },
+          {
+            "name": "Granulated White Sugar",
+            "quantity": "1/4 Cup"
+          },
+          {
+            "name": "Baking Soda",
+            "quantity": "1/4 Teaspoon"
+          },
+          {
+            "name": "Ground Cinnamon",
+            "quantity": "1/4 Teaspoon"
+          },
+          {
+            "name": "Fine Sea Salt",
+            "quantity": "1/8 Teaspoon"
+          }
+        ],
+        "instructions": "1. Adjust your toaster oven’s cooking rack to the lowest placement and preheat to 350°F on the 'BAKE' setting.\n2. Grease only the bottom of a 3 x 5.75 x 2.5-in mini loaf pan.\n3. Peel the banana, add to a medium bowl, and mash well with a fork. Add the egg, yogurt, oil, and vanilla, and whisk well to combine. Then add the flour, sugar, baking soda, cinnamon, and salt. Stir until just combined and small lumps remain.\n4. Pour batter into your prepared pan and bake until a toothpick inserted in the center is free of crumbs, about 24 to 28 minutes.\n5. Allow the bread to cool for at least 10 minutes before removing it from the pan to cool completely on a baking rack.",
+        "categories": ["Breakfast", "Dessert"],
+        "appliances": ["ToasterOven"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Toaster Oven Garlic Bread",
+        "description": "Looking for an easy side dish? Use your toaster oven to make a small batch of deliciously crisp and buttery homemade garlic bread! ",
+        "imageURL": "https://toasterovenlove.com/wp-content/uploads/garlic-bread-slices.jpg",
+        "cookTime": "15 Minutes",
+        "ingredients": [
+          {
+            "name": "Salted Butter (Softened)",
+            "quantity": "2 Tablespoons"
+          },
+          {
+            "name": "Olive Oil",
+            "quantity": "1 Teaspoon"
+          },
+          {
+            "name": "Garlic Powder",
+            "quantity": "1/4 TEaspoon"
+          },
+          {
+            "name": "Finely Chopped Fresh Parsley",
+            "quantity": "3/4 Teaspoon"
+          },
+          {
+            "name": "Grated Vegetarian Parmesan Cheese (Optional)",
+            "quantity": "2 Teaspoon"
+          },
+          {
+            "name": "Crusty Sandwich Roll",
+            "quantity": "1"
+          }
+        ],
+        "instructions": "1. Select the BAKE setting and preheat the toaster oven to 400°F or 375°F (for convection toaster ovens/if you prefer a softer bread). We like to use the middle rack placement. If you only have two options in your oven, use the lower rack placement.\n2. In a small bowl, add the softened butter, olive oil, garlic powder, parsley, and Parmesan cheese. Mix together until well combined.\n3. Slice the sandwich roll in half lengthwise and place it on a baking sheet with the cut side facing up.\n4. Spread each piece with an even layer of garlic butter. (How much garlic butter to use is more of a personal preference but we usually have some leftovers.)\n5. Bake until the edges are golden brown and crisp about 8 to 11 minutes. As toaster ovens vary you may need to adjust the time to be shorter or longer.\n6. Cool for a few minutes, then slice each half into 4 pieces, and dig in!",
+        "categories": ["Lunch", "Dinner"],
+        "appliances": ["ToasterOven"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Toaster Oven Granola",
+        "description": "This easy Small Batch Granola Recipe is crispy, sweet, and great for snacking. It’s simple to customize with your favorite ingredients and makes just a few servings!",
+        "imageURL": "https://toasterovenlove.com/wp-content/uploads/2016/05/1-2.jpg",
+        "cookTime": "25 Minutes",
+        "ingredients": [
+          {
+            "name": "Old Fashioned Rolled Oats",
+            "quantity": "1.25 Cups"
+          },
+          {
+            "name": "Raw Sliced Almonds",
+            "quantity": "1/4 Cup"
+          },
+          {
+            "name": "Unsweetened Flaked Coconut",
+            "quantity": "1/4 Cup"
+          },
+          {
+            "name": "Flax Meal (Optional)",
+            "quantity": "1 Tablespoon"
+          },
+          {
+            "name": "Melted Coconut Oil",
+            "quantity": "2 Tablespoons"
+          },
+          {
+            "name": "Maple Syrup",
+            "quantity": "2 Tablespoons"
+          },
+          {
+            "name": "Almond Extract",
+            "quantity": "1/4 Taspoon"
+          },
+          {
+            "name": "Salt",
+            "quantity": "A Pinch"
+          }
+        ],
+        "instructions": "1. Preheat the oven to 325°F (or 300°F for convection). If using a toaster oven, adjust the cooking rack to the middle or bottom position and select the BAKE setting. Lightly oil an 8 x 8-inch pan or an 11 x 7-inch and set aside. 2. In a medium bowl mix together the oats, almonds, coconut, and flax meal if using. 3. In a small bowl whisk together the oil, maple syrup, almond extract, and salt until it thickens (about 30 to 60 seconds of vigorous whisking). 4. Pour the maple mixture over the oats and stir well making sure to coat all of the ingredients. 5. Pour the granola into the prepared pan and spread it into an even layer. 6. Bake the granola, stirring once or twice, until golden, about 17 to 22 minutes. When stirring the granola, try to move it from the edges of the pan inward. During the last few minutes, check on the granola often to make sure it does not burn. 7. Remove from the toaster oven and leave the granola in the pan to cool completely before devouring.",
+        "categories": ["Breakfast", "Vegan"],
+        "appliances": ["ToasterOven"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Toaster Oven Broccoli",
+        "description": "Toaster Oven Roasted Broccoli is the perfect quick and easy side dish. From kids to adults, everyone loves it! Throw together this healthy side dish tonight, it’ll take you less than 30 minutes.",
+        "imageURL": "https://toasterovenlove.com/wp-content/uploads/toaster-oven-roasted-broccoli-1-1.jpg",
+        "cookTime": "25 Minutes",
+        "ingredients": [
+          {
+            "name": "Broccoli Crowns",
+            "quantity": "10 Ounces"
+          },
+          {
+            "name": "Garlic (Peeled & Thinly Sliced)",
+            "quantity": "2 Cloves"
+          },
+          {
+            "name": "Olive Oil (Or Another Neutral Oil)",
+            "quantity": "1 Tablespoon"
+          },
+          {
+            "name": "Fine Sea Salt",
+            "quantity": "1/4 Teaspoon"
+          },
+          {
+            "name": "Black Pepper",
+            "quantity": "1/8 Teaspoon"
+          },
+          {
+            "name": "Crushed Red Pepper Flakes (Optional)",
+            "quantity": "A Pinch"
+          },
+          {
+            "name": "Lemon, Sliced Into Wedges (Optional)",
+            "quantity": "1/2"
+          }
+        ],
+        "instructions": "1. Adjust your toaster oven cooking rack to the lowest position and heat to 425°F on the “Bake” setting. Lightly oil a rimmed baking pan.\n2. Cut the broccoli florets from the stalks and slice large florets in half or quarter. Peel the stalks and slice into 1/4-inch rounds.\n3. Add all of the broccoli, garlic, oil, salt, pepper, and red pepper flakes to the pan. Toss well to combine and then spread in an even layer.\n4. Roast broccoli until the florets are lightly browned and fork-tender, about 10 to 16 minutes depending on the size of your florets and personal preference.\n5. Squeeze lemon wedges over the pan, add more salt and pepper to taste and toss broccoli before serving.",
+        "categories": ["Lunch", "Dinner", "Vegan"],
+        "appliances": ["ToasterOven"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Toaster Oven Chocolate Cookies",
+        "description": "Toaster Oven Chocolate Cookies are rich brownie-like cookies stuffed full of melty chocolate chips. The easy small-batch recipe makes just 6 indulgent cookies, so go ahead and splurge!",
+        "imageURL": "https://toasterovenlove.com/wp-content/uploads/2016/04/1-1.jpg",
+        "cookTime": "30 Minutes",
+        "ingredients": [
+          {
+            "name": "Unsalted Butter (Softened)",
+            "quantity": "1.5 Tablespoons"
+          },
+          {
+            "name": "Light Brown Sugar",
+            "quantity": "3 Tablespoons"
+          },
+          {
+            "name": "Large Egg Yolk",
+            "quantity": "1"
+          },
+          {
+            "name": "Vanilla Extract",
+            "quantity": "1/4 Teaspoon"
+          },
+          {
+            "name": "Unsweetened Cocoa Powder",
+            "quantity": "2 Tablespoons"
+          },
+          {
+            "name": "All-Purpose Flour or White Whole Wheat Flour",
+            "quantity": "1/4 Cup"
+          },
+          {
+            "name": "Baking Soda",
+            "quantity": "1/4 Teaspoon"
+          },
+          {
+            "name": "Fine Sea Salt",
+            "quantity": "A Pinch"
+          },
+          {
+            "name": "Semi-Sweet Chocolate Chips (Divided)",
+            "quantity": "3 Tablespoons"
+          }
+        ],
+        "instructions": "1. In a medium bowl, beat the butter and sugar together until light and fluffy (at least 1 minute). Mix in the egg yolk and vanilla until combined. Gently stir in the cocoa powder.\nThen add the flour, baking soda, and salt. Mix just until combined. Stir in 2 tablespoons of the chocolate chips.\n2. Chill cookie dough in the fridge for at least 10 minutes.\n3. While the dough chills, adjust the cooking rack to the middle placement, select the BAKE setting, and preheat the toaster oven to 350°F. Lightly oil a small cookie sheet or line it with a silicone baking mat.\n4. Roll chilled dough into heaping tablespoon-sized balls. Place at least 2 inches apart on the prepared pan. Press the remaining 1 tablespoon of chocolate chips into the top of the dough.\n5. Bake until the cookies are set but the centers are still puffed and soft, 5 to 7 minutes. The cookies will continue to bake as they cool.\n6. Allow cookies to cool on the pan for 5 minutes before transferring them to a wire rack to cool completely.",
+        "categories": ["Dessert", "Chocolate"],
+        "appliances": ["ToasterOven"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Microwave Mug Omelet",
+        "description": "Be it breakfast, lunch or supper, when you’re feeling hungry or need to rustle something up quickly for someone else, you can’t go far wrong with a microwave mug omelette. This is the ultimate fast snack, with just a few minutes to prep and even less to cook.",
+        "imageURL": "https://images.immediate.co.uk/production/volatile/sites/30/2022/08/Mug-omelette-9bc409a.jpg?quality=90&webp=true&crop=4px,241px,892px,594px&fit=900,600",
+        "cookTime": "10 Minutes",
+        "ingredients": [
+          {
+            "name": "Salted Butter",
+            "quantity": "1 Teaspoon"
+          },
+          {
+            "name": "Eggs",
+            "quantity": "2"
+          },
+          {
+            "name": "Sweet Red Pepper (Diced)",
+            "quantity": "1 Tablespoon"
+          },
+          {
+            "name": "Grated Cheese",
+            "quantity": "1 Tablespoon"
+          },
+          {
+            "name": "Salt",
+            "quantity": "(To Taste)"
+          },
+          {
+            "name": "Pepper",
+            "quantity": "(To Taste)"
+          }
+        ],
+        "instructions": "1. Put the butter in the microwaveable cup and microwave for 30 seconds. Remove from microwave and swirl butter around the mug.\n2. In a separate bowl beat the eggs then add in peppers and cheese, and salt and pepper to taste.\n3. Pour the egg mixture into the mug and cook it in microwave for 20 seconds. Next take out of microwave and stir, then cook again for 20 seconds. Finally, cook for another 20 seconds.\n4. Remove the mug from the cup and let sit for 1 minute. Then enjoy!",
+        "categories": ["Breakfast"],
+        "appliances": ["Microwave"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Microwave Apple Cinnamon Oatmeal",
+        "description": "This hearty breakfast dish is packed with cholesterol-lowering soluble fiber. Leaving the apple skin on contributes even more fiber. Most of the fat is a healthy monounsaturated fat from the nuts.",
+        "imageURL": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2017/4/13/0/FNK_Microwave-Apple-Cinnamon-Oatmeal-H_s4x3.jpg.rend.hgtvcom.826.620.suffix/1492113444772.webp",
+        "cookTime": "10 Minutes",
+        "ingredients": [
+          {
+            "name": "Apple (Cored & Chopped)",
+            "quantity": "1"
+          },
+          {
+            "name": "Rolled Oats",
+            "quantity": "1 Cup"
+          },
+          {
+            "name": "Ground Cinnamon",
+            "quantity": "1/4 Teaspoon"
+          },
+          {
+            "name": "Salt",
+            "quantity": "A Pinch"
+          },
+          {
+            "name": "Water",
+            "quantity": "2 Cups"
+          },
+          {
+            "name": "Maple Syrup",
+            "quantity": "2 Tablespoons"
+          }
+        ],
+        "instructions": "1. Combine the apple, oats, cinnamon, and salt in a large microwave-safe bowl water, and stir in the water.\n2. Cover and seal with plastic wrap or a tight fitting lid and heat in the microwave on high until apples are soft and most of the liquid is absorbed, about 8 minutes.\n3. Stir in the maple syrup.\n4. Divide between 2 bowls and serve immediately.",
+        "categories": ["Breakfast", "Vegan"],
+        "appliances": ["Microwave"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Hot Plate French Toast",
+        "description": "French toast is basically bread pudding made in a frying pan instead of the oven. French toast was originally a way of using up stale bread. In fact, in French it is called pain perdu…",
+        "imageURL": "https://images.cookforyourlife.org/wp-content/uploads/2018/08/shutterstock_4184512.jpg",
+        "cookTime": "20 Minutes",
+        "ingredients": [
+          {
+            "name": "Whole Wheat Bread",
+            "quantity": "4 Slices"
+          },
+          {
+            "name": "Egg",
+            "quantity": "1"
+          },
+          {
+            "name": "Milk",
+            "quantity": "(As Needed)"
+          },
+          {
+            "name": "Nutmeg or Cinnamon",
+            "quantity": "(To Taste)"
+          },
+          {
+            "name": "Butter",
+            "quantity": "1 to 2 Teaspoons"
+          }
+        ],
+        "instructions": "1. Lay the bread slices in one layer in a shallow baking dish.\n2. Break the egg into a 2-cup measuring jug. Add milk to bring it up to a generous 1 cup. Add freshly grated nutmeg or ground cinnamon and beat well.\n3. Pour the mixture over the bread and let the bread soak up the liquid. Turn the slices of bread over after a couple of minutes to make sure the bread soaks evenly.\n4. Grease a skillet with butter. Heat over a medium-high flame. When the skillet is hot and the butter is melted and bubbling, place the slices of soaked bread in the skillet. Spoon any leftover egg mixture onto the bread slices as you cook them. When one side of the bread is done, flip the slice over and cook the other side until golden brown.",
+        "categories": ["Breakfast"],
+        "appliances": ["HotPlate"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Hot Plate Chicken And Rice Soup",
+        "description": "This soup is really adaptable, as well as easy to make and to eat. All you need is an hour to cook but it tastes like it’s simmered all day. Plus, it’s a perfect freezer-friendly…",
+        "imageURL": "https://images.cookforyourlife.org/wp-content/uploads/2015/08/chicken-soup-dill-resized.jpg",
+        "cookTime": "45 Minutes",
+        "ingredients": [
+          {
+            "name": "Olive Oil",
+            "quantity": "1 Teaspoon"
+          },
+          {
+            "name": "Medium Onion (Chopped)",
+            "quantity": "1/2"
+          },
+          {
+            "name": "Celery Ribs (Diced)",
+            "quantity": "4"
+          },
+          {
+            "name": "Medium Carrots (Diced)",
+            "quantity": "3"
+          },
+          {
+            "name": "Dill (Fresh or Dried)",
+            "quantity": "2 Teaspoons"
+          },
+          {
+            "name": "Long-Grain Brown Rice (Or White Rice)",
+            "quantity": "1/2 Cup"
+          },
+          {
+            "name": "Salt",
+            "quantity": "(To Taste)"
+          },
+          {
+            "name": "Pepper",
+            "quantity": "(To Taste)"
+          },
+          {
+            "name": "Chicken Breast On The Bone (Skinned)",
+            "quantity": "2 Pounds"
+          },
+          {
+            "name": "Water (Or Broth(",
+            "quantity": "5 Cups"
+          },
+          {
+            "name": "Chopped Parsley To Garnish (Optional)",
+            "quantity": "(As Needed)"
+          }
+        ],
+        "instructions": "1. Heat the olive oil in a large pot over medium heat. Add the onions, celery, carrots, dill, rice, salt, and pepper. Cook, stirring occasionally, until the vegetables are tender and the onions are translucent, about 8 minutes.\n2. Add the chicken and 4 cups of water. Bring to a boil, then cover and simmer for 1 hour, adding more water if too much evaporates.\n3. Remove the chicken and transfer to a colander. Once cool enough to handle, shred the chicken meat off the bone and return to the broth to heat through. Discard the bones. Taste the soup for seasonings, add parsley if using, and serve.",
+        "categories": ["Lunch", "Dinner", "Meat"],
+        "appliances": ["HotPlate"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Bacon And Egg And Cheddar English Muffin Panini",
+        "description": "There’s not a lot you can do to improve on a classic bacon, egg, and cheese breakfast sandwich on an English muffin. It’s pretty perfect, if you ask me – a savory, handheld meal in itself. My vacation breakfast go-to, for sure.",
+        "imageURL": "https://paninihappy.com/wp-content/uploads/2013/03/bacon-egg-cheese-english-muffin-panini-hipsta-490.jpg",
+        "cookTime": "30 Minutes",
+        "ingredients": [
+          {
+            "name": "Large Eggs",
+            "quantity": "4"
+          },
+          {
+            "name": "Coarse Salt",
+            "quantity": "(To Taste)"
+          },
+          {
+            "name": "Black Pepper",
+            "quantity": "(To Taste)"
+          },
+          {
+            "name": "Butter (At Room Temperature)",
+            "quantity": "4 Tablespoons"
+          },
+          {
+            "name": "English Muffin Toasting Bread",
+            "quantity": "8 Slices"
+          },
+          {
+            "name": "Cooked Bacon",
+            "quantity": "8 Strips"
+          },
+          {
+            "name": "Sharp Cheddar Cheese (Sliced)",
+            "quantity": "4 Ounces"
+          }
+        ],
+        "instructions": "1. One at a time, prepare the omelets. Melt about 1/2 teaspoon of butter in a small nonstick skillet over medium-low heat. Beat one egg really well in a small bowl, season it with salt and pepper and pour it into the skillet. Once the egg has set slightly, pull in the sides with a rubber spatula to allow the runny egg to flow to the pan. When the eggs are nearly set, carefully lift up one edge with the rubber spatula and fold it over in half. Transfer the omelet to a plate and cover it with foil to keep warm while you prepare the other three omelets in the same manner.\n2. Heat the panini maker to medium-high heat.\n3. For each sandwich: If you’re using English muffin toasting bread, spread butter on two slices to flavor the outside of the sandwich. Flip over one slice and layer on cheese, an omelet, two slices of bacon and more cheese (if you’re using traditional English muffins, apply the fillings inside the lower half of the muffin). Close the sandwich with the top English muffin half.\n4. Grill the panini, two at a time (or all four, if they will fit), until the cheese is melted and the bread or muffin is toasted, 4 to 5 minutes.",
+        "categories": ["Breakfast", "Meat"],
+        "appliances": ["PaniniPress"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Strawberry And Banana And Nutella Panini",
+        "description": "Well, now my secret is out – I like Nutella. And when it’s heated up with fresh strawberries and bananas between two slices of buttered and toasted multigrain bread…irresistible! To me, this is dessert but if you’re among the many who unabashedly enjoy Nutella for breakfast, this will definitely make for a very happy start to your day.",
+        "imageURL": "https://paninihappy.com/wp-content/uploads/2011/03/Strawberry_Banana_Nutella_Panini-490.jpg",
+        "cookTime": "15 Minutes",
+        "ingredients": [
+          {
+            "name": "Multigrain Bread",
+            "quantity": "8 Slices"
+          },
+          {
+            "name": "Nutella Chocolate Hazelnut Spread",
+            "quantity": "3/4 Cup"
+          },
+          {
+            "name": "Strawberries (Hulled & Sliced)",
+            "quantity": "4 to 6"
+          },
+          {
+            "name": "Banana (Sliced)",
+            "quantity": "1"
+          },
+          {
+            "name": "Melted Butter",
+            "quantity": "2 Tablespoons"
+          }
+        ],
+        "instructions": "1. Preheat the panini grill to medium-high heat.\n2. For each sandwich: Spread 1-2 tablespoons of Nutella inside two slices of bread. Top one slice with strawberries and bananas in a single layer. Close the sandwich and brush melted butter on top.\n3. Grill for 2-3 minutes until the sandwich is heated through and the bread is toasted. Slice in half, serve immediately and enjoy!",
+        "categories": ["Dessert", "Chocolate", "Breakfast"],
+        "appliances": ["PaniniPress"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Toaster Quesadilla",
+        "description": "We know what you’re thinking: won’t an ooey-gooey quesadilla make for an icky-sticky toaster? The hack here is all in how you fold the tortilla. Keeping the fillings away from the edges, you’ll want to fold the quesadilla into a pocket and load them into the toaster open-end on top. This will keep all the deliciousness inside of the tortilla and off of your toaster.",
+        "imageURL": "https://silverhillsbakery.ca/wp-content/uploads/2020/09/SHB_Toaster-Quesadilla_3-Ways_Blog-1200x800-c-default.jpg",
+        "cookTime": "10 Minutes",
+        "ingredients": [
+          {
+            "name": "Tortillas",
+            "quantity": "2"
+          },
+          {
+            "name": "Cheese",
+            "quantity": "4 Slices"
+          }
+        ],
+        "instructions": "1. Fold the tortilla up so the edges meet, and then fold each side in towards the centre to create a little pocket.\n2. Pop that pocket into the toaster and toast on the medium setting (3/4) until crisp. (The cheese will be melty, but don’t worry about it oozing out and making a mess of your toaster.)",
+        "categories": ["Lunch", "Dinner"],
+        "appliances": ["Toaster"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Microwave Brussel Sprouts",
+        "description": "Make a simple Christmas brussels side with the help of a microwave. A butter and honey glaze and a scattering of almonds will make this a popular dish.",
+        "imageURL": "https://images.immediate.co.uk/production/volatile/sites/30/2022/10/Microwave-brussels-sprouts-d36d317.jpg?quality=90&webp=true&resize=600,545",
+        "cookTime": "10 Minutes",
+        "ingredients": [
+          {
+            "name": "Brussel Sprouts (Halved)",
+            "quantity": "500 Grams"
+          },
+          {
+            "name": "Salted Butter",
+            "quantity": "15 Grams"
+          },
+          {
+            "name": "Honey",
+            "quantity": "1 Tablespoon"
+          },
+          {
+            "name": "Taosted Flaked Almonds",
+            "quantity": "25"
+          }
+        ],
+        "instructions": "1. Tip the brussels sprouts into a microwave-safe bowl with 1 tbsp water. Cover and microwave on high for 4 mins until almost tender. Drain. Will keep chilled for up to 24 hours. Leave to cool first.\n2. Add the butter and honey. Season well. Microwave for another 1 min, scatter with the almonds and serve.",
+        "categories": ["Lunch", "Dinner"],
+        "appliances": ["Microwave"],
+        "email": "john@foo.com"
+      },
+      {
+        "title": "Microwave Banana Pudding",
+        "description": "This microwave banana pudding is a super-speedy dessert that's ready in just 20 minutes. Served with ice cream or yogurt, it's sure to be a hit with the family.",
+        "imageURL": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-424720_12-b8ffc96.jpg?quality=90&webp=true&resize=440,400",
+        "cookTime": "20 Minutes",
+        "ingredients": [
+          {
+            "name": "Butter",
+            "quantity": "100 Grams"
+          },
+          {
+            "name": "Ripe Bananas",
+            "quantity": "2"
+          },
+          {
+            "name": "Light Muscovado Sugar",
+            "quantity": "100 Grams"
+          },
+          {
+            "name": "Ground Cinnamon",
+            "quantity": "2 Teaspoons"
           },
           {
             "name": "Eggs",
@@ -43,40 +739,44 @@
           },
           {
             "name": "Milk",
-            "quantity": "1.5 cups"
-          },
-          {
-            "name": "Butter",
-            "quantity": "2 tablespoons"
+            "quantity": "2 Tablespoons"
           }
         ],
-        "instructions": "Mix all ingredients and cook on a hot plate.",
-        "categories": ["Breakfast", "Dessert"],
-        "appliances": ["HotPlate", "Toaster"],
+        "instructions": "1. Put the butter in a 1-litre baking dish and microwave on High for 30 secs-1 min until melted. Add 1½ bananas, mash into the melted butter, then add the sugar, flour, cinnamon, eggs and milk. Mix together well.\n2. Slice the remaining banana over the top, then return to the microwave and cook on High for 8 mins until cooked through and risen. Serve warm, dusted with icing sugar, if you like, with a drizzle of toffee sauce and a scoop of ice cream.",
+        "categories": ["Dessert"],
+        "appliances": ["Microwave"],
         "email": "john@foo.com"
       },
       {
-        "title": "Grilled Cheese",
-        "description": "A quick and easy lunch option.",
-        "imageURL": "https://example.com/grilled_cheese.jpg",
-        "cookTime": "8 minutes",
+        "title": "Microwave Stuffed Peppers And Rice",
+        "description": "Stuffed peppers with rice make for a quick veggie meal that's bursting with Mediterranean flavors. It's ready in 15 minutes and uses just five ingredients.",
+        "imageURL": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-338663_11-7a36645.jpg?quality=90&webp=true&resize=440,400",
+        "cookTime": "40 Minutes",
         "ingredients": [
           {
-            "name": "Bread",
-            "quantity": "2 slices"
+            "name": "Red Peppers",
+            "quantity": "4"
           },
           {
-            "name": "Cheese",
-            "quantity": "2 slices"
+            "name": "Cooked Tomato Rice",
+            "quantity": "2 Pouches"
           },
           {
-            "name": "Butter",
-            "quantity": "1 tablespoon"
+            "name": "Pesto",
+            "quantity": "2 Tablespoons"
+          },
+          {
+            "name": "Pitted Black Olives (Chopped)",
+            "quantity": "A Handful"
+          },
+          {
+            "name": "Goat's Cheese (Sliced)",
+            "quantity": "200 Grams"
           }
         ],
-        "instructions": "Butter the bread and grill with cheese using a panini press.",
-        "categories": ["Lunch"],
-        "appliances": ["PaniniPress"],
+        "instructions": "1. Use a small knife to cut the top out of 4 red peppers, then scoop out the seeds. Sit the peppers on a plate, cut-side up, and cook in the microwave on high for 5-6 mins until they have wilted and softened.\n2. While the peppers are cooking, mix two 250g pouches cooked tomato rice together with 2 tbsp pesto and a handful of chopped pitted black olives and 140g of the sliced goat's cheese.\n3. Scoop the rice, pesto, olives and goat's cheese mix into the peppers, top with the remaining 60g sliced goat’s cheese and continue to cook for 8-10 mins.",
+        "categories": ["Lunch", "Dinner"],
+        "appliances": ["Microwave"],
         "email": "john@foo.com"
       }
     ]
