@@ -195,3 +195,17 @@ export async function updateRecipe(recipeData: RecipeData & { id: number }) {
     throw error;
   }
 }
+
+export async function addEmailSubscription(email: string) {
+  try {
+    await prisma.emailSubscription.create({
+      data: {
+        email: email,
+      },
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to add email subscription:', error);
+    return { success: false, error: 'Failed to subscribe. Please try again.' };
+  }
+}
