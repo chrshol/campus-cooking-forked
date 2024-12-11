@@ -29,7 +29,7 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
 
   return (
     <div className="recipe-card">
-      <div className="recipe-image-container">
+      <div className="recipe-image-container-grid">
         <img src={recipe.image} alt={recipe.title} className="recipe-image" />
         <button
           type="button"
@@ -79,40 +79,45 @@ const RecipeGrid = () => {
   const recipes: Recipe[] = [
     {
       id: 1,
-      title: 'Superfood Fruit Salad',
-      image: '/landing-img/acai.png',
+      title: 'Rice Cooker Mac ‘n Cheese',
+      image:
+        'https://www.allrecipes.com/thmb/vo99SnhhSJOlcZRHcbG3DSM-grY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/1957594-easy-rice-cooker-mac-n-cheese-Rebekah-Rose-Hills-4x3-1-769d0b887feb46bc8e4352f2deff8dd8.jpg',
       duration: '30 Minutes',
       category: 'Snack',
       isLiked: false,
     },
     {
       id: 2,
-      title: 'Toaster Oven Miso Salmon',
-      image: '/landing-img/salmon.png',
+      title: 'Rice Cooker Chocolate Cake',
+      image:
+        'https://cdn.sweetandsavory.co/wp-content/uploads/2020/09/10095114/RiceCookCake-F.png',
       duration: '30 Minutes',
-      category: 'Fish',
+      category: 'Dessert',
       isLiked: false,
     },
     {
       id: 3,
-      title: 'Sandwich press pancakes',
-      image: '/landing-img/pancake2.png',
+      title: 'Rice Cooker Hard Boiled Eggs',
+      image:
+        'https://www.adayinthekitchen.com/wp-content/uploads/2017/09/eggs-rice-cooker-1200x1200-1-300x300.jpg',
       duration: '30 Minutes',
       category: 'Breakfast',
       isLiked: false,
     },
     {
       id: 4,
-      title: 'Everything in your veggie drawer salad',
-      image: '/landing-img/saladbowl.png',
+      title: 'Toaster Oven Grilled Cheese',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/toaster-oven-grilled-cheese-sandwich-5.jpg',
       duration: '30 Minutes',
       category: 'Healthy',
       isLiked: true,
     },
     {
       id: 5,
-      title: 'Air fryer meatballs',
-      image: '/landing-img/meatballs.png',
+      title: 'Toaster Oven Chocolate Chip Cookies',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/Toaster-Oven-Chocolate-Chip-Cookies-1.jpg',
       duration: '30 Minutes',
       category: 'Meat',
       isLiked: false,
@@ -127,24 +132,26 @@ const RecipeGrid = () => {
     },
     {
       id: 7,
-      title: 'Orange and blueberry sandwich press pancakes',
-      image: '/landing-img/pancake.png',
+      title: 'Toaster Oven Banana Bread',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/1-banana-bread.jpg ',
       duration: '30 Minutes',
       category: 'Sweet',
       isLiked: true,
     },
     {
       id: 8,
-      title: 'Rice cooker chicken and rice',
-      image: '/landing-img/ricemeal.png',
+      title: 'Toaster Oven Garlic Bread',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/garlic-bread-slices.jpg',
       duration: '30 Minutes',
       category: 'Snack',
       isLiked: false,
     },
     {
       id: 9,
-      title: 'Rice cooker pasta',
-      image: '/landing-img/pasta.png',
+      title: 'Toaster Oven Chocolate Cookies',
+      image: 'https://toasterovenlove.com/wp-content/uploads/2016/04/1-1.jpg',
       duration: '30 Minutes',
       category: 'Noodles',
       isLiked: false,
