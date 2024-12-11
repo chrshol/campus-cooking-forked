@@ -16,13 +16,13 @@ const NavBar = () => {
       setShowPopup(true);
     }
     else {
-      window.location.href = '/addrecipe'; // Navigates if logged in
+      window.location.href = '/addrecipe';
     }
   };
 
   const handleClosePopup = () => setShowPopup(false);
   const handleLoginRedirect = () => {
-    setShowPopup(false); // Closes the popup before redirecting
+    setShowPopup(false);
     window.location.href = '/login';
   };
 
@@ -30,60 +30,40 @@ const NavBar = () => {
     <>
       <header className="top-navbar">
         <div className="top-navbar-container">
-          <Navbar
-            expand="xl"
-            variant="light"
-            style={{
-              borderBottom: 'none',
-              boxShadow: 'none',
-            }}
-          >
-            <Container>
+          <nav className="top-nav">
             <a href="/" className="logo">
               Campus Cooking
             </a>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse
-                id="basic-navbar-nav"
-                className="justify-content-between"
+            <ul className="top-nav-links">
+              <li><a href="/" className="top-nav-link">Home</a></li>
+              <li><a href="/recipes" className="top-nav-link">Recipes</a></li>
+              <li><a href="/contact" className="top-nav-link">Contact</a></li>
+              <li><a href="/about-us" className="top-nav-link">About Us</a></li>
+              {session?.user?.randomKey === 'ADMIN' && (
+                <li><a href="/admin/monitor-recipes" className="top-nav-link">Monitor Recipes</a></li>
+              )}
+              <li><a href="#" onClick={handleAddRecipeClick} className="top-nav-link">Add Recipe</a></li>
+            </ul>
+            {session ? (
+              <NavDropdown
+                title={currentUser || 'User'}
+                id="user-dropdown"
+                className="user-menu"
               >
-                <Nav className="top-nav-links">
-                  {[
-                    { name: 'Home', path: '/' },
-                    { name: 'Recipes', path: '/recipes' },
-                    { name: 'Contact', path: '/contact' },
-                    { name: 'About Us', path: '/about-us' },
-                  ].map((item) => (
-                    <Nav.Link key={item.name} href={item.path}>
-                      {item.name}
-                    </Nav.Link>
-                  ))}
-                  <Nav.Link onClick={handleAddRecipeClick}>
-                    Add Recipe
-                  </Nav.Link>
-                </Nav>
-                {session ? (
-                  <NavDropdown
-                    title={currentUser || 'User'}
-                    id="user-dropdown"
-                    className="ms-3"
-                  >
-                    <NavDropdown.Item href="/api/auth/signout">
-                      Sign Out
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                ) : (
-                  <a
-                    href="/login"
-                    className="login-btn d-flex align-items-center ms-3"
-                  >
-                    Login
-                    <ChevronRight size={16} className="ms-1" />
-                  </a>
-                )}
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
+                <NavDropdown.Item href="/api/auth/signout">
+                  Sign Out
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <a
+                href="/login"
+                className="login-btn"
+              >
+                Login
+                <ChevronRight size={16} />
+              </a>
+            )}
+          </nav>
         </div>
       </header>
 
