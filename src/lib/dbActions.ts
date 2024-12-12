@@ -47,7 +47,7 @@ export async function addRecipe(recipeData: RecipeData) {
         title: recipeData.title,
         description: recipeData.description,
         imageURL: recipeData.imageURL,
-        cookTime: recipeData.cookTime,
+        cooktime: recipeData.cookTime,
         instructions: recipeData.instructions,
         email: recipeData.email,
         ingredients: {
@@ -95,7 +95,30 @@ export async function getAllRecipes() {
     throw error;
   }
 }
-
+/**
+ * Searches recipes in the database by a given query.
+ * @param query A string to search within recipe titles.
+ */
+export async function searchRecipes(query: string) {
+  try {
+    return await prisma.recipe.findMany({
+      where: {
+        title: {
+          contains: query, // Filter by title containing the query string
+          mode: 'insensitive', // Case-insensitive search
+        },
+      },
+      include: {
+        ingredients: true,
+        categories: true,
+        appliances: true,
+      },
+    });
+  } catch (error) {
+    console.error('Failed to search recipes', error);
+    throw error;
+  }
+}
 /**
  * Searches recipes in the database by a given query.
  * @param query A string to search within recipe titles.

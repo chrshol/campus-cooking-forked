@@ -45,13 +45,14 @@ model Recipe {
   email          String            // Changed from userID/owner
   user           User              @relation(fields: [email], references: [email])
   createdAt      DateTime          @default(now())
+  cooktime       String
 }
 
 
 enum Appliances {
   RiceCooker
   PaniniPress
-  ToasterOven    // Fixed typo from ToasterOwen
+  ToasterOven   
   Toaster
   Microwave
   HotPlate
@@ -65,10 +66,6 @@ enum Category {
   Meat
   Dessert
   Chocolate
-  // Vegetarian      Not in categories yet, but should be added
-  // GlutenFree
-  // NutFree
-  // DairyFree
 }
 
 model Ingredient {
