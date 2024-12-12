@@ -46,7 +46,7 @@ async function main() {
         description: recipe.description,
         imageURL: recipe.imageURL,
         instructions: recipe.instructions,
-        cookTime: recipe.cookTime,
+        cooktime: recipe.cookTime,
         email: recipe.email,
       },
     });
