@@ -37,33 +37,6 @@ interface Recipe {
   ingredients: Array<{ id: number; name: string; quantity: string }>;
 }
 
-// Search bar component
-const SearchBar: React.FC<{
-  query: string;
-  onSearchChange: (query: string) => void;
-  onReset: () => void;
-}> = ({ query, onSearchChange, onReset }) => {
-  return (
-    <div className="search-bar-container">
-      <div className="search-bar">
-        <input
-          type="search"
-          placeholder="Search recipes..."
-          className="search-placeholder"
-          value={query}
-          onChange={(e) => onSearchChange(e.target.value)}
-          required
-        />
-        {query && (
-          <div className="clear-button" onClick={onReset}>
-            <span className="clear-button-text"></span>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
 // Recipe Card Component
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   const router = useRouter();
@@ -117,7 +90,6 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
     </div>
   );
 };
-
 
 // Main Recipes Component
 const Recipes: React.FC = () => {
@@ -176,57 +148,55 @@ const Recipes: React.FC = () => {
     setRecipes(filteredRecipes);
   }, [selectedCategory, selectedAppliance, originalRecipes]);
 
-  const resetFilters = () => {
-    router.push('/recipes'); // Reset the URL and filters
-    setQuery('');
-    setSelectedCategory(null);
-    setSelectedAppliance(null);
-    setRecipes(originalRecipes);
-  };
-
   return (
     <div className="recipe-page">
       <div className="recipe-header">
-        <h1 className="recipe-title">Level Up Your Health and Well-Being With These Recipes!</h1>
-        <SearchBar query={query} onSearchChange={setQuery} onReset={resetFilters} />
-        <div className="filter-container centered-filters">
-          <select
-            value={selectedCategory || ''}
-            onChange={(e) => {
-              setSelectedCategory(e.target.value || null);
-              router.push(`/recipes?category=${e.target.value}`);
-            }}
-            className="filter-dropdown"
-          >
-            <option value="">All Categories</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          <select
-            value={selectedAppliance || ''}
-            onChange={(e) => {
-              setSelectedAppliance(e.target.value || null);
-              router.push(`/recipes?appliance=${e.target.value}`);
-            }}
-            className="filter-dropdown"
-          >
-            <option value="">All Appliances</option>
-            {appliances.map((appliance) => (
-              <option key={appliance} value={appliance}>
-                {appliance}
-              </option>
-            ))}
-          </select>
+        <h1 className="recipe-title">
+          Level Up Your Health and Well-Being With These Recipes!
+        </h1>
+        <div className="search-container">
+          <div className="search-wrapper">
+            <input
+              type="search"
+              placeholder="Search recipes..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="search-input"
+            />
+            <select
+              value={selectedCategory || ''}
+              onChange={(e) => setSelectedCategory(e.target.value || null)}
+              className="filter-select"
+            >
+              <option value="">All Categories</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            <select
+              value={selectedAppliance || ''}
+              onChange={(e) => setSelectedAppliance(e.target.value || null)}
+              className="filter-select"
+            >
+              <option value="">All Appliances</option>
+              {appliances.map((appliance) => (
+                <option key={appliance} value={appliance}>
+                  {appliance}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
       <div className="recipe-grid">
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
         {!loading && recipes.length > 0 ? (
-          recipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)
+          recipes.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))
         ) : (
           <div>No recipes found.</div>
         )}

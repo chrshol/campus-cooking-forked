@@ -16,7 +16,7 @@ export default function Home() {
       <NavBarSignedin />
       <LandingImg />
       <FoodCategories />
-      <RecipeGrid />
+      {/* <RecipeGrid /> */}
       <ChefPromo />
       <RecipeGrid2 />
       <EmailSubscribe />
