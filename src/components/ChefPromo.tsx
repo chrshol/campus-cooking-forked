@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 // src/components/ChefPromo/ChefPromo.tsx
 import React from 'react';
+import Link from 'next/link';
+
 
 const ChefPromo = () => (
   <section className="chef-promo">
@@ -15,9 +17,11 @@ const ChefPromo = () => (
           Learn how to make the best recipes to nourish your body and brain, with limited appliances and ingredients at
           your disposal
         </p>
-        <button type="button" className="learn-more-btn">
-          Learn More
-        </button>
+        <Link href="/recipes">
+          <button type="button" className="learn-more-btn">
+            Learn More
+          </button>
+        </Link>
       </div>
 
       <div className="promo-image-container">

@@ -64,7 +64,7 @@ const Landing = () => (
               </div>
             </div>
 
-            <Link href="/recipes/granola" className="view-recipe-btn">
+            <Link href="/recipes/toaster-oven-granola" className="view-recipe-btn">
               <span>View Recipe</span>
               <ChevronRight size={24} />
             </Link>

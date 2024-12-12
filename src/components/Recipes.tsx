@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Clock, Utensils } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const categories = [
   'Breakfast',
@@ -36,51 +36,6 @@ interface Recipe {
   appliances: Array<{ appliance: string }>;
   ingredients: Array<{ id: number; name: string; quantity: string }>;
 }
-
-// Search bar component
-const SearchBar: React.FC<{
-  query: string;
-  onSearchChange: (query: string) => void;
-  onReset: () => void;
-}> = ({ query, onSearchChange, onReset }) => {
-  return (
-    <div className="search-container">
-      <div className="search-wrapper">
-        <input
-          type="search"
-          placeholder="Search recipes..."
-          value={query}
-          onChange={(e) => onSearchChange(e.target.value)}
-          className="search-input"
-        />
-        <select
-          value={query || ''}
-          onChange={(e) => onSearchChange(e.target.value || '')}
-          className="filter-select"
-        >
-          <option value="">All Categories</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-        <select
-          value={query || ''}
-          onChange={(e) => onSearchChange(e.target.value || '')}
-          className="filter-select"
-        >
-          <option value="">All Appliances</option>
-          {appliances.map((appliance) => (
-            <option key={appliance} value={appliance}>
-              {appliance}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
-  );
-};
 
 // Recipe Card Component
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
@@ -124,7 +79,7 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
         <div className="recipe-meta">
           <div className="meta-item">
             <Clock />
-            <span>{recipe.cookTime || '15 mins'}</span>
+            <span>{recipe.cookTime}</span>
           </div>
           <div className="meta-item">
             <Utensils />
@@ -138,16 +93,15 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
 
 // Main Recipes Component
 const Recipes: React.FC = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [originalRecipes, setOriginalRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedAppliance, setSelectedAppliance] = useState<string | null>(
-    null
-  );
+  const [selectedAppliance, setSelectedAppliance] = useState<string | null>(null);
 
   // Fetch recipes from API
   const fetchRecipes = async () => {
@@ -166,28 +120,19 @@ const Recipes: React.FC = () => {
     }
   };
 
-  // Handle search with debounced query
+  // Apply filters based on query parameters
   useEffect(() => {
-    const timer = setTimeout(() => setDebouncedQuery(query), 500);
-    return () => clearTimeout(timer);
-  }, [query]);
+    const category = searchParams.get('category');
+    const appliance = searchParams.get('appliance');
 
-  useEffect(() => {
-    if (debouncedQuery !== '') {
-      const filteredRecipes = originalRecipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(debouncedQuery.toLowerCase())
-      );
-      setRecipes(filteredRecipes);
-    } else {
-      setRecipes(originalRecipes);
-    }
-  }, [debouncedQuery]);
+    setSelectedCategory(category);
+    setSelectedAppliance(appliance);
+  }, [searchParams]);
 
   useEffect(() => {
     fetchRecipes();
   }, []);
 
-  // Filter recipes by category and appliance
   useEffect(() => {
     let filteredRecipes = [...originalRecipes];
     if (selectedCategory) {
@@ -202,13 +147,6 @@ const Recipes: React.FC = () => {
     }
     setRecipes(filteredRecipes);
   }, [selectedCategory, selectedAppliance, originalRecipes]);
-
-  const resetFilters = () => {
-    setQuery('');
-    setSelectedCategory(null);
-    setSelectedAppliance(null);
-    setRecipes(originalRecipes);
-  };
 
   return (
     <div className="recipe-page">

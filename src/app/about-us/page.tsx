@@ -1,9 +1,9 @@
 'use client';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import Footer from '@/components/Footer'; 
 import NavBarSignedin from '@/components/NavBarSignedin';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './aboutus.css';
 
 const AboutUsPage = () => {
