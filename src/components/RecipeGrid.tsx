@@ -18,22 +18,27 @@ interface Recipe {
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
   if (recipe.isAd) {
     return (
-      <div className="recipe-card ad">
-        <div className="ad-content d-none d-md-block">
-          <h3>Don&apos;t forget to eat healthy food</h3>
-          <p>www.collegecooking.com</p>
+      <div className="college-recipe-card ad">
+        <div className="ad-content">
+          <div className="ad-image-container">
+            <img src="/landing-img/ad.png" alt="Healthy food" />
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="recipe-card">
-      <div className="recipe-image-container">
-        <img src={recipe.image} alt={recipe.title} className="recipe-image" />
+    <div className="college-recipe-card">
+      <div className="college-recipe-image-wrapper">
+        <img
+          src={recipe.image}
+          alt={recipe.title}
+          className="college-recipe-image"
+        />
         <button
           type="button"
-          className={`like-button ${recipe.isLiked ? 'liked' : ''}`}
+          className={`college-recipe-like-btn ${recipe.isLiked ? 'liked' : ''}`}
           aria-label={`Like ${recipe.title}`}
         >
           <Heart
@@ -42,9 +47,9 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
           />
         </button>
       </div>
-      <div className="recipe-content">
-        <h3 className="grid-recipe-title">{recipe.title}</h3>
-        <div className="recipe-metadata">
+      <div className="college-recipe-content">
+        <h3 className="college-recipe-title">{recipe.title}</h3>
+        <div className="college-recipe-metadata">
           <div className="metadata-item">
             <Timer size={20} />
             <span>{recipe.duration}</span>
@@ -79,42 +84,47 @@ const RecipeGrid = () => {
   const recipes: Recipe[] = [
     {
       id: 1,
-      title: 'Superfood Fruit Salad',
-      image: '/landing-img/acai.png',
+      title: "Rice Cooker Mac 'n Cheese",
+      image:
+        'https://www.allrecipes.com/thmb/vo99SnhhSJOlcZRHcbG3DSM-grY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/1957594-easy-rice-cooker-mac-n-cheese-Rebekah-Rose-Hills-4x3-1-769d0b887feb46bc8e4352f2deff8dd8.jpg',
       duration: '30 Minutes',
-      category: 'Snack',
+      category: 'Pasta',
       isLiked: false,
     },
     {
       id: 2,
-      title: 'Toaster Oven Miso Salmon',
-      image: '/landing-img/salmon.png',
-      duration: '30 Minutes',
-      category: 'Fish',
-      isLiked: false,
-    },
-    {
-      id: 3,
-      title: 'Sandwich press pancakes',
-      image: '/landing-img/pancake2.png',
+      title: 'Rice Cooker Hard Boiled Eggs',
+      image:
+        'https://www.adayinthekitchen.com/wp-content/uploads/2017/09/eggs-rice-cooker-1200x1200-1-300x300.jpg',
       duration: '30 Minutes',
       category: 'Breakfast',
       isLiked: false,
     },
     {
-      id: 4,
-      title: 'Everything in your veggie drawer salad',
-      image: '/landing-img/saladbowl.png',
+      id: 3,
+      title: 'Toaster Oven Grilled Cheese',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/toaster-oven-grilled-cheese-sandwich-5.jpg',
       duration: '30 Minutes',
-      category: 'Healthy',
+      category: 'Sandwich',
+      isLiked: false,
+    },
+    {
+      id: 4,
+      title: 'Toaster Oven Chocolate Chip Cookies',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/Toaster-Oven-Chocolate-Chip-Cookies-1.jpg',
+      duration: '30 Minutes',
+      category: 'Dessert',
       isLiked: true,
     },
     {
       id: 5,
-      title: 'Air fryer meatballs',
-      image: '/landing-img/meatballs.png',
+      title: 'Toaster Oven Banana Bread',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/1-banana-bread.jpg',
       duration: '30 Minutes',
-      category: 'Meat',
+      category: 'Bread',
       isLiked: false,
     },
     {
@@ -127,26 +137,28 @@ const RecipeGrid = () => {
     },
     {
       id: 7,
-      title: 'Orange and blueberry sandwich press pancakes',
-      image: '/landing-img/pancake.png',
+      title: 'Toaster Oven Garlic Bread',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/garlic-bread-slices.jpg',
       duration: '30 Minutes',
-      category: 'Sweet',
+      category: 'Bread',
       isLiked: true,
     },
     {
       id: 8,
-      title: 'Rice cooker chicken and rice',
-      image: '/landing-img/ricemeal.png',
+      title: 'Toaster Oven Chocolate Cookies',
+      image: 'https://toasterovenlove.com/wp-content/uploads/2016/04/1-1.jpg',
       duration: '30 Minutes',
-      category: 'Snack',
+      category: 'Dessert',
       isLiked: false,
     },
     {
       id: 9,
-      title: 'Rice cooker pasta',
-      image: '/landing-img/pasta.png',
+      title: 'Microwave Apple Cinnamon Oatmeal',
+      image:
+        'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2017/4/13/0/FNK_Microwave-Apple-Cinnamon-Oatmeal-H_s4x3.jpg.rend.hgtvcom.826.620.suffix/1492113444772.webp',
       duration: '30 Minutes',
-      category: 'Noodles',
+      category: 'Breakfast',
       isLiked: false,
     },
   ];

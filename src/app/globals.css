@@ -490,7 +490,6 @@ button {
   font-family: 'Lobster', cursive;
   font-size: 24px;
   line-height: 30px;
-  margin-bottom: 16px;
 }
 
 .ad-content p {
@@ -1304,4 +1303,66 @@ button {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+/* recipe grid  */
+
+.college-recipe-image {
+  width: 400px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.college-recipe-image-wrapper {
+  width: 350px;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.college-recipe-card {
+  background: linear-gradient(180deg, rgba(231, 249, 253, 0) 0%, #E7F9FD 100%);
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.college-recipe-like-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0px 5px 10px rgba(255, 99, 99, 0.2);
+}
+
+.college-recipe-content {
+  padding: 24px;
+}
+
+.college-recipe-title {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  margin-bottom: 16px;
+  line-height: 32px;
+}
+
+.college-recipe-metadata {
+  display: flex;
+  gap: 16px;
+}
+
+.college-recipe-metadata-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
 }
