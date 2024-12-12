@@ -1,7 +1,11 @@
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '@/lib/prisma';
+
+export async function hashPassword(password: string) {
+  return hash(password, 10)
+}
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -35,6 +39,7 @@ export const authOptions: NextAuthOptions = {
         if (!isPasswordValid) {
           return null;
         }
+ 
 
         return {
           id: `${user.id}`,

@@ -1,6 +1,5 @@
 'use server';
 
-import { hash } from 'bcrypt';
 import { prisma } from './prisma';
 import { Appliances, Category } from '@prisma/client';
 import { redirect } from 'next/navigation';
