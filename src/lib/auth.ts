@@ -1,8 +1,12 @@
 /* eslint-disable arrow-body-style */
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '@/lib/prisma';
+
+export async function hashPassword(password: string) {
+  return await hash(password, 12);
+}
 
 export const authOptions: NextAuthOptions = {
   session: {
