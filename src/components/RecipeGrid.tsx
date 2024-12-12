@@ -1,8 +1,10 @@
+'use client';
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable max-len */
 // src/components/Recipes/Recipes.tsx
 import React from 'react';
 import { Timer, Heart } from 'lucide-react';
+import Link from 'next/link';
 
 interface Recipe {
   id: number;
@@ -12,6 +14,7 @@ interface Recipe {
   category: string;
   isLiked?: boolean;
   isAd?: boolean;
+  slug: string;
 }
 
 // Move RecipeCard component outside of RecipeGrid
@@ -29,7 +32,7 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
   }
 
   return (
-    <div className="college-recipe-card">
+    <Link href={`/recipes/${recipe.slug}`} className="college-recipe-card">
       <div className="college-recipe-image-wrapper">
         <img
           src={recipe.image}
@@ -38,8 +41,12 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
         />
         <button
           type="button"
-          className={`college-recipe-like-btn ${recipe.isLiked ? 'liked' : ''}`}
+          className="college-recipe-like-btn"
           aria-label={`Like ${recipe.title}`}
+          onClick={(e) => {
+            e.preventDefault();
+            // Handle like functionality here
+          }}
         >
           <Heart
             fill={recipe.isLiked ? '#FF6363' : '#DBE2E5'}
@@ -76,7 +83,7 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -90,6 +97,7 @@ const RecipeGrid = () => {
       duration: '30 Minutes',
       category: 'Pasta',
       isLiked: false,
+      slug: 'rice-cooker-mac-n-cheese',
     },
     {
       id: 2,
@@ -99,6 +107,7 @@ const RecipeGrid = () => {
       duration: '30 Minutes',
       category: 'Breakfast',
       isLiked: false,
+      slug: 'rice-cooker-hard-boiled-eggs',
     },
     {
       id: 3,
@@ -108,6 +117,7 @@ const RecipeGrid = () => {
       duration: '30 Minutes',
       category: 'Sandwich',
       isLiked: false,
+      slug: 'toaster-oven-grilled-cheese',
     },
     {
       id: 4,
@@ -117,6 +127,7 @@ const RecipeGrid = () => {
       duration: '30 Minutes',
       category: 'Dessert',
       isLiked: true,
+      slug: 'toaster-oven-chocolate-chip-cookies',
     },
     {
       id: 5,
@@ -126,6 +137,7 @@ const RecipeGrid = () => {
       duration: '30 Minutes',
       category: 'Bread',
       isLiked: false,
+      slug: 'toaster-oven-banana-bread',
     },
     {
       id: 6,
@@ -134,6 +146,7 @@ const RecipeGrid = () => {
       title: 'Ad for college cooking',
       duration: '30 Minutes',
       category: 'Meat',
+      slug: 'ad-for-college-cooking',
     },
     {
       id: 7,
@@ -143,6 +156,7 @@ const RecipeGrid = () => {
       duration: '30 Minutes',
       category: 'Bread',
       isLiked: true,
+      slug: 'toaster-oven-garlic-bread',
     },
     {
       id: 8,
@@ -151,6 +165,7 @@ const RecipeGrid = () => {
       duration: '30 Minutes',
       category: 'Dessert',
       isLiked: false,
+      slug: 'toaster-oven-chocolate-cookies',
     },
     {
       id: 9,
@@ -160,6 +175,7 @@ const RecipeGrid = () => {
       duration: '30 Minutes',
       category: 'Breakfast',
       isLiked: false,
+      slug: 'microwave-apple-cinnamon-oatmeal',
     },
   ];
 
