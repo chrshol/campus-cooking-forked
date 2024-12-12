@@ -1,6 +1,5 @@
 'use server';
 
-import { hash } from 'bcrypt';
 import { prisma } from './prisma';
 import { Appliances, Category } from '@prisma/client';
 import { redirect } from 'next/navigation';
@@ -93,6 +92,31 @@ export async function getAllRecipes() {
     });
   } catch (error) {
     console.error('Failed to fetch recipes', error);
+    throw error;
+  }
+}
+
+/**
+ * Searches recipes in the database by a given query.
+ * @param query A string to search within recipe titles.
+ */
+export async function searchRecipes(query: string) {
+  try {
+    return await prisma.recipe.findMany({
+      where: {
+        title: {
+          contains: query, // Filter by title containing the query string
+          mode: 'insensitive', // Case-insensitive search
+        },
+      },
+      include: {
+        ingredients: true,
+        categories: true,
+        appliances: true,
+      },
+    });
+  } catch (error) {
+    console.error('Failed to search recipes', error);
     throw error;
   }
 }

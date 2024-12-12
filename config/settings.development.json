@@ -13,13 +13,6 @@
         "email": "john@foo.com",
         "password": "changeme",
         "role": "STUDENT"
-      },
-      {
-        "firstName": "John",
-        "lastName": "Smith",
-        "email": "smith@foo.com",
-        "password": "changeme",
-        "role": "VENDOR"
       }
     ],
     "defaultRecipes": [
