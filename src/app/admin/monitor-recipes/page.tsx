@@ -6,7 +6,7 @@ import RecipeCardAdmin from '@/components/RecipeCardAdmin';
 import NavBarSignedin from '@/components/NavBarSignedin';
 import Footer from '@/components/Footer';
 import './styles.css';
-import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 import { deleteRecipe } from '@/lib/dbActions';
 
 interface Recipe {

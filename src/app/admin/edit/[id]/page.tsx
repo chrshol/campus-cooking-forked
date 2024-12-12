@@ -4,7 +4,7 @@ import { adminProtectedPage } from '@/lib/page-protection';
 import EditRecipeAdmin from '@/components/EditRecipeAdmin';
 import NavBarSignedin from '@/components/NavBarSignedin';
 import Footer from '@/components/Footer';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import '@/app/addrecipe/addrecipepage.css';
 
