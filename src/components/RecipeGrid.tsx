@@ -94,4 +94,18 @@ const RecipeGrid = () => {
         'https://www.allrecipes.com/thmb/vo99SnhhSJOlcZRHcbG3DSM-grY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/1957594-easy-rice-cooker-mac-n-cheese-Rebekah-Rose-Hills-4x3-1-769d0b887feb46bc8e4352f2deff8dd8.jpg',
       duration: '30 Minutes',
       category: 'Pasta',
-      isLike
+      isLiked: false,
+      slug: 'rice-cooker-mac-n-cheese'
+    }
+  ];
+
+  return (
+    <div className="recipe-grid">
+      {recipes.map(recipe => (
+        <RecipeCard key={recipe.id} recipe={recipe} />
+      ))}
+    </div>
+  );
+};
+
+export default RecipeGrid;
