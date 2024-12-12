@@ -44,21 +44,39 @@ const SearchBar: React.FC<{
   onReset: () => void;
 }> = ({ query, onSearchChange, onReset }) => {
   return (
-    <div className="search-bar-container">
-      <div className="search-bar">
+    <div className="search-container">
+      <div className="search-wrapper">
         <input
           type="search"
           placeholder="Search recipes..."
-          className="search-placeholder"
           value={query}
           onChange={(e) => onSearchChange(e.target.value)}
-          required
+          className="search-input"
         />
-        {query && (
-          <div className="clear-button" onClick={onReset}>
-            <span className="clear-button-text"></span>
-          </div>
-        )}
+        <select
+          value={query || ''}
+          onChange={(e) => onSearchChange(e.target.value || '')}
+          className="filter-select"
+        >
+          <option value="">All Categories</option>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+        <select
+          value={query || ''}
+          onChange={(e) => onSearchChange(e.target.value || '')}
+          className="filter-select"
+        >
+          <option value="">All Appliances</option>
+          {appliances.map((appliance) => (
+            <option key={appliance} value={appliance}>
+              {appliance}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
@@ -127,7 +145,9 @@ const Recipes: React.FC = () => {
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedAppliance, setSelectedAppliance] = useState<string | null>(null);
+  const [selectedAppliance, setSelectedAppliance] = useState<string | null>(
+    null
+  );
 
   // Fetch recipes from API
   const fetchRecipes = async () => {
@@ -193,40 +213,52 @@ const Recipes: React.FC = () => {
   return (
     <div className="recipe-page">
       <div className="recipe-header">
-        <h1 className="recipe-title">Level Up Your Health and Well-Being With These Recipes!</h1>
-        <SearchBar query={query} onSearchChange={setQuery} onReset={resetFilters} />
-        <div className="filter-container centered-filters">
-          <select
-            value={selectedCategory || ''}
-            onChange={(e) => setSelectedCategory(e.target.value || null)}
-            className="filter-dropdown"
-          >
-            <option value="">All Categories</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          <select
-            value={selectedAppliance || ''}
-            onChange={(e) => setSelectedAppliance(e.target.value || null)}
-            className="filter-dropdown"
-          >
-            <option value="">All Appliances</option>
-            {appliances.map((appliance) => (
-              <option key={appliance} value={appliance}>
-                {appliance}
-              </option>
-            ))}
-          </select>
+        <h1 className="recipe-title">
+          Level Up Your Health and Well-Being With These Recipes!
+        </h1>
+        <div className="search-container">
+          <div className="search-wrapper">
+            <input
+              type="search"
+              placeholder="Search recipes..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="search-input"
+            />
+            <select
+              value={selectedCategory || ''}
+              onChange={(e) => setSelectedCategory(e.target.value || null)}
+              className="filter-select"
+            >
+              <option value="">All Categories</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            <select
+              value={selectedAppliance || ''}
+              onChange={(e) => setSelectedAppliance(e.target.value || null)}
+              className="filter-select"
+            >
+              <option value="">All Appliances</option>
+              {appliances.map((appliance) => (
+                <option key={appliance} value={appliance}>
+                  {appliance}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
       <div className="recipe-grid">
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
         {!loading && recipes.length > 0 ? (
-          recipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)
+          recipes.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))
         ) : (
           <div>No recipes found.</div>
         )}
