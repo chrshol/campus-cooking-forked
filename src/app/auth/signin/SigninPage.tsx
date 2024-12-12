@@ -45,14 +45,14 @@ const SignIn = () => {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username" className="form-label">
-              Username
+              Email
             </label>
             <input
               id="username"
               name="username"
               type="text"
               className="form-input"
-              placeholder="Enter your username..."
+              placeholder="Enter your email..."
               required
             />
           </div>

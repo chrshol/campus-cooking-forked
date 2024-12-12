@@ -56,6 +56,7 @@ const AddRecipeForm = ({ user }: { user: User }) => {
         ...formData,
         ingredients: ingredients.filter(ing => ing.name && ing.quantity),
         email: user.email,
+        owner: user.id,
       };
       
       await addRecipe(recipeData);
@@ -102,6 +103,17 @@ const AddRecipeForm = ({ user }: { user: User }) => {
               placeholder="Enter recipe title"
             />
             {errors.title && <p className="error">{errors.title.message as string}</p>}
+          </div>
+
+          {/* Cook Time */}
+          <div className="input-group">
+            <label>Cook Time</label>
+            <input
+              type="text"
+              {...register('cookTime')}
+              placeholder="e.g., 15 mins"
+            />
+            {errors.cookTime && <p className="error">{errors.cookTime.message as string}</p>}
           </div>
 
           {/* Ingredients */}

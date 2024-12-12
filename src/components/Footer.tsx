@@ -5,46 +5,44 @@ import { Facebook, Twitter, Instagram } from 'lucide-react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 
 const Footer = () => (
-  <footer className="navbar">
-    <div className="navbar-container">
-      <Navbar
-        expand="xl"
-        variant="light"
-        style={{
-          borderBottom: 'none',
-          boxShadow: 'none',
-        }}
-      >
-        <Container>
-          <Navbar.Brand href="/" className="logo fs-2 fw-bold">
-            Campus Cooking
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="footer-navbar-nav" />
-          <Navbar.Collapse
-            id="footer-navbar-nav"
-            className="justify-content-between"
-          >
-            <Nav className="nav-links">
-              {['Home', 'Recipes', 'Blog', 'Contact', 'About us'].map(
-                (item) => (
-                  <Nav.Link key={item} href={`/${item.toLowerCase()}`}>
-                    {item}
-                  </Nav.Link>
-                )
-              )}
-            </Nav>
-            <Nav className="nav-social d-flex">
-              <Nav.Link href="#" className="d-flex align-items-center mx-2">
-                <Facebook size={22} />
-              </Nav.Link>
-              <Nav.Link href="#" className="d-flex align-items-center mx-2">
-                <Twitter size={22} />
-              </Nav.Link>
-              <Nav.Link href="#" className="d-flex align-items-center mx-2">
-                <Instagram size={22} />
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
+  <footer className="top-navbar">
+    <div className="top-navbar-container">
+    <Navbar expand="xl" className="footer">
+      <Container>
+        <a href="/" className="logo">
+          Campus Cooking
+        </a>
+        <Navbar.Toggle aria-controls="footer-navbar-nav" />
+        <Navbar.Collapse id="footer-navbar-nav" className="justify-content-between">
+        <Nav className="footer-links">
+          <li>
+            <a href="/" className="footer-link">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/recipes" className="footer-link">
+              Recipes
+            </a>
+          </li>
+          <li>
+            <a href="/contact" className="footer-link">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="/about-us" className="footer-link">
+              About us
+            </a>
+          </li>
+        </Nav>
+
+        <div className="footer-social-links">
+          <Facebook size={22} />
+          <Twitter size={22} />
+          <Instagram size={22} />
+        </div>
+        </Navbar.Collapse>
         </Container>
       </Navbar>
       <div className="divider" />

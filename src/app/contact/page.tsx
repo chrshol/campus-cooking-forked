@@ -1,15 +1,17 @@
-import NavBar from '@/components/NavBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBarSignedin from '@/components/NavBarSignedin';
 import ContactForm from '@/components/ContactUs';
 import Footer from '@/components/Footer';
 import EmailSubscribe from '@/components/EmailSubscribe';
 import RecipeGrid2 from '@/components/RecipeGrid2';
-import './contactuspage.css';
 import '../globals.css';
+import './contactuspage.css';
+
 
 export default function login() {
   return (
     <div className="min-h-screen bg-white">
-      <NavBar />
+      <NavBarSignedin />
       <ContactForm />
       <EmailSubscribe />
       <RecipeGrid2 />

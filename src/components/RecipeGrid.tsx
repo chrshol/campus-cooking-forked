@@ -1,8 +1,10 @@
+'use client';
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable max-len */
 // src/components/Recipes/Recipes.tsx
 import React from 'react';
 import { Timer, Heart } from 'lucide-react';
+import Link from 'next/link';
 
 interface Recipe {
   id: number;
@@ -12,29 +14,38 @@ interface Recipe {
   category: string;
   isLiked?: boolean;
   isAd?: boolean;
+  slug: string;
 }
 
-// Move RecipeCard component outside of RecipeGrid
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
   if (recipe.isAd) {
     return (
-      <div className="recipe-card ad">
-        <div className="ad-content d-none d-md-block">
-          <h3>Don&apos;t forget to eat healthy food</h3>
-          <p>www.collegecooking.com</p>
+      <div className="college-recipe-card ad">
+        <div className="ad-content">
+          <div className="ad-image-container">
+            <img src="/landing-img/ad.png" alt="Healthy food" />
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="recipe-card">
-      <div className="recipe-image-container">
-        <img src={recipe.image} alt={recipe.title} className="recipe-image" />
+    <Link href={`/recipes/${recipe.slug}`} className="college-recipe-card">
+      <div className="college-recipe-image-wrapper">
+        <img
+          src={recipe.image}
+          alt={recipe.title}
+          className="college-recipe-image"
+        />
         <button
           type="button"
-          className={`like-button ${recipe.isLiked ? 'liked' : ''}`}
+          className="college-recipe-like-btn"
           aria-label={`Like ${recipe.title}`}
+          onClick={(e) => {
+            e.preventDefault();
+            //Like button functionality
+          }}
         >
           <Heart
             fill={recipe.isLiked ? '#FF6363' : '#DBE2E5'}
@@ -42,9 +53,9 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
           />
         </button>
       </div>
-      <div className="recipe-content">
-        <h3 className="grid-recipe-title">{recipe.title}</h3>
-        <div className="recipe-metadata">
+      <div className="college-recipe-content">
+        <h3 className="college-recipe-title">{recipe.title}</h3>
+        <div className="college-recipe-metadata">
           <div className="metadata-item">
             <Timer size={20} />
             <span>{recipe.duration}</span>
@@ -66,12 +77,11 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
                 fill="black"
               />
             </svg>
-
             <span>{recipe.category}</span>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -79,91 +89,22 @@ const RecipeGrid = () => {
   const recipes: Recipe[] = [
     {
       id: 1,
-      title: 'Superfood Fruit Salad',
-      image: '/landing-img/acai.png',
+      title: "Rice Cooker Mac 'n Cheese",
+      image:
+        'https://www.allrecipes.com/thmb/vo99SnhhSJOlcZRHcbG3DSM-grY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/1957594-easy-rice-cooker-mac-n-cheese-Rebekah-Rose-Hills-4x3-1-769d0b887feb46bc8e4352f2deff8dd8.jpg',
       duration: '30 Minutes',
-      category: 'Snack',
+      category: 'Pasta',
       isLiked: false,
-    },
-    {
-      id: 2,
-      title: 'Toaster Oven Miso Salmon',
-      image: '/landing-img/salmon.png',
-      duration: '30 Minutes',
-      category: 'Fish',
-      isLiked: false,
-    },
-    {
-      id: 3,
-      title: 'Sandwich press pancakes',
-      image: '/landing-img/pancake2.png',
-      duration: '30 Minutes',
-      category: 'Breakfast',
-      isLiked: false,
-    },
-    {
-      id: 4,
-      title: 'Everything in your veggie drawer salad',
-      image: '/landing-img/saladbowl.png',
-      duration: '30 Minutes',
-      category: 'Healthy',
-      isLiked: true,
-    },
-    {
-      id: 5,
-      title: 'Air fryer meatballs',
-      image: '/landing-img/meatballs.png',
-      duration: '30 Minutes',
-      category: 'Meat',
-      isLiked: false,
-    },
-    {
-      id: 6,
-      isAd: true,
-      image: '/landing-img/ad.png',
-      title: 'Ad for college cooking',
-      duration: '30 Minutes',
-      category: 'Meat',
-    },
-    {
-      id: 7,
-      title: 'Orange and blueberry sandwich press pancakes',
-      image: '/landing-img/pancake.png',
-      duration: '30 Minutes',
-      category: 'Sweet',
-      isLiked: true,
-    },
-    {
-      id: 8,
-      title: 'Rice cooker chicken and rice',
-      image: '/landing-img/ricemeal.png',
-      duration: '30 Minutes',
-      category: 'Snack',
-      isLiked: false,
-    },
-    {
-      id: 9,
-      title: 'Rice cooker pasta',
-      image: '/landing-img/pasta.png',
-      duration: '30 Minutes',
-      category: 'Noodles',
-      isLiked: false,
-    },
+      slug: 'rice-cooker-mac-n-cheese'
+    }
   ];
 
   return (
-    <section className="recipes">
-      <div className="recipes-header">
-        <h2>Simple and tasty recipes</h2>
-        <p>Take a look at some of the best recipes from our community</p>
-      </div>
-
-      <div className="recipes-grid">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
-      </div>
-    </section>
+    <div className="recipe-grid">
+      {recipes.map(recipe => (
+        <RecipeCard key={recipe.id} recipe={recipe} />
+      ))}
+    </div>
   );
 };
 

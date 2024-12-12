@@ -29,7 +29,6 @@ model User {
 
 enum Role {
   STUDENT
-  VENDOR
   ADMIN
 }
 
@@ -38,6 +37,7 @@ model Recipe {
   title          String
   description    String
   imageURL       String
+  cookTime       String            @default("10 minutes")
   ingredients    Ingredient[]
   instructions   String
   categories     RecipeCategory[]  // Changed to relation table
@@ -51,7 +51,7 @@ model Recipe {
 enum Appliances {
   RiceCooker
   PaniniPress
-  ToasterOven    // Fixed typo from ToasterOwen
+  ToasterOven   
   Toaster
   Microwave
   HotPlate
@@ -65,10 +65,6 @@ enum Category {
   Meat
   Dessert
   Chocolate
-  // Vegetarian      Not in categories yet, but should be added
-  // GlutenFree
-  // NutFree
-  // DairyFree
 }
 
 model Ingredient {
@@ -92,6 +88,13 @@ model RecipeAppliance {
   appliance Appliances
   recipe    Recipe     @relation(fields: [recipeId], references: [id])
   recipeId  Int
+}
+
+
+model EmailSubscription {
+  id           Int        @id @default(autoincrement())
+  email        String
+  subscribedAt DateTime @default(now())
 }
 
 
