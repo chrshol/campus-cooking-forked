@@ -203,3 +203,8 @@
     background-size: 16px;
     padding-right: 40px;
   }
+
+  .toaster-oven-granola-page .recipe-post-detail {
+    max-width: 1200px; 
+    margin: 0 auto;
+  }

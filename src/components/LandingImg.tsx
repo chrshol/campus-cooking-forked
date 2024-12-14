@@ -21,7 +21,7 @@ const Landing = () => (
         <h1 className="recipe-title">Granola</h1>
         <h1 className="recipe-title" />
         <p className="recipe-description">
-          Make this delicious, healthy, morning sweet treat in your rice cooker!
+          Make this delicious, healthy, morning sweet treat in your toaster oven!
         </p>
 
         <div className="metadata-container">
