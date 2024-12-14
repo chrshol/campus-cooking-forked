@@ -61,13 +61,15 @@ const Landing = () => (
               <div className="author-info">
                 <p className="author-name">John Smith</p>
                 <p className="author-date">15 March 2022</p>
+                <Link
+                  href="/recipes/toaster-oven-granola"
+                  className="view-recipe-btn self-center"
+                >
+                  <span>View Recipe</span>
+                  <ChevronRight size={24} />
+                </Link>
               </div>
             </div>
-
-            <Link href="/recipes/toaster-oven-granola" className="view-recipe-btn">
-              <span>View Recipe</span>
-              <ChevronRight size={24} />
-            </Link>
           </div>
         </div>
       </div>

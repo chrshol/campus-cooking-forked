@@ -95,13 +95,91 @@ const RecipeGrid = () => {
       duration: '30 Minutes',
       category: 'Pasta',
       isLiked: false,
-      slug: 'rice-cooker-mac-n-cheese'
-    }
+      slug: 'rice-cooker-mac-n-cheese',
+    },
+    {
+      id: 2,
+      title: 'Rice Cooker Hard Boiled Eggs',
+      image:
+        'https://www.adayinthekitchen.com/wp-content/uploads/2017/09/eggs-rice-cooker-1200x1200-1-300x300.jpg',
+      duration: '30 Minutes',
+      category: 'Breakfast',
+      isLiked: false,
+      slug: 'rice-cooker-hard-boiled-eggs',
+    },
+    {
+      id: 3,
+      title: 'Toaster Oven Grilled Cheese',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/toaster-oven-grilled-cheese-sandwich-5.jpg',
+      duration: '30 Minutes',
+      category: 'Sandwich',
+      isLiked: false,
+      slug: 'toaster-oven-grilled-cheese',
+    },
+    {
+      id: 4,
+      title: 'Toaster Oven Chocolate Chip Cookies',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/Toaster-Oven-Chocolate-Chip-Cookies-1.jpg',
+      duration: '30 Minutes',
+      category: 'Dessert',
+      isLiked: true,
+      slug: 'toaster-oven-chocolate-chip-cookies',
+    },
+    {
+      id: 5,
+      title: 'Toaster Oven Banana Bread',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/1-banana-bread.jpg',
+      duration: '30 Minutes',
+      category: 'Bread',
+      isLiked: false,
+      slug: 'toaster-oven-banana-bread',
+    },
+    {
+      id: 6,
+      isAd: true,
+      image: '/landing-img/ad.png',
+      title: 'Ad for college cooking',
+      duration: '30 Minutes',
+      category: 'Meat',
+      slug: 'ad-for-college-cooking',
+    },
+    {
+      id: 7,
+      title: 'Toaster Oven Garlic Bread',
+      image:
+        'https://toasterovenlove.com/wp-content/uploads/garlic-bread-slices.jpg',
+      duration: '30 Minutes',
+      category: 'Bread',
+      isLiked: true,
+      slug: 'toaster-oven-garlic-bread',
+    },
+    {
+      id: 8,
+      title: 'Toaster Oven Chocolate Cookies',
+      image: 'https://toasterovenlove.com/wp-content/uploads/2016/04/1-1.jpg',
+      duration: '30 Minutes',
+      category: 'Dessert',
+      isLiked: false,
+      slug: 'toaster-oven-chocolate-cookies',
+    },
+    {
+      id: 9,
+      title: 'Microwave Apple Cinnamon Oatmeal',
+      image:
+        'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2017/4/13/0/FNK_Microwave-Apple-Cinnamon-Oatmeal-H_s4x3.jpg.rend.hgtvcom.826.620.suffix/1492113444772.webp',
+      duration: '30 Minutes',
+      category: 'Breakfast',
+      isLiked: false,
+      slug: 'microwave-apple-cinnamon-oatmeal',
+    },
   ];
 
   return (
     <div className="recipe-grid">
-      {recipes.map(recipe => (
+      {recipes.map((recipe) => (
         <RecipeCard key={recipe.id} recipe={recipe} />
       ))}
     </div>

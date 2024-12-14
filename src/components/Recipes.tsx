@@ -101,7 +101,9 @@ const Recipes: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedAppliance, setSelectedAppliance] = useState<string | null>(null);
+  const [selectedAppliance, setSelectedAppliance] = useState<string | null>(
+    null
+  );
 
   // Fetch recipes from API
   const fetchRecipes = async () => {
