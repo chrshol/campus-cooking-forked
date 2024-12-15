@@ -44,7 +44,7 @@ const recipes: Recipe[] = [
     cookTime: '10 Minutes',
     category: 'Breakfast',
     isLiked: false,
-    slug: 'bacon-egg-and-cheddar-english-muffin-panini',
+    slug: 'bacon-and-egg-and-cheddar-english-muffin-panini',
   },
   {
     id: 4,
@@ -54,7 +54,7 @@ const recipes: Recipe[] = [
     cookTime: '10 Minutes',
     category: 'Dessert',
     isLiked: false,
-    slug: 'strawberry-banana-and-nutella-panini',
+    slug: 'strawberry-and-banana-and-nutella-panini',
   },
   {
     id: 5,
