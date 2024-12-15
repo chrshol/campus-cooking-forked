@@ -9,6 +9,7 @@ import EmailSubscribe from '@/components/EmailSubscribe';
 import Footer from '@/components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBarSignedin from '@/components/NavBarSignedin';
+import './recipes/recipepost.css';
 
 export default function Home() {
   return (
