@@ -141,26 +141,31 @@ const Recipes: React.FC = () => {
     // Filter by category
     if (selectedCategory) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
-        recipe.categories.some((cat) => cat.category === selectedCategory)
+        recipe.categories.some(
+          (cat) => cat.category.toLowerCase() === selectedCategory.toLowerCase()
+        )
       );
     }
 
     // Filter by appliance
     if (selectedAppliance) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
-        recipe.appliances.some((app) => app.appliance === selectedAppliance)
+        recipe.appliances.some(
+          (app) => app.appliance.toLowerCase() === selectedAppliance.toLowerCase()
+        )
       );
     }
 
-    // To search for recipes
+    // Search filter
     if (query) {
       const lowerCaseQuery = query.toLowerCase();
-      filteredRecipes = filteredRecipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(lowerCaseQuery) ||
-        recipe.description.toLowerCase().includes(lowerCaseQuery) ||
-        recipe.ingredients.some((ingredient) =>
-          ingredient.name.toLowerCase().includes(lowerCaseQuery)
-        )
+      filteredRecipes = filteredRecipes.filter(
+        (recipe) =>
+          recipe.title.toLowerCase().includes(lowerCaseQuery) ||
+          recipe.description.toLowerCase().includes(lowerCaseQuery) ||
+          recipe.ingredients.some((ingredient) =>
+            ingredient.name.toLowerCase().includes(lowerCaseQuery)
+          )
       );
     }
 
