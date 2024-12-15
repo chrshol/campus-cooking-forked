@@ -21,7 +21,7 @@ const Landing = () => (
         <h1 className="recipe-title">Granola</h1>
         <h1 className="recipe-title" />
         <p className="recipe-description">
-          Make this delicious, healthy, morning sweet treat in your rice cooker!
+          Make this delicious, healthy, morning sweet treat in your toaster oven!
         </p>
 
         <div className="metadata-container">
@@ -61,13 +61,15 @@ const Landing = () => (
               <div className="author-info">
                 <p className="author-name">John Smith</p>
                 <p className="author-date">15 March 2022</p>
+                <Link
+                  href="/recipes/toaster-oven-granola"
+                  className="view-recipe-btn self-center"
+                >
+                  <span>View Recipe</span>
+                  <ChevronRight size={24} />
+                </Link>
               </div>
             </div>
-
-            <Link href="/recipes/toaster-oven-granola" className="view-recipe-btn">
-              <span>View Recipe</span>
-              <ChevronRight size={24} />
-            </Link>
           </div>
         </div>
       </div>
